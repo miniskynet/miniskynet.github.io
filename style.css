@@ -1,0 +1,52 @@
+<style>
+
+ul{
+
+}
+
+li{
+  display:inline-block;
+  text-align: center;
+  padding: 5px 15px;
+  text-decoration: none;
+  transition: 0.3s ease;
+  font-size: 130%;
+}
+
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  text-align: center;
+  background-color: black;
+}
+
+.navbar a{
+
+  text-align: center;
+  padding: 15px 15px;
+  text-decoration: none;
+  transition: 0.4s ease;
+}
+
+a:link{color:green}
+a:visited{color:green}
+a:hover{color:blue;}
+a:active{color:red}
+
+body{
+  font-family: 'Trebuchet MS', sans-serif;
+  background-color: #D5F5E3;
+  background-repeat:no-repeat;
+  background-size: 100%;
+  padding-top: 1%;
+}
+h3{
+  color: blue;
+}
+p{
+  position: relative;
+  left:20px;
+}
+</style>
