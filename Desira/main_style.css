@@ -1,0 +1,115 @@
+#top_div{
+  width: 55%;
+  text-align: center;
+  background-color: #283747;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  position:absolute;
+  top: 90%;
+  left: 20%;
+  font-size: 100%;
+  transition: transform .7s;
+  z-index: 2;
+}
+
+#top_div:hover{
+  transform: scale(1.1);
+  background-color:	#730099;
+  border-style: solid;
+  border-color: black;
+  border-width: thick;
+}
+
+#p_div{
+width: 15%;
+text-align: center;
+background-color: #283747;
+padding-left: 30px;
+padding-right: 30px;
+padding-top: 45px;
+padding-bottom: 45px;
+position:absolute;
+top: 150%;
+left: 16%;
+font-size: 100%;
+transition: transform .7s;
+z-index: 2;
+}
+
+#p_div_1{
+width: 15%;
+text-align: center;
+background-color: #283747;
+padding-left: 30px;
+padding-right: 30px;
+padding-top: 45px;
+padding-bottom: 45px;
+position:absolute;
+top: 150%;
+left: 41%;
+font-size: 100%;
+transition: transform .7s;
+z-index: 2;
+
+}
+
+#p_div_2{
+  width: 15%;
+text-align: center;
+background-color: #283747;
+padding-left: 30px;
+padding-right: 30px;
+padding-top: 45px;
+padding-bottom: 45px;
+position:absolute;
+top: 150%;
+left: 66%;
+font-size: 100%;
+transition: transform .7s;
+z-index: 2;
+}
+
+#p_div:hover{
+transform: scale(1.1);
+background-color:#D35E5E ;
+color: black;
+border-style: solid;
+border-color: black;
+border-width: thick;
+}
+
+#p_div_1:hover{
+transform: scale(1.1);
+background-color: #85D35E;
+color: black;
+border-style: solid;
+border-color: black;
+border-width: thick;
+}
+
+#p_div_2:hover{
+transform: scale(1.1);
+background-color: #5EAED3;
+color: black;
+border-style: solid;
+border-color: black;
+border-width: thick;
+}
+
+#main_image{
+  position: absolute;
+	background: url("Images/main_image.jpg");
+	background-position: top;
+	height:100%;
+	width:100%;
+  left: 0;
+  right: 0;
+  z-index: -1;
+
+}
+
+footer{
+  margin-top: 115%;
+}

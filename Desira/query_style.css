@@ -1,0 +1,82 @@
+textarea{
+  vertical-align: top;
+}
+label{
+width: 200px;
+display: inline-block;
+}
+
+
+#form_div{
+border-style: solid;
+border-color: white;
+border-width: thick;
+background-color: #283747;
+padding-left: 5%;
+padding-right: 5%;
+padding-top: 3%;
+padding-bottom: 3%;
+position:absolute;
+top: 25%;
+left: 35%;
+font-size: 120%;
+transition: transform .5s;
+z-index: 2;
+}
+
+#form_div:hover{
+transform: scale(1.1);
+background-color: #D0CF6A;
+color: black;
+border-style: solid;
+border-color: black;
+border-width: thick;
+}
+
+#summary_div{
+border-style: solid;
+border-color: white;
+border-width: thick;
+background-color: #283747;
+width: 20%;
+padding-left: 5%;
+padding-right: 5%;
+padding-top: 3%;
+padding-bottom: 3%;
+position:absolute;
+top: 25%;
+left: 40%;
+font-size: 120%;
+transition: transform .5s;
+z-index: 2;
+}
+
+#summary_div:hover{
+transform: scale(1.1);
+background-color: #E56375;
+color: black;
+border-style: solid;
+border-color: black;
+border-width: thick;
+}
+
+
+#query_image{
+  position: absolute;
+	background: url("Images/consoles.jpg");
+	background-position: top;
+	height:100%;
+	width:100%;
+  left: 0;
+  right: 0;
+  z-index: -1;
+
+}
+
+select{
+  font-size: 75%;
+}
+
+footer{
+  margin-top: 45%;
+}

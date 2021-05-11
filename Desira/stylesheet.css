@@ -1,0 +1,66 @@
+html{
+    height: 100px;
+}
+body{
+    background-color: black;
+    background: url(Images/console.gif);
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: repeat ;
+
+}
+
+#image {
+    margin-left: 45%;
+    width: 10%;
+
+}
+
+p {
+    margin: 0%;
+    font-size: 20px;
+    padding-bottom: 12px;
+}
+
+#title{
+    color: white;
+    margin-top: 25px;
+    text-align: center;
+    font-size: 50px;
+    position: relative;
+}
+
+.bg-image img{
+    margin-left: 35%;
+    width: 30%;
+    opacity: 40%;
+    position: fixed;
+    margin-top: -25px;
+}
+
+.names p{
+    color: white;
+    font-size: 25px;
+    padding: 3px;
+}
+.contact-form{
+    max-width: 250px;
+    margin: 0 auto;
+
+    border-radius: 30px;
+    height: 175px;
+    margin-bottom: -30px;
+}
+
+.input-fields{
+    padding: 23px;
+    color: white;
+    margin-left: 10%;
+    text-align: center;
+}
+
+button{
+    background: transparent;
+    border: none !important;
+    font: 0%;
+}
