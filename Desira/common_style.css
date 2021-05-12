@@ -8,27 +8,27 @@ body{
   flex-direction: column;
 }
 
+
 footer{
   background: #283747;
   color: white;
-  border: solid white thin;
-  padding-left: 5%;
-  padding-right: 5%;
+  display: inline-block;
 }
 
 #lhs{
-  float: left;
+  float: right;
   width: 40%;
-  height: 270px;
-  padding: 2%;
+  padding: 10px;
+  height: 300px;
 
 }
 
+
 #rhs{
-  float: right;
-  width: 30%;
+  float: left;
+  width: 40%;
+  padding: 10px;
   height: 300px;
-  padding-left: 15%;
 }
 
 .icon{
@@ -56,7 +56,6 @@ button{
   background-color: black;
   color: white;
 
-
 }
 button:hover{
   background-color: crimson;
@@ -73,9 +72,6 @@ button:hover{
   text-decoration: none;
 }
 
-#size{
-font-size: 106%;
-}
 #footer_logo{
   left: 20px;
   padding: 15px;

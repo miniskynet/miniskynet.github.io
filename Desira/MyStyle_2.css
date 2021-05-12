@@ -1,0 +1,104 @@
+* {
+    box-sizing: border-box;
+    }
+    .column{
+        float: left;
+        width: 25%;
+        padding: 5px;
+        position: relative;
+
+    }
+    .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    #Rumeth{
+      width: 100%;
+    }
+    #Desira{
+      width: 100%;
+
+    }
+    #Onel{
+      width: 100%;
+
+    }
+    #Dinusha{
+      width: 100%;
+    }
+    h1{
+      text-align: center;
+    }
+    .Overlay{
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+      transition: .5s ease;
+      background-color: gray;
+    }
+    .text{
+      color: white;
+      font-size: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .column:hover .Overlay{
+      opacity: 1;
+    }
+    .navbar{
+      width: 100%;
+      position: fixed;
+      background-color: #283747;
+      top: 0;
+      left: 0;
+      height: 5em;
+      text-align: center;
+      z-index: 3;
+
+  }
+  .navbar a{
+      display:block;
+      text-align: center;
+      padding: 15px 15px;
+      text-decoration: none;
+      transition: 0.3s ease;
+  }
+  .dropdown{
+      position: relative;
+      display: inline-block;
+  }
+  .dropdown-content{
+      display: none;
+      position: absolute;
+      background-color:  #283747;
+      min-width: 140px;
+
+  }
+    .dropdown-content a {
+      text-decoration: none;
+      text-align: left;
+
+  }
+  .dropdown:hover .dropdown-content{display:block;}
+  ul li {
+      display: inline-block;
+      font-size: 130%;
+  }
+
+  a:link{color:white;}
+  a:visited{color:white;}
+  a:hover{color: white;background-color: #932432;}
+  body{
+    background-image: url("Images/Gamepads.jpg");
+  }

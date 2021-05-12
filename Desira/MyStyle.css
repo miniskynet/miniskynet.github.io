@@ -1,0 +1,128 @@
+.Quiz{
+    width: 900px;
+    margin: auto;
+    padding: 5px;
+    background-color: #808080;
+    text-align: justify;
+}
+.navbar{
+    width: 100%;
+    position: fixed;
+    background-color: #283747;
+    top: 0;
+    left: 0;
+    height: 5em;
+    text-align: center;
+    z-index: 3;
+
+}
+.navbar a{
+    display:block;
+    text-align: center;
+    padding: 15px 15px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+.dropdown{
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content{
+    display: none;
+    position: absolute;
+    background-color:  #283747;
+    min-width: 140px;
+
+}
+  .dropdown-content a {
+    text-decoration: none;
+    text-align: left;
+
+}
+.dropdown:hover .dropdown-content{display:block;}
+ul li {
+    display: inline-block;
+    font-size: 130%;
+}
+
+a:link{color:white;}
+a:visited{color:white;}
+a:hover{color: white;background-color: #932432;}
+
+h1{
+    width: 900px;
+    margin: auto;
+    padding: 5px;
+    background-color: #808080;
+}
+body{
+    background-image: url("Images/Gamepads.jpg");
+}
+#dig_Dug{
+    width: 300px;
+    margin-left:-40px;
+
+}
+#pong{
+    width: 300px;
+    margin-left:-40px;
+
+}
+.footer{
+    position: fixed;
+    left: 100;
+    bottom: 0;
+    margin-bottom: 0px;
+    margin-left: -5px;
+    width: 910px;
+    padding: -25px;
+    background-color: white;
+    color: black;
+    text-align: left;
+}
+#countdown{
+    text-align: right;
+    margin-top: -20px;
+}
+#Total_Marks{
+    text-align: center;
+    font-size: 50px;
+}
+#hStatus{
+    text-align: center;
+    font-size: 25px;
+}
+#time_got{
+    text-align: center;
+    font-size: 20px;
+}
+#Q1{
+    text-align: center;
+}
+#Q2{
+    text-align: center;
+}
+#Q3{
+    text-align: center;
+}
+#Q4{
+    text-align: center;
+}
+#Q5{
+    text-align: center;
+}
+#Q6{
+    text-align: center;
+}
+#Q7{
+    text-align: center;
+}
+#Q8{
+    text-align: center;
+}
+#Q9{
+    text-align: center;
+}
+#Q10{
+    text-align: center;
+}

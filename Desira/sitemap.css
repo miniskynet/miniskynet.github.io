@@ -1,0 +1,41 @@
+body{
+    min-height: 100%;
+}
+
+
+a{
+    fill: white;
+}
+
+text{
+    fill: white;
+    text-anchor: middle;
+}
+
+line{
+    stroke: #FF5C5C;
+    stroke-width: 2px
+}
+
+rect{
+    fill: #932432;
+}
+
+  
+  footer{
+      position: fixed;
+    padding: 1em;
+      width: 100%;
+      left: 0;
+      bottom: 0;
+  }
+  
+  #footerButtons{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  footer{
+    background: #283747;
+    color: white;
+  }

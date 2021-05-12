@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="Images/logo_white_trans.png">
+    <title>RETROSPECTIVE</title>
+    <link rel="stylesheet" href="common_style.css">
+    <link rel="stylesheet" href="thumbnail_style.css">
+    <script src="thumbnail.js"></script>
+</head>
+
+<body>
+    <!-- NAV BAR -->
+    <div class="navbar" id="nav">
+        <img style="position: relative;float:left;padding-top:7px; padding-left:25px;" src="Images/logo_white_trans.png"
+            alt="" width="65" height="65">
+        <img style="position: relative;float:left;padding-top:2px; padding-left:25px;" src="Images/store_logo.png"
+            alt="" width="90" height="80">
+            <ul>
+              <li><a href="main.html">HOME</a></li>
+              <!--
+              creating a dropdown section
+              -->
+              <div class="dropdown">
+                <li><a href="https://w1809912.users.ecs.westminster.ac.uk/">SHOP</a></li>
+                <div class="dropdown-content">
+                    <a href="https://w1809912.users.ecs.westminster.ac.uk#consoles">CONSOLES</a>
+                    <a href="https://w1809912.users.ecs.westminster.ac.uk#games">GAMES</a>
+                </div>
+              </div>
+              <li><a href="quiz.html">TRIVIA</a></li>
+              <li><a href="retrospective.html">RETROSPECTIVE</a></li>
+              <li><a href="sitemap.html">SITE MAP</a></li>
+              <li><a href="about.html">ABOUT</a></li>
+              <li><a href="queries.html">QUERIES</a></li>
+            </ul>
+    </div>
+
+<!-- START OF PAGE -->
+    <br>
+    <p id="classics"></p>
+
+<!-- two buttons to change background and text colour -->
+    <div id="top">
+        <h1 id="title1">Some of the best selling old time classics</h1>
+        <div class="dropdownBtn" id="btn1">
+            <button class="dropbtn" id="button1" onclick="showContent()">Background Colour</button>
+            <div class="dropdown-contentBtn" id="dropContent1">
+                <input type="color" id="background" name="favcolor" onchange="backgroundColour()" value="#3C1874">
+            </div>
+        </div>
+
+        <div class="dropdownBtn" id="btn2">
+            <button class="dropbtn" id="button2" onclick="showContent2()">Text Colour</button>
+            <div class="dropdown-contentBtn" id="dropContent2">
+                <input type="color" id="text" name="favcolor" value="#fdf8f5" onchange="textColour()">
+            </div>
+        </div>
+    </div>
+
+<!-- 5 thumbanail images of the games -->
+    <div class="gallery" id="games">
+        <div class="year">
+            <h1>1990</h1>
+            <a href="#games"><img class="galleryImg" id="img1" src="Images/mario3.png" alt="" onmouseover="img1()"></a>
+        </div>
+
+        <div class="year">
+            <h1>1991</h1>
+            <a href="#games"><img class="galleryImg" src="Images/91sonic.jpg" alt="" onmouseover="img2()"></a>
+        </div>
+
+        <div class="year">
+            <h1>1992</h1>
+            <a href="#games"><img class="galleryImg" src="Images/92sonic.jpg" alt="" onmouseover="img3()"></a>
+        </div>
+
+        <div class="year">
+            <h1>1993</h1>
+            <a href="#games"><img class="galleryImg" src="Images/92stft.jpg" alt="" onmouseover="img4()"></a>
+        </div>
+
+        <div class="year">
+            <h1>1994</h1>
+            <a href="#games"><img class="galleryImg" src="Images/donkeyKong.jpg" alt="" onmouseover="img5()"></a>
+        </div>
+    </div>
+
+    <br>
+
+<!-- Description for game -->
+    <div class="description" id="bigDiv">
+        <img src="Images/mario3.png" alt="" id="bigImg" class="bigImg">
+        <div id="desc">
+            <h1 id="gameTitle"></h1>
+            <p id="content"></p>
+        </div>
+    </div>
+    <br>
+    <br>
+    <h1 id="title2">These were the best selling consoles in the 80's and 90's</h1>
+
+<!-- 5 Thumbnail images for consoles -->
+    <div class="gallery" id="consoles">
+        <div class="year">
+            <h1>1983</h1>
+            <a href="#consoles" class="consoleLinks"><img class="consoleImg" src="Images/nes.png" alt="" onmouseover="consoleimg1()"></a>
+        </div>
+
+        <div class="year">
+            <h1>1988</h1>
+            <a href="#consoles" class="consoleLinks"><img class="consoleImg" src="Images/genesis.png" alt="" onmouseover="consoleimg2()"></a>
+        </div>
+
+        <div class="year">
+            <h1>1990</h1>
+            <a href="#consoles" class="consoleLinks"><img class="consoleImg" src="Images/snes.png" alt="" onmouseover="consoleimg3()"></a>
+        </div>
+
+        <div class="year">
+            <h1>1994</h1>
+            <a href="#consoles" class="consoleLinks"><img class="consoleImg" src="Images/ps1.png" alt="" onmouseover="consoleimg4()"></a>
+        </div>
+
+        <div class="year">
+            <h1>1996</h1>
+            <a href="#consoles" class="consoleLinks"><img class="consoleImg" src="Images/n64.png" alt="" onmouseover="consoleimg5()"></a>
+        </div>
+    </div>
+
+    <br>
+
+<!-- Description for Consoles-->
+    <div class="description">
+        <img src="Images/nes.png" alt="" id="bigImg2" class="bigImg">
+        <div id="desc2">
+            <h1 id="consoleTitle"></h1>
+            <p id="content2"></p>
+        </div>
+    </div>
+
+    <footer>
+        <div id="footerButtons">
+            <button onclick="window.location.href='./Editor_rumeth.html'">Page Editor</button>
+            <a href="#top" id="topButton">Back to Top</a>
+        </div>
+    </footer>
+</body>
+
+</html>

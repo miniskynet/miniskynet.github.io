@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Sitemap</title>
+    <link rel="stylesheet" href="common_style.css">
+    <link rel="stylesheet" href="sitemap.css">
+    <link rel="icon" href="Images/logo_white_trans.png">
+</head>
+
+<body>
+    <div class="navbar" id="nav">
+        <img style="position: relative;float:left;padding-top:7px; padding-left:25px;" src="Images/logo_white_trans.png"
+            alt="" width="65" height="65">
+        <img style="position: relative;float:left;padding-top:2px; padding-left:25px;" src="Images/store_logo.png"
+            alt="" width="90" height="80">
+            <ul>
+              <li><a href="main.html">HOME</a></li>
+              <!--
+              creating a dropdown section
+              -->
+              <div class="dropdown">
+                <li><a href="https://w1809912.users.ecs.westminster.ac.uk/">SHOP</a></li>
+                <div class="dropdown-content">
+                    <a href="https://w1809912.users.ecs.westminster.ac.uk#consoles">CONSOLES</a>
+                    <a href="https://w1809912.users.ecs.westminster.ac.uk#games">GAMES</a>
+                </div>
+              </div>
+              <li><a href="quiz.html">TRIVIA</a></li>
+              <li><a href="retrospective.html">RETROSPECTIVE</a></li>
+              <li><a href="sitemap.html">SITE MAP</a></li>
+              <li><a href="about.html">ABOUT</a></li>
+              <li><a href="queries.html">QUERIES</a></li>
+            </ul>
+    </div>
+
+
+<!-- Start of SVG sitemap -->
+    <svg width="1350" height="500">
+
+        <!-- g group for each major element in the sitemap -->
+        <g id="homePage">
+            <line x1="670" y1="220" x2="670" y2="190"></line>
+            <rect x="595" y="140" width="150" height="50" />
+            <text x="665" y="170"><a href="main.html">Home</a></text>
+        </g>
+
+        <g id="shop">
+            <line x1="1150" y1="220" x2="175" y2="220"></line>
+            <line x1="175" y1="220" x2="175" y2="250"></line>
+            <rect x="100" y="250" width="150" height="50" />
+            <text x="175" y="280"><a href="https://w1809912.users.ecs.westminster.ac.uk/">Shop</a></text>
+        </g>
+
+        <g id="trivia">
+            <line x1="370" y1="220" x2="370" y2="250"></line>
+            <rect x="295" y="250" width="150" height="50" />
+            <text x="370" y="280"><a href="quiz.html">Trivia</a></text>
+        </g>
+
+        <g id="retrospective">
+            <line x1="560" y1="220" x2="560" y2="250"></line>
+            <rect x="490" y="250" width="150" height="50" />
+            <text x="565" y="280"><a href="retrospective.html">Retrospective</a></text>
+        </g>
+
+        <g id="sitemap">
+            <line x1="755" y1="220" x2="755" y2="250"></line>
+            <rect x="685" y="250" width="150" height="50" />
+            <text x="760" y="280"><a href="sitemap.html">Sitemap</a></text>
+        </g>
+
+        <g id="about">
+            <line x1="955" y1="220" x2="955" y2="250"></line>
+            <rect x="880" y="250" width="150" height="50" />
+            <text x="955" y="280"><a href="about.html">About</a></text>
+        </g>
+
+        <g id="queries">
+            <line x1="1150" y1="220" x2="1150" y2="250"></line>
+            <rect x="1075" y="250" width="150" height="50" />
+            <text x="1150" y="280"><a href="queries.html">Queries</a></text>
+        </g>
+    </svg>
+
+    <footer>
+        <div id="footerButtons">
+            <button onclick="window.location.href='./Editor_rumeth.html'">Page Editor</button>
+        </div>
+    </footer>
+</body>
+
+</html>

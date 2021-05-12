@@ -1,0 +1,187 @@
+html{
+    scroll-behavior: smooth;
+}
+
+#title1{
+    margin-left: 20px;
+}
+
+#top{
+    width: 100%;
+    display: flex;
+}
+
+
+/*the 2 buttons */
+
+.dropbtn {
+  font-family: 'Roboto Mono',monospace;
+    background-color: #932432;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+  }
+
+  .dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+  }
+  
+  
+  .dropdownBtn {
+    position: absolute;
+  display: inline-block;
+  }
+  
+  .dropdown-contentBtn {
+    width: fit-content;
+    display: none;
+    position: absolute;
+    
+  }
+  
+  .dropdown-contentBtn input {
+    padding: 12px 16px;
+    display: block;
+  }
+  
+
+  .show {display: block;}
+
+  #btn1{
+      right: 0;
+      margin-right: 200px;
+  }
+
+  #btn2{
+      right: 0;
+      margin-right: 50px;
+  }
+
+/* the two buttons*/
+
+
+.gallery {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    margin-left: 10px;
+}
+
+
+a:hover{  
+    background-color: red;
+}
+
+.year{
+    margin-right: 100px;
+    transition: transform.2s;
+}
+
+.year:hover{
+    transform: scale(1.30);
+}
+
+.galleryImg{
+    height:100px;
+    width: 80px;
+}
+
+
+.description{
+    margin-top: 20px;
+    display: flex;
+    margin-left: 25px;
+}
+
+
+.bigImg{
+    margin-top: 25px;
+    height: 33%;
+    width: 33%;
+    display: none;
+}
+
+#classics{
+    margin-left: 50px;
+    margin-top: 110px;
+}
+
+.desc{
+    display: flex;
+    flex-direction: column;
+}
+
+#gameTitle{
+    margin-left: 20px;
+}
+
+#content{
+    margin-left: 25px;
+    width: 75%;
+      text-align: justify;
+      line-height: 20px;
+}
+
+/* console section */
+
+#consoleTitle{
+    margin-left: 20px;
+}
+
+#content2{
+    margin-left: 25px;
+    margin-bottom: 100px;
+    width: 85%;
+      text-align: justify;
+      line-height: 20px;
+}
+
+#title2{
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.consoleImg{
+  height: 80px;
+  width: 120px;
+}
+
+.consoleLinks:hover{
+  background-color: transparent;
+}
+
+/* footer css*/
+
+#topButton{
+  padding: 15px;
+  border-radius: 10%;
+  margin-right: 20px;
+  text-decoration: none;
+}
+
+#editor{
+  outline: none;
+}
+
+#topButton:hover{
+  background-color: crimson;
+}
+
+footer{
+  margin-top: 50px;
+  padding: 2em;
+    left: 0;
+    bottom: 0;
+}
+
+#footerButtons{
+  display: flex;
+  justify-content: space-between;
+}
+
+footer{
+  background: #283747;
+  color: white;
+}

@@ -3,7 +3,11 @@
 ul{
 
 }
-
+.top_btn{
+  padding: 5px 5px;
+  background-color: white;
+  border: thick black solid;
+}
 li{
   display:inline-block;
   text-align: center;
@@ -37,7 +41,7 @@ a:active{color:red}
 
 body{
   font-family: 'Trebuchet MS', sans-serif;
-  background-color: #D5F5E3;
+  background-color: #A2D9CE;
   background-repeat:no-repeat;
   background-size: 100%;
   padding-top: 1%;

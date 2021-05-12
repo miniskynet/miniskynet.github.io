@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRIVIA</title>
+    <link rel="stylesheet" href="MyStyle.css">
+</head>
+<body>
+    <div class="navbar">
+        <img style="position: relative;float:left;padding-top:7px; padding-left:25px;" src="Images/logo_white_trans.png" alt="" width="65" height="65">
+        <img style="position: relative;float:left;padding-top:2px; padding-left:25px;" src="Images/store_logo.png" alt="" width="90" height="80">
+        <ul>
+          <li><a href="main.html">HOME</a></li>
+          <!--
+          creating a dropdown section
+          -->
+          <div class="dropdown">
+            <li><a href="https://w1809912.users.ecs.westminster.ac.uk/">SHOP</a></li>
+            <div class="dropdown-content">
+                <a href="https://w1809912.users.ecs.westminster.ac.uk#consoles">CONSOLES</a>
+                <a href="https://w1809912.users.ecs.westminster.ac.uk#games">GAMES</a>
+            </div>
+          </div>
+          <li><a href="quiz.html">TRIVIA</a></li>
+          <li><a href="retrospective.html">RETROSPECTIVE</a></li>
+          <li><a href="sitemap.html">SITE MAP</a></li>
+          <li><a href="about.html">ABOUT</a></li>
+          <li><a href="queries.html">QUERIES</a></li>
+        </ul>
+          </div>
+    <h1 id="ChangeBackgroundColorH1">Quiz</h1>
+    <form onsubmit="return false;">
+        <div class="Quiz" id="ChangeBackgroundColor">
+            <br><br>
+            <!---Question_1-->
+            <p>1.Who invented Super Mario Videogame?</p>
+            <input type="radio" id="Sony" name="Question_1" value="Sony">
+            <label for="Sony">Sony Computer Entertainment</label><br>
+            <input type="radio" id="Valve" name="Question_1" value="Valve" >
+            <label for="Valve">Valve Corporation</label><br>
+            <input type="radio" id="Nintendo" name="Question_1" value="Nintendo" >
+            <label for="Nintendo">Nintendo</label><br>
+            <input type="radio" id="Activision" name="Question_1" value="Activision" >
+            <label for="Activision">Activision</label>
+            <!---Question_2-->
+            <p>2.What character inspired narcissistic movie star Jean-Claude Van Damme in Mortal Combat?</p>
+            <input type="radio" id="Scorpion" name="Question_2" value="Scorpion">
+            <label for="Scorpion">Scorpion</label><br>
+            <input type="radio" id="Johnny_Cage" name="Question_2" value="Johnny_Cage">
+            <label for="Johnny_Cage">Johnny Cage</label><br>
+            <input type="radio" id="Sub-Zero" name="Question_2" value="Sub-Zero">
+            <label for="Sub-Zero">Sub-Zero</label><br>
+            <input type="radio" id="Liu_King" name="Question_2" value="Liu_King">
+            <label for="Liu_King">Liu King</label>
+            <!---Question_3-->
+            <p>3.What is the classical arcade game google added their Homepage?</p>
+            <input type="radio" id="Mario_Broz" name="Question_3" value="Mario_Broz">
+            <label for="Mario_Broz">Super Mario Bros</label><br>
+            <input type="radio" id="Minesweeper" name="Question_3" value="Minesweeper">
+            <label for="Minesweeper">Minesweeper</label><br>
+            <input type="radio" id="Space_invaders" name="Question_3" value="Space_invaders">
+            <label for="Space_invaders">Space invaders</label><br>
+            <input type="radio" id="Pac_Man" name="Question_3" value="Pac_Man">
+            <label for="Pac_Man">Pac Man</label>
+            <!---Question_4-->
+            <p>4.What is the first FPP( First person perspactive) shooter game?</p>
+            <input type="radio" id="Doom" name="Question_4" value="Doom">
+            <label for="Doom">Doom</label><br>
+            <input type="radio" id="wolfenstein" name="Question_4" value="wolfenstein">
+            <label for="wolfenstein">wolfenstein</label><br>
+            <input type="radio" id="Quake" name="Question_4" value="Quake">
+            <label for="Quake">Quake</label><br>
+            <input type="radio" id="Maze_War" name="Question_4" value="Maze_War">
+            <label for="Maze_War">Maze War</label>
+            <!---Question_5-->
+            <p>5.What is the classic arcade game represent in this image?</p>
+            <figure>
+                <img src="Images/Dig Dug.png" alt="Dig_Dug" id="dig_Dug">
+            </figure>
+            <input type="radio" id="HOD" name="Question_5" value="HOD">
+            <label for="HOD">House Of The Dead</label><br>
+            <input type="radio" id="Tutenkamhum's_Tomb" name="Question_5" value="Tutenkamhum's_Tomb">
+            <label for="Tutenkamhum's_Tomb">Tutenkamhum's Tomb</label><br>
+            <input type="radio" id="Dig_Dug" name="Question_5" value="Dig_Dug">
+            <label for="Dig_Dug"> Dig Dug</label><br>
+            <input type="radio" id="Junior_Pac_Man" name="Question_5" value="Junior_Pac_Man">
+            <label for="Junior_Pac_Man">Junior Pac Man</label>
+
+            <!---Question_6-->
+            <p>6.What is the first game console?</p>
+            <input type="radio" id="NES" name="Question_6" value="NES">
+            <label for="NES">Nintendo NES System</label><br>
+            <input type="radio" id="Odyssey" name="Question_6" value="Odyssey">
+            <label for="Odyssey">Odyssey console</label><br>
+            <input type="radio" id="Playstation" name="Question_6" value="Playstation">
+            <label for="Playstation">First Playstation</label><br>
+            <input type="radio" id="XBOX" name="Question_6" value="XBOX">
+            <label for="XBOX">The Original Xbox</label>
+             <!---Question_7-->
+             <p>7.What is the character of Nintendo which was created by inspiring King Kong?</p>
+            <input type="radio" id="Donkey_Kong" name="Question_7" value="Donkey_Kong">
+            <label for="Donkey_Kong">Donkey Kong</label><br>
+            <input type="radio" id="Mario" name="Question_7" value="Mario">
+            <label for="Mario">Mario</label><br>
+            <input type="radio" id="Luigi" name="Question_7" value="Luigi">
+            <label for="Luigi">Luigi</label><br>
+            <input type="radio" id="Funky_Kong" name="Question_7" value="Funky_Kong">
+            <label for="Funky_Kong">Funky Kong</label>
+            <!---Question_8-->
+            <p>8.What is the classic arcade game represent in this image?</p>
+            <figure>
+                <img src="Images/Pong.PNG" alt="Pong" id="pong">
+            </figure>
+            <input type="radio" id="Star_Wars" name="Question_8" value="Star_Wars">
+            <label for="Star_Wars">Star Wars</label><br>
+            <input type="radio" id="Rampart" name="Question_8" value="Rampart">
+            <label for="Rampart">Rampart</label><br>
+            <input type="radio" id="Pong" name="Question_8" value="Pong">
+            <label for="Pong">Pong</label><br>
+            <input type="radio" id="Arkanold" name="Question_8" value="Arkanold">
+            <label for="Arkanold">Arkanold</label>
+            <!---Question_9-->
+            <p>9.Pac-Man is famously pursued by four ghosts. What colour is the ghost nicknamed Clyde?</p>
+            <input type="radio" id="Red" name="Question_9" value="Red">
+            <label for="Red">Red</label><br>
+            <input type="radio" id="Blue" name="Question_9" value="Blue">
+            <label for="Blue">Blue/Cyan</label><br>
+            <input type="radio" id="Orange" name="Question_9" value="Orange">
+            <label for="Orange">Orange</label><br>
+            <input type="radio" id="Pink" name="Question_9" value="Pink">
+            <label for="Pink">Pink</label>
+            <!---Question_10-->
+            <p>10.What was Pac-Man's original name?</p>
+            <input type="radio" id="Pack-Man" name="Question_10" value="Pack-Man">
+            <label for="Pack-Man">Pack-Man</label><br>
+            <input type="radio" id="Peck-Man" name="Question_10" value="Peck-Man">
+            <label for="Peck-Man">Peck-Man</label><br>
+            <input type="radio" id="Pock-Man" name="Question_10" value="Pock-Man">
+            <label for="Pock-Man">Pock-Man</label><br>
+            <input type="radio" id="Puck-Man" name="Question_10" value="Puck-Man">
+            <label for="Puck-Man">Puck-Man</label>
+            <br><br><br>
+            <p id="Total_Marks" ></p>
+            <p id="hStatus"></p>
+            <p id="time_got"></p>
+            <p id="Q1"></p>
+            <p id="Q2"></p>
+            <p id="Q3"></p>
+            <p id="Q4"></p>
+            <p id="Q5"></p>
+            <p id="Q6"></p>
+            <p id="Q7"></p>
+            <p id="Q8"></p>
+            <p id="Q9"></p>
+            <p id="Q10"></p>
+            <div class="footer">
+                <input type="submit"  name="button" id="btnSubmit" value="Submit" onclick="Marking_Questions(this.form);clearInterval(timer);">
+                <input type="reset" name="button_1" id="btnreset" value="Reset">
+                <a href="#Total_Marks" style="color: black;" ;">Results</a>
+                <p id="countdown"></p>
+            </div>
+            <script>
+
+                function getRadioValue( radioArray ) {
+				   var i;
+				   for ( i = 0; i < radioArray.length; i++ ) {
+					  if ( radioArray[ i ].checked ) {
+						 return radioArray[ i ].value;
+					  }
+				   }
+				   return "";
+				}
+                function Marking_Questions(Results){
+                    var Q1_Status;
+                    var Q2_Status;
+                    var Q3_Status;
+                    var Q4_Status;
+                    var Q5_Status;
+                    var Q6_Status;
+                    var Q7_Status;
+                    var Q8_Status;
+                    var Q9_Status;
+                    var Q10_Status;
+                    var Total_Marks=0
+                    var Question_1=getRadioValue(Results.Question_1);
+                    var Question_2=getRadioValue(Results.Question_2);
+                    var Question_3=getRadioValue(Results.Question_3);
+                    var Question_4=getRadioValue(Results.Question_4);
+                    var Question_5=getRadioValue(Results.Question_5);
+                    var Question_6=getRadioValue(Results.Question_6);
+                    var Question_7=getRadioValue(Results.Question_7);
+                    var Question_8=getRadioValue(Results.Question_8);
+                    var Question_9=getRadioValue(Results.Question_9);
+                    var Question_10=getRadioValue(Results.Question_10);
+
+                    if (Question_1==="Nintendo"){
+                        Total_Marks=Total_Marks+2;
+                        Q1_Status="Correct"
+                    }
+                    else{
+                        Total_Marks=Total_Marks-1;
+                        Q1_Status="Incorrect"
+                    }
+
+                    if(Question_2==="Johnny_Cage"){
+                        Total_Marks=Total_Marks+2;
+                        Q2_Status="Correct"
+                    }
+                    else{
+                        Total_Marks=Total_Marks-1;
+                        Q2_Status="Incorrect"
+                    }
+                    if(Question_3==="Pac_Man"){
+                        Total_Marks=Total_Marks+2;
+                        Q3_Status="Correct"
+                    }
+                    else{
+                        Total_Marks=Total_Marks-1;
+                        Q3_Status="Incorrect"
+                    }
+                    if(Question_4==="Maze_War"){
+                        Total_Marks=Total_Marks+2;
+                        Q4_Status="Correct"
+                    }
+                    else{
+                        Total_Marks=Total_Marks-1;
+                        Q4_Status="Incorrect"
+                    }
+                    if(Question_5==="Dig_Dug"){
+                        Total_Marks=Total_Marks+2;
+                        Q5_Status="Correct"
+                    }
+                    else{
+                        Total_Marks=Total_Marks-1;
+                        Q5_Status="Incorrect"
+                    }
+                    if(Question_6==="Odyssey"){
+                        Total_Marks=Total_Marks+2;
+                        Q6_Status="Correct"
+                    }
+                    else{
+                        Total_Marks=Total_Marks-1;
+                        Q6_Status="Incorrect"
+                    }
+                    if(Question_7==="Donkey_Kong"){
+                        Total_Marks=Total_Marks+2;
+                        Q7_Status="Correct"
+                    }
+                    else{
+                        Total_Marks=Total_Marks-1;
+                        Q7_Status="Incorrect"
+                    }
+                    if(Question_8==="Pong"){
+                        Total_Marks=Total_Marks+2;
+                        Q8_Status="Correct"
+                    }
+                    else{
+                        Total_Marks=Total_Marks-1;
+                        Q8_Status="Incorrect"
+                    }
+                    if(Question_9==="Orange"){
+                        Total_Marks=Total_Marks+2;
+                        Q9_Status="Correct"
+                    }
+                    else{
+                        Total_Marks=Total_Marks-1;
+                        Q9_Status="Incorrect"
+                    }
+                    if(Question_10==="Puck-Man"){
+                        Total_Marks=Total_Marks+2;
+                        Q10_Status="Correct"
+                    }
+                    else{
+                        Total_Marks=Total_Marks-1;
+                        Q10_Status="Incorrect"
+                    }
+                    document.getElementById("Total_Marks").innerHTML="You got"+" "+Total_Marks+"/20"
+                    var total_time=time_spent-1
+                    document.getElementById("time_got").innerHTML="You spent"+" "+total_time+" "+"Seconds"
+                    document.getElementById("hStatus").innerHTML="Summery Of Your Perfomence"
+                    document.getElementById("Q1").innerHTML="Question 1 is"+" "+Q1_Status
+                    document.getElementById("Q2").innerHTML="Question 2 is"+" "+Q2_Status
+                    document.getElementById("Q3").innerHTML="Question 3 is"+" "+Q3_Status
+                    document.getElementById("Q4").innerHTML="Question 4 is"+" "+Q4_Status
+                    document.getElementById("Q5").innerHTML="Question 5 is"+" "+Q5_Status
+                    document.getElementById("Q6").innerHTML="Question 6 is"+" "+Q6_Status
+                    document.getElementById("Q7").innerHTML="Question 7 is"+" "+Q7_Status
+                    document.getElementById("Q8").innerHTML="Question 8 is"+" "+Q8_Status
+                    document.getElementById("Q9").innerHTML="Question 9 is"+" "+Q9_Status
+                    document.getElementById("Q10").innerHTML="Question 10 is"+" "+Q10_Status+"<br><br>"
+                    if(Total_Marks===20){
+                        document.getElementById("ChangeBackgroundColor").style.backgroundColor="#F64c72"
+                        document.getElementById("ChangeBackgroundColorH1").style.backgroundColor="#F64c72"
+                    }
+                    else if(Total_Marks===17){
+                        document.getElementById("ChangeBackgroundColor").style.backgroundColor="#659DBD"
+                        document.getElementById("ChangeBackgroundColorH1").style.backgroundColor="#659DBD"
+                    }
+                    else if(Total_Marks===14){
+                        document.getElementById("ChangeBackgroundColor").style.backgroundColor="#DAAD86"
+                        document.getElementById("ChangeBackgroundColorH1").style.backgroundColor="#DAAD86"
+                    }
+
+                    else if(Total_Marks===11){
+                        document.getElementById("ChangeBackgroundColor").style.backgroundColor="#BC986A"
+                        document.getElementById("ChangeBackgroundColorH1").style.backgroundColor="#BC986A"
+                    }
+
+                    else if(Total_Marks===8){
+                        document.getElementById("ChangeBackgroundColor").style.backgroundColor="#FBEEC1"
+                        document.getElementById("ChangeBackgroundColorH1").style.backgroundColor="#FBEEC1"
+                    }
+                    else if(Total_Marks===5){
+                        document.getElementById("ChangeBackgroundColor").style.backgroundColor="#5CDB95"
+                        document.getElementById("ChangeBackgroundColorH1").style.backgroundColor="#5CDB95"
+                    }
+                    else if(Total_Marks===2){
+                        document.getElementById("ChangeBackgroundColor").style.backgroundColor="#E27D60"
+                        document.getElementById("ChangeBackgroundColorH1").style.backgroundColor="#E27D60"
+                    }
+                    else if(Total_Marks===-1){
+                        document.getElementById("ChangeBackgroundColor").style.backgroundColor="#EDF5E1"
+                        document.getElementById("ChangeBackgroundColorH1").style.backgroundColor="#EDF5E1"
+                    }
+                    else if(Total_Marks===-4){
+                        document.getElementById("ChangeBackgroundColor").style.backgroundColor="#83677B"
+                        document.getElementById("ChangeBackgroundColorH1").style.backgroundColor="#83677B"
+                    }
+                    else if(Total_Marks===-7){
+                        document.getElementById("ChangeBackgroundColor").style.backgroundColor="#c38D9E"
+                        document.getElementById("ChangeBackgroundColorH1").style.backgroundColor="#c38D9E"
+                    }
+                    else{
+                        document.getElementById("ChangeBackgroundColor").style.backgroundColor="#fc0324"
+                        document.getElementById("ChangeBackgroundColorH1").style.backgroundColor="#fc0324"
+                    }
+                }
+                var seconds=60;
+                var timer;
+                var time_spent=0;
+                var btn;
+                function Timer() {
+                    if(seconds < 60) {
+                        document.getElementById("countdown").innerHTML = seconds+" " + "seconds remaining";
+                    }
+                    if (seconds >0 ) {
+                        seconds--;
+                        time_spent++;
+                    } else {
+                        clearInterval(timer);
+                        alert("You are out of time!")
+                        document.getElementById("btnSubmit").click();
+                    }
+                    return time_spent
+                }
+                window.onload = function() {
+                    if(!timer) {
+                        timer = window.setInterval(function() {
+                            Timer();
+                        }, 1000);
+                    }
+                }
+
+                document.getElementById("countdown").innerHTML="1:00"+" "+ "minute remaining";
+            </script>
+
+        </div>
+    </form>
+</body>
+</html>
