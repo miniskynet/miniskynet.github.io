@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Desira Wijesundara — Technical Writer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF9F5;
+    --paper-dim:#F1EFE7;
+    --ink:#1C2333;
+    --slate:#5B6472;
+    --slate-light:#8A93A0;
+    --cobalt:#3454D1;
+    --amber:#D98E2B;
+    --line:#E4E1D8;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --serif: 'Fraunces', serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.6;
+    font-size:16px;
+  }
+  a{color:var(--cobalt); text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--cobalt); outline-offset:3px;}
+
+  .layout{display:flex; max-width:1200px; margin:0 auto;}
+
+  /* Sidebar nav, styled like an API reference sidebar */
+  .sidebar{
+    width:250px; flex-shrink:0;
+    padding:48px 24px 48px 0;
+    position:sticky; top:0; align-self:flex-start;
+    height:100vh; overflow-y:auto;
+  }
+  .sidebar .brand{
+    font-family:var(--serif); font-weight:500; font-size:1.15rem;
+    margin-bottom:4px;
+  }
+  .sidebar .brand-sub{
+    font-family:var(--mono); font-size:0.72rem; color:var(--slate-light);
+    letter-spacing:0.03em; margin-bottom:36px; display:block;
+  }
+  .sidebar nav ul{list-style:none;}
+  .sidebar nav li{margin-bottom:2px;}
+  .sidebar nav a{
+    display:block; color:var(--slate); font-size:0.88rem;
+    padding:6px 10px; border-left:2px solid transparent; border-radius:0 4px 4px 0;
+  }
+  .sidebar nav a:hover{color:var(--ink); text-decoration:none; background:var(--paper-dim);}
+  .sidebar nav a.active{color:var(--cobalt); border-left-color:var(--cobalt); font-weight:500;}
+  .sidebar .method{
+    font-family:var(--mono); font-size:0.65rem; padding:1px 5px; border-radius:3px;
+    margin-right:6px; font-weight:500;
+  }
+  .method.get{background:#E8EEFC; color:var(--cobalt);}
+  .method.post{background:#FCEFDD; color:var(--amber);}
+
+  main{flex:1; min-width:0; padding:48px 32px 120px 40px; border-left:1px solid var(--line);}
+
+  section{padding-top:64px; margin-top:-64px;}
+  section + section{margin-top:72px; padding-top:16px;}
+
+  .endpoint-label{
+    font-family:var(--mono); font-size:0.75rem; color:var(--slate);
+    display:flex; align-items:center; gap:8px; margin-bottom:10px;
+  }
+  h1,h2,h3{font-family:var(--serif); font-weight:500; letter-spacing:-0.01em;}
+  h2{font-size:1.6rem; margin-bottom:6px;}
+  h3{font-size:1.1rem; margin-bottom:4px; font-weight:600;}
+  p{color:var(--ink);}
+  .dim{color:var(--slate);}
+
+  /* Hero */
+  .hero{padding-top:32px !important; margin-top:0 !important; display:grid; grid-template-columns:1.1fr 1fr; gap:48px; align-items:start;}
+  .hero h1{font-size:2.6rem; line-height:1.08; margin-bottom:14px;}
+  .hero .tagline{font-size:1.05rem; color:var(--slate); max-width:44ch; margin-bottom:24px;}
+  .hero .badges{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:28px;}
+  .badge{
+    font-family:var(--mono); font-size:0.72rem; padding:4px 10px; border-radius:14px;
+    border:1px solid var(--line); color:var(--slate); background:#fff;
+  }
+  .badge.status{color:#1F7A4D; border-color:#BFE3CC; background:#EFFAF3;}
+  .badge.status::before{content:"●"; margin-right:5px; font-size:0.6rem;}
+  .cta-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--mono); font-size:0.82rem; padding:10px 18px; border-radius:6px;
+    display:inline-block; border:1px solid var(--ink);
+  }
+  .btn.primary{background:var(--ink); color:#fff;}
+  .btn.primary:hover{background:#000; text-decoration:none;}
+  .btn.ghost{color:var(--ink); border-color:var(--line);}
+  .btn.ghost:hover{border-color:var(--ink); text-decoration:none;}
+
+  /* JSON response panel — signature element */
+  .response-panel{
+    background:var(--ink); color:#DCE3F5; border-radius:10px; padding:22px 24px;
+    font-family:var(--mono); font-size:0.82rem; overflow-x:auto;
+    box-shadow:0 20px 40px -20px rgba(28,35,51,0.35);
+  }
+  .response-panel .status-line{color:#7FE0A8; margin-bottom:14px; font-size:0.78rem;}
+  .response-panel .key{color:#8FB2FF;}
+  .response-panel .string{color:#F2C879;}
+  .response-panel .punct{color:#6C7690;}
+  .response-panel .array{color:#DCE3F5;}
+
+  /* Experience timeline */
+  .role{border-bottom:1px solid var(--line); padding-bottom:22px; margin-bottom:22px;}
+  .role:last-child{border-bottom:none;}
+  .role-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;}
+  .role-meta{font-family:var(--mono); font-size:0.75rem; color:var(--slate-light); white-space:nowrap;}
+  .role ul{margin:10px 0 0 20px; color:var(--slate);}
+  .role li{margin-bottom:4px;}
+
+  /* Case studies as cards */
+  .case-grid{display:grid; gap:20px; margin-top:20px;}
+  .case-card{
+    border:1px solid var(--line); border-radius:10px; padding:22px 24px; background:#fff;
+  }
+  .case-card .tag{
+    font-family:var(--mono); font-size:0.68rem; color:var(--amber); text-transform:uppercase;
+    letter-spacing:0.05em; margin-bottom:8px; display:block;
+  }
+  .case-card p{color:var(--slate); font-size:0.95rem; margin:8px 0 12px;}
+  .case-card a{font-family:var(--mono); font-size:0.8rem;}
+
+  .skills-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:10px; margin-top:16px;}
+  .skill-chip{
+    font-family:var(--mono); font-size:0.78rem; padding:8px 12px; background:var(--paper-dim);
+    border-radius:6px; color:var(--ink);
+  }
+
+  footer{
+    border-top:1px solid var(--line); margin-top:80px; padding-top:28px;
+    font-family:var(--mono); font-size:0.78rem; color:var(--slate-light);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
+  }
+
+  .note{
+    font-family:var(--mono); font-size:0.72rem; color:var(--slate-light);
+    background:var(--paper-dim); border-left:2px solid var(--amber);
+    padding:8px 12px; margin-top:14px; border-radius:0 4px 4px 0;
+  }
+
+  @media (max-width: 880px){
+    .layout{flex-direction:column;}
+    .sidebar{position:relative; height:auto; width:100%; padding:24px 24px 0;}
+    main{padding:32px 20px 80px; border-left:none;}
+    .hero{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">Desira Wijesundara</div>
+    <span class="brand-sub">TECHNICAL WRITER · API DOCS</span>
+    <nav>
+      <ul>
+        <li><a href="#overview" class="active"><span class="method get">GET</span>/overview</a></li>
+        <li><a href="#experience"><span class="method get">GET</span>/experience</a></li>
+        <li><a href="#case-studies"><span class="method get">GET</span>/case-studies</a></li>
+        <li><a href="#writing"><span class="method get">GET</span>/writing</a></li>
+        <li><a href="#skills"><span class="method get">GET</span>/skills</a></li>
+        <li><a href="#contact"><span class="method post">POST</span>/contact</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <main>
+    <section class="hero" id="top">
+      <div>
+        <h1>Docs that make complex APIs feel obvious.</h1>
+        <p class="tagline">I'm a technical writer and software engineer who lives at the intersection of both disciplines. At Programus Ltd. I manage end-to-end documentation for enterprise clients — API docs, user guides, configuration documents, tutorial videos, and release notes.</p>
+        <div class="badges">
+          <span class="badge status">Open to work</span>
+          <span class="badge">Germany</span>
+          <span class="badge">Netherlands</span>
+          <span class="badge">Ireland</span>
+          <span class="badge">UK</span>
+        </div>
+        <div class="cta-row">
+          <a class="btn primary" href="#contact">Get in touch</a>
+          <a class="btn ghost" href="Desira_Wijesundara_Resume.pdf" target="_blank" rel="noopener">Download résumé</a>
+          <a class="btn ghost" href="https://spotty-shampoo-6df.notion.site" target="_blank" rel="noopener">Full writing samples ↗</a>
+        </div>
+      </div>
+
+      <div class="response-panel">
+        <div class="status-line">// 200 OK</div>
+        <span class="punct">{</span><br>
+        &nbsp;&nbsp;<span class="key">"role"</span><span class="punct">:</span> <span class="string">"Junior Technical Writer"</span><span class="punct">,</span><br>
+        &nbsp;&nbsp;<span class="key">"employer"</span><span class="punct">:</span> <span class="string">"Programus Ltd."</span><span class="punct">,</span><br>
+        &nbsp;&nbsp;<span class="key">"based_in"</span><span class="punct">:</span> <span class="string">"Sri Lanka"</span><span class="punct">,</span><br>
+        &nbsp;&nbsp;<span class="key">"education"</span><span class="punct">:</span> <span class="string">"BEng (Hons) Software Engineering, University of Westminster"</span><span class="punct">,</span><br>
+        &nbsp;&nbsp;<span class="key">"toolchain"</span><span class="punct">:</span> <span class="array">[</span><span class="string">"OpenAPI"</span><span class="punct">,</span> <span class="string">"Swagger"</span><span class="punct">,</span> <span class="string">"Postman"</span><span class="punct">,</span> <span class="string">"Git"</span><span class="punct">,</span> <span class="string">"Azure DevOps"</span><span class="punct">,</span> <span class="string">"RoboHelp"</span><span class="array">]</span><span class="punct">,</span><br>
+        &nbsp;&nbsp;<span class="key">"background"</span><span class="punct">:</span> <span class="string">"full-stack, Android &amp; API engineering before technical writing"</span><span class="punct">,</span><br>
+        &nbsp;&nbsp;<span class="key">"targeting"</span><span class="punct">:</span> <span class="string">"technical writing / documentation engineering / devrel, EU"</span><span class="punct">,</span><br>
+        &nbsp;&nbsp;<span class="key">"status"</span><span class="punct">:</span> <span class="string">"open_to_work"</span><br>
+        <span class="punct">}</span>
+      </div>
+    </section>
+
+    <section id="overview">
+      <div class="endpoint-label"><span class="method get">GET</span> /overview</div>
+      <h2>Overview</h2>
+      <p class="dim" style="max-width:65ch; margin-top:14px;">
+        With a BEng (Hons) in Software Engineering from the University of Westminster and hands-on experience
+        building real-world applications, I bring genuine technical depth to the work of documentation and
+        developer experience. Before moving into technical writing I spent time as a software engineer across
+        full-stack web, Android, and API layers — Java, JavaScript, React.js, Node.js, SQL, Spring Boot, Bash
+        scripts, Ansible playbooks, Linux environments, and open source contributions. That background means I
+        can read a codebase, understand what developers are building, and document it without needing everything
+        explained from scratch.
+      </p>
+      <p class="dim" style="max-width:65ch; margin-top:14px;">
+        I also write about software engineering on Medium — one explainer on Python operators was curated and
+        featured by Medium's editorial team, reaching 2.5K+ readers. If you're building a developer-facing
+        product and need someone who genuinely understands both sides, feel free to reach out.
+      </p>
+    </section>
+
+    <section id="experience">
+      <div class="endpoint-label"><span class="method get">GET</span> /experience</div>
+      <h2>Experience</h2>
+
+      <div style="margin-top:20px;">
+        <div class="role">
+          <div class="role-head">
+            <h3>Junior Technical Writer — Programus Ltd.</h3>
+            <span class="role-meta">Sep 2024 — Present</span>
+          </div>
+          <ul>
+            <li>Independently manage end-to-end documentation deliverables — user guides, configuration documents, tutorial videos, release notes, and client-specific documentation — across multiple enterprise clients.</li>
+            <li>Own API documentation and validation workflows using OpenAPI/Swagger and Postman, collaborating with development and QA teams to reduce integration issues and support ongoing feature releases.</li>
+            <li>Partner cross-functionally with project managers, developers, support teams, and clients to clarify complex workflows and improve documentation usability and consistency.</li>
+          </ul>
+        </div>
+
+        <div class="role">
+          <div class="role-head">
+            <h3>Trainee Software Engineer — hSenid Mobile Solutions</h3>
+            <span class="role-meta">Jul 2022 — Jul 2023</span>
+          </div>
+          <ul>
+            <li>Fixed bugs and shipped features for Applova Admin web, Merchant web, API services, and Android mobile/kiosk applications.</li>
+            <li>Wrote Bash scripts and Ansible playbooks to automate module builds and back up/restore databases — the toolchain background that now shapes how I scope documentation work.</li>
+          </ul>
+        </div>
+
+        <div class="role">
+          <div class="role-head">
+            <h3>Associate Software Engineer — Sustainable Education Foundation</h3>
+            <span class="role-meta">Jun 2022 — Jul 2023</span>
+          </div>
+          <ul>
+            <li>Wrote and structured the SEF volunteer handbook, took part in wireframing ScholarX v2, and wrote/proofread content for the SEF site and related activities.</li>
+            <li>Wrote public-facing web copy for the SEF website, addressing students, industry experts, and volunteers as three distinct audiences.</li>
+            <li>Hosted a Google Summer of Code awareness session and led interviews with ScholarX program mentors to gather feedback.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="case-studies">
+      <div class="endpoint-label"><span class="method get">GET</span> /case-studies</div>
+      <h2>Case studies</h2>
+      <p class="dim">Sanitized enterprise documentation samples, published under the placeholder product name "Venuix."</p>
+
+      <div class="case-grid">
+        <div class="case-card">
+          <span class="tag">Enterprise User Guides</span>
+          <h3>Venuix — event &amp; venue management platform</h3>
+          <p>End-to-end workflow guides written in my current role at Programus Ltd. for an enterprise event and venue management platform, covering simplified event setup, seating chart maintenance mode, and booking status configuration — from high-level setup flows to granular conditional logic, written for a non-technical audience.</p>
+          <a href="https://spotty-shampoo-6df.notion.site" target="_blank" rel="noopener">View sample ↗</a>
+        </div>
+        <div class="case-card">
+          <span class="tag">Onboarding &amp; Handbook</span>
+          <h3>SEF volunteer handbook</h3>
+          <p>Organizational overview and Engineering Team onboarding content written for the Sustainable Education Foundation's volunteer handbook — welcoming, accessible copy for a technical audience, plus step-by-step setup instructions (GitHub, Slack, Hive).</p>
+          <a href="https://spotty-shampoo-6df.notion.site" target="_blank" rel="noopener">View sample ↗</a>
+        </div>
+        <div class="case-card">
+          <span class="tag">Web Copy</span>
+          <h3>SEF public-facing website copy</h3>
+          <p>Homepage copy addressing three distinct audiences — students, industry experts, and volunteers — each in their own tone, demonstrating audience segmentation and concise web writing.</p>
+          <a href="https://spotty-shampoo-6df.notion.site" target="_blank" rel="noopener">View sample ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="writing">
+      <div class="endpoint-label"><span class="method get">GET</span> /writing</div>
+      <h2>Writing</h2>
+
+      <div class="case-grid">
+        <div class="case-card">
+          <span class="tag">Medium — Featured</span>
+          <h3>Working with Operators in Python</h3>
+          <p>A beginner-friendly technical explainer, curated and featured by Medium's editorial team. 2.5K views · 1.4K reads.</p>
+          <a href="https://desirawijesundara.medium.com/working-with-operators-in-python-eb6aaaa1007e" target="_blank" rel="noopener">Read on Medium ↗</a>
+        </div>
+        <div class="case-card">
+          <span class="tag">Medium</span>
+          <h3>Interning as a Software Engineer at hSenid Mobile — Part I &amp; II</h3>
+          <p>A firsthand account of my software engineering internship — onboarding, tools, and technical work. Part I: 554 views · 77 reads. Part II: 545 views · 70 reads.</p>
+          <a href="https://medium.com/@desirawijesundara/interning-as-a-software-engineer-at-hsenid-mobile-part-i-d42d925749d7" target="_blank" rel="noopener">Read Part I ↗</a>
+        </div>
+        <div class="case-card">
+          <span class="tag">Thesis, 2024</span>
+          <h3>Bright Horizons — Procedurally Generated Serious Game to Promote Learning in Individuals Affected by Trisomy-21</h3>
+          <p>Final year undergraduate thesis for my BEng (Hons) at Westminster — contextualizing a research problem for a broad audience, then explaining a Unity3D/C# implementation and a regression model in structured, precise language.</p>
+          <a href="https://spotty-shampoo-6df.notion.site" target="_blank" rel="noopener">Read excerpts ↗</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="endpoint-label"><span class="method get">GET</span> /skills</div>
+      <h2>Toolchain</h2>
+      <div class="skills-grid">
+        <span class="skill-chip">OpenAPI / Swagger</span>
+        <span class="skill-chip">Postman</span>
+        <span class="skill-chip">Git</span>
+        <span class="skill-chip">Azure DevOps</span>
+        <span class="skill-chip">Adobe RoboHelp</span>
+        <span class="skill-chip">Markdown</span>
+        <span class="skill-chip">Java</span>
+        <span class="skill-chip">JavaScript</span>
+        <span class="skill-chip">React.js</span>
+        <span class="skill-chip">Node.js</span>
+        <span class="skill-chip">Spring Boot</span>
+        <span class="skill-chip">SQL</span>
+        <span class="skill-chip">Bash</span>
+        <span class="skill-chip">Ansible</span>
+        <span class="skill-chip">Linux</span>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="endpoint-label"><span class="method post">POST</span> /contact</div>
+      <h2>Get in touch</h2>
+      <p class="dim" style="margin-top:10px; max-width:55ch;">
+        Open to technical writing, documentation engineering, and developer relations roles across Germany,
+        the Netherlands, Ireland, and the UK. If you're building a developer-facing product and need someone
+        who genuinely understands both sides, feel free to reach out.
+      </p>
+      <div class="cta-row" style="margin-top:20px;">
+        <a class="btn primary" href="mailto:desirasenal@gmail.com">Email me</a>
+        <a class="btn ghost" href="https://linkedin.com/in/desira-wijesundara" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="btn ghost" href="https://github.com/miniskynet" target="_blank" rel="noopener">GitHub ↗</a>
+        <a class="btn ghost" href="https://spotty-shampoo-6df.notion.site" target="_blank" rel="noopener">Notion portfolio ↗</a>
+      </div>
+    </section>
+
+    <footer>
+      <span>© 2026 Desira Wijesundara</span>
+      <span>Built with care, documented like an API.</span>
+    </footer>
+  </main>
+</div>
+
+<script>
+  // Highlight active sidebar link on scroll
+  const sections = document.querySelectorAll('main section[id]');
+  const navLinks = document.querySelectorAll('.sidebar nav a');
+  const setActive = () => {
+    let current = sections[0]?.id;
+    sections.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      if (rect.top <= 120) current = sec.id;
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+    });
+  };
+  document.addEventListener('scroll', setActive, { passive: true });
+  setActive();
+</script>
+
+</body>
+</html>
