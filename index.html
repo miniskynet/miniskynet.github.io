@@ -134,6 +134,30 @@
   .case-card p{color:var(--slate); font-size:0.95rem; margin:8px 0 12px;}
   .case-card a{font-family:var(--mono); font-size:0.8rem;}
 
+  .excerpt{
+    margin-top:14px; border-top:1px solid var(--line); padding-top:14px;
+  }
+  .excerpt summary{
+    font-family:var(--mono); font-size:0.78rem; color:var(--cobalt); cursor:pointer;
+    list-style:none; display:flex; align-items:center; gap:6px;
+  }
+  .excerpt summary::-webkit-details-marker{display:none;}
+  .excerpt summary::before{content:"▸"; font-size:0.7rem; transition:transform 0.15s ease;}
+  .excerpt[open] summary::before{transform:rotate(90deg);}
+  .excerpt-body{
+    margin-top:12px; font-size:0.88rem; color:var(--ink); line-height:1.65;
+  }
+  .excerpt-body p{margin-bottom:10px;}
+  .excerpt-body ol, .excerpt-body ul{margin:8px 0 10px 20px; color:var(--ink);}
+  .excerpt-body li{margin-bottom:6px;}
+  .excerpt-body .field{
+    font-family:var(--mono); font-size:0.82rem; background:var(--paper-dim);
+    padding:1px 5px; border-radius:3px;
+  }
+  .excerpt-note{
+    font-family:var(--mono); font-size:0.7rem; color:var(--slate-light); margin-top:10px;
+  }
+
   .skills-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:10px; margin-top:16px;}
   .skill-chip{
     font-family:var(--mono); font-size:0.78rem; padding:8px 12px; background:var(--paper-dim);
@@ -193,7 +217,7 @@
         <div class="cta-row">
           <a class="btn primary" href="#contact">Get in touch</a>
           <a class="btn ghost" href="Desira_Wijesundara_Resume.pdf" target="_blank" rel="noopener">Download résumé</a>
-          <a class="btn ghost" href="https://spotty-shampoo-6df.notion.site" target="_blank" rel="noopener">Full writing samples ↗</a>
+          <a class="btn ghost" href="https://spotty-shampoo-6df.notion.site" target="_blank" rel="noopener">Browse Notion workspace ↗</a>
         </div>
       </div>
 
@@ -283,19 +307,63 @@
           <span class="tag">Enterprise User Guides</span>
           <h3>Venuix — event &amp; venue management platform</h3>
           <p>End-to-end workflow guides written in my current role at Programus Ltd. for an enterprise event and venue management platform, covering simplified event setup, seating chart maintenance mode, and booking status configuration — from high-level setup flows to granular conditional logic, written for a non-technical audience.</p>
-          <a href="https://spotty-shampoo-6df.notion.site" target="_blank" rel="noopener">View sample ↗</a>
+          <details class="excerpt">
+            <summary>Read excerpt — Simplified Event Setup</summary>
+            <div class="excerpt-body">
+              <p>To set up an Event using the Simplified Event Setup Process in Venuix:</p>
+              <ol>
+                <li>Visit the Venuix Portal and sign in using the username and password provided to you.</li>
+                <li>Go to the Setup Module by clicking on the <span class="field">Setup</span> button.</li>
+                <li>Select <span class="field">Events and Products</span> from the left side panel, then select <span class="field">Events</span> from the module list.</li>
+                <li>Select <span class="field">Add New Event</span>, which directs you to a new page.</li>
+                <li>Under the <span class="field">General</span> tab, provide a name for the event, upload an image, and choose <span class="field">Public</span> or <span class="field">Private</span> as the event type — public events are scheduled in advance (sports, classes, courses), while private events are customer-driven (weddings, product launches).</li>
+                <li>Assign a primary venue, event category, and responsible event manager from their respective drop-downs.</li>
+                <li>Click <span class="field">Save</span> to create the event.</li>
+              </ol>
+              <p>The full guide also covers email templates for booking/enquiry/waitlist confirmations, facility linking, and package configuration — condensed here for length.</p>
+            </div>
+          </details>
+          <details class="excerpt">
+            <summary>Read excerpt — Seating Chart in Maintenance Mode</summary>
+            <div class="excerpt-body">
+              <p>Once the seating chart has been accessed via the Booking or Diary module, the following steps apply:</p>
+              <ol>
+                <li>Switch to maintenance mode using the toggle in the upper right corner.</li>
+                <li>By default, seating categories are grouped by price band — you can also group by booking list or block.</li>
+                <li>Use the search field to filter by booking reference, client name, contact name, package name, or notes.</li>
+                <li>To reserve seats: select the preferred seats, click <span class="field">Reserve Seats</span>, enter a note, and submit. A confirmation message displays on success.</li>
+                <li>To free up seats: select allocated seats and click <span class="field">Un-allocate</span>, confirming in the pop-up that follows.</li>
+                <li>The freeze option prevents selected seats from being un-allocated while other actions are performed — useful for holding a block during a multi-step booking process.</li>
+              </ol>
+              <p class="excerpt-note">Note: "Using the Allocate button will automatically assign the seats starting from the top left-most available section." — an inline callout preserved from the original guide.</p>
+            </div>
+          </details>
+          <details class="excerpt">
+            <summary>Read excerpt — Booking Status Configuration</summary>
+            <div class="excerpt-body">
+              <p>To add a new booking status:</p>
+              <ol>
+                <li>From Setup → Bookings → Booking Statuses, click <span class="field">Add New Booking Status</span>.</li>
+                <li>Select a <span class="field">Parent Booking Status</span> to establish the status hierarchy — this determines the progression path a booking can follow.</li>
+                <li>Configure checkboxes for whether the status reserves stock, requires specific user rights to edit, requires a linked client, or should be hidden from the public portal.</li>
+                <li>Under the <span class="field">Approval</span> tab, optionally require approval to enter this status, with separate drop-downs for the approved and rejected outcome statuses.</li>
+                <li>If the parent status is Provisional or Quotation, an <span class="field">Expiry</span> tab appears, letting the status auto-expire after a set number of days or relative to the event's start/end date.</li>
+              </ol>
+              <p>This workflow demonstrates documenting conditional logic — fields and tabs that only appear based on earlier selections — clearly enough for a non-technical admin to configure correctly.</p>
+            </div>
+          </details>
         </div>
         <div class="case-card">
           <span class="tag">Onboarding &amp; Handbook</span>
           <h3>SEF volunteer handbook</h3>
-          <p>Organizational overview and Engineering Team onboarding content written for the Sustainable Education Foundation's volunteer handbook — welcoming, accessible copy for a technical audience, plus step-by-step setup instructions (GitHub, Slack, Hive).</p>
-          <a href="https://spotty-shampoo-6df.notion.site" target="_blank" rel="noopener">View sample ↗</a>
+          <p>Written during my time as Associate Software Engineer at the Sustainable Education Foundation (2022–2023). The organizational overview introduces SEF to prospective volunteers across all backgrounds; the Engineering Team chapter covers who the team is, what they do, and the concrete steps to get set up — GitHub, Slack, and Hive accounts — before introducing yourself to the community.</p>
+          <p class="dim" style="font-size:0.85rem; margin-top:4px;">Demonstrates: welcoming organizational writing, and step-by-step onboarding content that stays human for a technical audience.</p>
         </div>
         <div class="case-card">
           <span class="tag">Web Copy</span>
           <h3>SEF public-facing website copy</h3>
-          <p>Homepage copy addressing three distinct audiences — students, industry experts, and volunteers — each in their own tone, demonstrating audience segmentation and concise web writing.</p>
-          <a href="https://spotty-shampoo-6df.notion.site" target="_blank" rel="noopener">View sample ↗</a>
+          <p>Homepage copy for the SEF website addressing three distinct audiences in turn — students, industry experts, and volunteers — each in their own paragraph and tone, rather than one generic pitch trying to speak to everyone at once.</p>
+          <p class="dim" style="font-size:0.85rem; margin-top:4px;">Demonstrates: audience segmentation and concise web copywriting.</p>
         </div>
       </div>
     </section>
@@ -314,14 +382,27 @@
         <div class="case-card">
           <span class="tag">Medium</span>
           <h3>Interning as a Software Engineer at hSenid Mobile — Part I &amp; II</h3>
-          <p>A firsthand account of my software engineering internship — onboarding, tools, and technical work. Part I: 554 views · 77 reads. Part II: 545 views · 70 reads.</p>
-          <a href="https://medium.com/@desirawijesundara/interning-as-a-software-engineer-at-hsenid-mobile-part-i-d42d925749d7" target="_blank" rel="noopener">Read Part I ↗</a>
+          <p>A firsthand account of my software engineering internship — onboarding, tools, and technical work.</p>
+          <a href="https://medium.com/@desirawijesundara/interning-as-a-software-engineer-at-hsenid-mobile-part-i-d42d925749d7" target="_blank" rel="noopener">Part I ↗</a> · 554 views · 77 reads
+          &nbsp;&nbsp;<a href="https://medium.com/@desirawijesundara/interning-as-a-software-engineer-at-hsenid-mobile-part-ii-3fff8c6b5194" target="_blank" rel="noopener">Part II ↗</a> · 545 views · 70 reads
         </div>
         <div class="case-card">
           <span class="tag">Thesis, 2024</span>
           <h3>Bright Horizons — Procedurally Generated Serious Game to Promote Learning in Individuals Affected by Trisomy-21</h3>
           <p>Final year undergraduate thesis for my BEng (Hons) at Westminster — contextualizing a research problem for a broad audience, then explaining a Unity3D/C# implementation and a regression model in structured, precise language.</p>
-          <a href="https://spotty-shampoo-6df.notion.site" target="_blank" rel="noopener">Read excerpts ↗</a>
+          <details class="excerpt">
+            <summary>Read excerpt — Abstract</summary>
+            <div class="excerpt-body">
+              <p>The serious game "Bright Horizons" uses a procedurally generated approach to level design, producing a unique experience each playthrough to maximize engagement for individuals affected by Trisomy-21 (Down syndrome), who are strong visual learners. A regression model calculates ideal activity engagement time from gene expression data, while learning resources — numbers, letters, and colors — are distributed throughout the gameplay loop so players can learn while engaged.</p>
+            </div>
+          </details>
+          <details class="excerpt">
+            <summary>Read excerpt — System implementation</summary>
+            <div class="excerpt-body">
+              <p>The solution has two components: the game, built in Unity3D with C# logic scripts, and a regression model. Key scripts include a Procedural_Generation script that builds the terrain, places collectibles, and positions the finish line in a safe zone each run, alongside movement, life-cycle, and menu scripts.</p>
+              <p>The regression model was trained on medical data from four Excel sheets of gene expression changes, consolidated into a dataset of 10,000+ entries using pandas, then used to predict ideal activity engagement times consumed by the game engine at runtime.</p>
+            </div>
+          </details>
         </div>
       </div>
     </section>
@@ -360,7 +441,7 @@
         <a class="btn primary" href="mailto:desirasenal@gmail.com">Email me</a>
         <a class="btn ghost" href="https://linkedin.com/in/desira-wijesundara" target="_blank" rel="noopener">LinkedIn ↗</a>
         <a class="btn ghost" href="https://github.com/miniskynet" target="_blank" rel="noopener">GitHub ↗</a>
-        <a class="btn ghost" href="https://spotty-shampoo-6df.notion.site" target="_blank" rel="noopener">Notion portfolio ↗</a>
+        <a class="btn ghost" href="https://spotty-shampoo-6df.notion.site" target="_blank" rel="noopener">Browse full Notion workspace ↗</a>
       </div>
     </section>
 
