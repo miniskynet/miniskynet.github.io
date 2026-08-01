@@ -157,6 +157,20 @@
   .excerpt-note{
     font-family:var(--mono); font-size:0.7rem; color:var(--slate-light); margin-top:10px;
   }
+  .excerpt-body details{
+    margin:8px 0 8px 0; border-left:2px solid var(--line); padding-left:12px;
+  }
+  .excerpt-body details summary{
+    font-family:var(--mono); font-size:0.76rem; color:var(--cobalt); cursor:pointer;
+    list-style:none; margin-bottom:6px;
+  }
+  .excerpt-body details summary::-webkit-details-marker{display:none;}
+  .excerpt-body details summary::before{content:"▸ "; font-size:0.7rem;}
+  .excerpt-body details[open] summary::before{content:"▾ ";}
+  .excerpt-body blockquote{
+    font-size:0.85rem; color:var(--slate); border-left:2px solid var(--amber);
+    padding-left:10px; margin:8px 0;
+  }
 
   .skills-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:10px; margin-top:16px;}
   .skill-chip{
@@ -308,48 +322,200 @@
           <h3>Venuix — event &amp; venue management platform</h3>
           <p>End-to-end workflow guides written in my current role at Programus Ltd. for an enterprise event and venue management platform, covering simplified event setup, seating chart maintenance mode, and booking status configuration — from high-level setup flows to granular conditional logic, written for a non-technical audience.</p>
           <details class="excerpt">
-            <summary>Read excerpt — Simplified Event Setup</summary>
+            <summary>Read full guide — Simplified Event Setup (Quick Flow)</summary>
             <div class="excerpt-body">
-              <p>To set up an Event using the Simplified Event Setup Process in Venuix:</p>
+              <p>To set up an Event using the Simplified Event Setup Process in Venuix,</p>
               <ol>
                 <li>Visit the Venuix Portal and sign in using the username and password provided to you.</li>
                 <li>Go to the Setup Module by clicking on the <span class="field">Setup</span> button.</li>
-                <li>Select <span class="field">Events and Products</span> from the left side panel, then select <span class="field">Events</span> from the module list.</li>
-                <li>Select <span class="field">Add New Event</span>, which directs you to a new page.</li>
-                <li>Under the <span class="field">General</span> tab, provide a name for the event, upload an image, and choose <span class="field">Public</span> or <span class="field">Private</span> as the event type — public events are scheduled in advance (sports, classes, courses), while private events are customer-driven (weddings, product launches).</li>
-                <li>Assign a primary venue, event category, and responsible event manager from their respective drop-downs.</li>
-                <li>Click <span class="field">Save</span> to create the event.</li>
+                <li>You may then select the <span class="field">Events and Products</span> option from the left side panel.</li>
+                <li>A list of modules will be displayed from where you may select the <span class="field">Events</span> option.</li>
+                <li>Select the <span class="field">Add New Event</span> button, which will direct you to a new page.</li>
+                <li>Under the <span class="field">General</span> tab you may make the following changes:
+                  <ul>
+                    <li>Provide a name for the event under the <span class="field">Name</span> field (note that any fields denoted with an asterisk are mandatory, therefore should be treated as such).</li>
+                    <li>To add an image to the event, select the <span class="field">Upload new image here!</span> button. A pop-up window will open where you may drag and drop or select an image from the computer.</li>
+                    <li>You may then either select <span class="field">Public</span> or <span class="field">Private</span> from the <span class="field">Event Type</span> drop-down.
+                      <ul>
+                        <li><span class="field">Public</span> events are scheduled in advance before opening to the public for bookings such as sports events, classes and courses.</li>
+                        <li><span class="field">Private</span> events on the other hand are customer driven events such as weddings and product launches, which may not be open to the general public.</li>
+                      </ul>
+                    </li>
+                    <li>You may assign a primary venue to the event from the <span class="field">Primary Venue</span> drop-down. When a booking is placed on the event, the selected venue will be booked by default.</li>
+                    <li>You may select a preferred option from the <span class="field">Event Category</span> drop-down. This selection will categorize the event based on the activities that will take place (i.e., the event could be an exhibition, a children and family focused event or a community and causes focused event).</li>
+                    <li>The manager responsible for handling event specific tasks should be selected through the <span class="field">Event Manager</span> drop-down.</li>
+                    <li>Any campaign monitor codes can be entered under the <span class="field">Event Campaign Code</span> field. This process will link the respective campaign to the event.</li>
+                    <li>If you prefer to further categorize the event, you may do so by selecting an option from the <span class="field">Event Group</span> drop-down.</li>
+                    <li>Enter any additional details regarding the event under the <span class="field">Description</span> field. Please note that the description should be no less than 20 words.</li>
+                    <li>You may enter a <span class="field">Short Description</span> if you wish, under the respective field. This description will be reflected on the Partner Platform as well.</li>
+                    <li>If there are any keywords related to the event, you may enter them under the <span class="field">Keyword</span> field. In the process of searching for events, these keywords will help further narrow down the search results.</li>
+                    <li>Under the <span class="field">Event Email and Templates</span> section you may make the following changes:
+                      <ul>
+                        <li>Enter an email under the <span class="field">Event Email</span> field, which ideally should be an event dedicated email address.</li>
+                        <li>If you wish, you may enter a preferred name under the <span class="field">Send As</span> field. Once configured, the <span class="field">Send As</span> field will be automatically populated when sending any event related emails.</li>
+                        <li>You may select the appropriate templates from the respective <span class="field">Email Template</span> drop-downs. Each template is situation specific:
+                          <ul>
+                            <li><span class="field">Booking Confirmation</span> — sends a confirmation email once a booking is confirmed.</li>
+                            <li><span class="field">Enquiry Confirmation</span> — sends a confirmation email once a booking enquiry is confirmed.</li>
+                            <li><span class="field">Waitlist Confirmation</span> — sends a confirmation email once a waitlist slot is confirmed.</li>
+                            <li><span class="field">Waitlist Availability Confirmation</span> — sends a confirmation email once the availability of a waitlist slot is confirmed.</li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>A facility is a space in a venue where some activity takes place, such as restaurants, meeting rooms, etc.
+                      <details>
+                        <summary>Adding a facility to the event</summary>
+                        <ul>
+                          <li>Navigate to the <span class="field">Facilities</span> section.</li>
+                          <li>Click on the <span class="field">Add</span> button, which will open a new pop-up window.</li>
+                          <li>A list of facilities will be displayed.</li>
+                          <li>By default, the <span class="field">Primary Venue Only</span> toggle button will be selected. If you wish, you may un-toggle this to display all the facilities.</li>
+                          <li>Select the preferred facilities and click <span class="field">Save</span> to finalize and close the window.</li>
+                          <li>Click <span class="field">Save</span> again to create the event and refresh the page.</li>
+                        </ul>
+                        <blockquote>Note: This step is mandatory before adding an Event Period.</blockquote>
+                      </details>
+                    </li>
+                    <li>To specify the duration details of the event (how long it will last and on what dates):
+                      <details>
+                        <summary>Setting the Event Period</summary>
+                        <ul>
+                          <li>Navigate to the <span class="field">Event Period</span> section.</li>
+                          <li>Click the <span class="field">Add</span> button, which will open a new pop-up window.</li>
+                          <li>You may set the date on which the event is held by selecting a date from the <span class="field">Date</span> drop-down.</li>
+                          <li>You may also set the start and end times of the event from the <span class="field">Start Time</span> and <span class="field">End Time</span> drop-downs.</li>
+                          <li>If there are any conflicting timeslots (i.e., any overlapping events), a red flag will appear under the <span class="field">Capacity</span> field. In such instances, please re-select a different date/time that will not overlap with any existing events until the red flag no longer appears.</li>
+                          <li>Under the <span class="field">Asset Type</span> section, select the <span class="field">Facility</span> radio button and the preferred Facility from the respective drop-down.</li>
+                          <li>You may set a preferred configuration under the <span class="field">Configuration</span> field. This determines how a facility is set up for an event and what capacity can be accommodated.</li>
+                          <li>Enter the maximum capacity of the event under the <span class="field">Capacity</span> field — the maximum number of covers the facility can accommodate.</li>
+                          <li>You may then enter the <span class="field">Session Code</span> (a unique identifier for a specific timeslot).</li>
+                          <li>Enter any additional information regarding the timeslot under the <span class="field">Description</span> field.</li>
+                          <li>Click <span class="field">Add</span> to save and close the window, then <span class="field">Save</span> again to save the new changes and refresh the page.</li>
+                        </ul>
+                        <blockquote>Note: This step is mandatory before adding a Package to the event.</blockquote>
+                      </details>
+                    </li>
+                    <li>To add packages to the event:
+                      <details>
+                        <summary>Adding a package</summary>
+                        <ul>
+                          <li>Navigate to the <span class="field">Packages</span> section and click <span class="field">Add</span> to open a new pop-up window.</li>
+                          <li>You may initially fill out the details regarding the full added package. The <span class="field">Name</span> field will already be populated — you may change it if you wish.</li>
+                          <li>Select a preferred <span class="field">Business Area</span> and set a <span class="field">Price</span> for the package, then select the <span class="field">Single Day</span> radio button.</li>
+                          <li>If you'd like a waiting list, tick <span class="field">Enable Waitlisting</span>, and enter a preferred Capacity plus a processing rule from the <span class="field">Waitlist Processing Rule</span> drop-down.</li>
+                          <li>Select preferred options from the <span class="field">Package Class</span>, <span class="field">Payment Term</span>, <span class="field">Cancellation Policy</span> and <span class="field">Sales Category</span> drop-downs.</li>
+                          <li>You may also select an option from the <span class="field">Attendee Capture Profile</span> drop-down and the relevant questionnaire from <span class="field">Attendee Questionnaire</span>.</li>
+                          <li>From <span class="field">Sales Channel</span>, select <span class="field">Corporate</span> and/or <span class="field">Internet</span> to show the channel to assisted staff flows and the portal respectively.</li>
+                          <li>Select the preferred method of delivery from <span class="field">Delivery Method</span>.</li>
+                          <li>To request documents from attendees, select the preferred documents from <span class="field">Document Restrictions</span>.</li>
+                          <li>To create additional packages, navigate to <span class="field">Linked Packages</span> and click <span class="field">Add Package Type</span> — a new entry appears on the linked packages table where you select a Package Type and enter a Gross Price.</li>
+                          <li>Click <span class="field">Add</span> to save and close the window, then <span class="field">Save</span> to finalize setting up the event.</li>
+                        </ul>
+                      </details>
+                    </li>
+                  </ul>
+                </li>
+                <li>Click <span class="field">Save</span> to create the event (refer to Event Setup - Single Day for additional changes to the event).</li>
               </ol>
-              <p>The full guide also covers email templates for booking/enquiry/waitlist confirmations, facility linking, and package configuration — condensed here for length.</p>
             </div>
           </details>
           <details class="excerpt">
-            <summary>Read excerpt — Seating Chart in Maintenance Mode</summary>
+            <summary>Read full guide — Seating Chart in Maintenance Mode</summary>
             <div class="excerpt-body">
-              <p>Once the seating chart has been accessed via the Booking or Diary module, the following steps apply:</p>
+              <p>Login to the Venuix portal using the username and password provided to you. There are two ways in which the seating chart page can be accessed:</p>
+              <ul>
+                <li><strong>Booking Module:</strong> Locate the relevant booking from the list and select it to access the booking details. Navigate to <span class="field">Booking Details</span> and select <span class="field">Add</span> → <span class="field">Package</span>. A pop-up lists all existing packages — locate the preferred package and click <span class="field">Select Seats</span>. Alternatively, expand an existing package and click <span class="field">Seat Allocation</span> → <span class="field">Edit Seats in the Venue Map</span>.</li>
+                <li><strong>Diary Module:</strong> Locate the relevant booking from the diary and click on the timeslot. Select <span class="field">Maintenance Mode</span> from the drop-down that opens.</li>
+              </ul>
+              <p>Once the seating chart has been accessed:</p>
               <ol>
                 <li>Switch to maintenance mode using the toggle in the upper right corner.</li>
-                <li>By default, seating categories are grouped by price band — you can also group by booking list or block.</li>
-                <li>Use the search field to filter by booking reference, client name, contact name, package name, or notes.</li>
-                <li>To reserve seats: select the preferred seats, click <span class="field">Reserve Seats</span>, enter a note, and submit. A confirmation message displays on success.</li>
-                <li>To free up seats: select allocated seats and click <span class="field">Un-allocate</span>, confirming in the pop-up that follows.</li>
-                <li>The freeze option prevents selected seats from being un-allocated while other actions are performed — useful for holding a block during a multi-step booking process.</li>
+                <li>By default, seating categories are grouped by price band. You may also group by booking list or block.</li>
+                <li>Use the arrow keys in the middle to expand either the seating details section or the seating chart section to full width.</li>
+                <li>The seating details section has multiple tabs for general admission, seats, tables, boxes, and accommodations.</li>
+                <li>Use the search field to filter by booking reference number, client name, contact name, package name, or notes.</li>
+                <li>To filter columns in the seating details section, click <span class="field">Select Fields</span> (visible only when Group By is set to Booking List), check/uncheck preferred fields, and click <span class="field">Save</span>. Click <span class="field">Reset</span> to restore defaults.</li>
+                <li>Filter the list of bookings by price band, client category, client type, allocation status, frozen status, notes, or special requests via the <span class="field">Filters</span> drop-down — selecting certain criteria triggers a secondary drop-down for further narrowing.</li>
+                <li>Use the zoom buttons or the mouse scroll wheel to adjust zoom on the seating chart.</li>
+                <li>Click refresh (next to the zoom controls) to update the view.</li>
+                <li>The <span class="field">Viewers</span> section shows who's currently viewing the chart — yellow highlights internal users, green highlights external users; hovering lists the logged-in users.</li>
+                <li>Hovering over a seat displays category, row, seat number, block, and any notes.</li>
+                <li>To reserve seats: select the preferred seats and click <span class="field">Reserve Seats</span> in the top right. A pop-up opens — enter a note and click <span class="field">Submit</span>. A confirmation message displays on success.</li>
+                <li>To un-reserve: select reserved seats, click <span class="field">Un-reserve Seats</span>, and confirm <span class="field">Yes</span> on the pop-up.</li>
+                <li>To un-allocate previously allocated seats: select the seats and click <span class="field">Un-allocate</span> at the top of the seating chart view, then confirm again.</li>
+                <li>To un-allocate an entire booking: tick the booking reference in the seating details section and click <span class="field">Un-allocate</span>, then confirm again.</li>
+                <li>To reallocate unassigned seats: drag and drop the preferred booking reference onto the venue map, or tick the reference and click <span class="field">Allocate</span>.
+                  <blockquote>Note: Using the Allocate button will automatically assign the seats starting from the top left-most available section.</blockquote>
+                </li>
+                <li>To freeze seats (prevent them from being un-allocated while other actions are performed): select the allocated seats and click the freeze button, enter a note in the pop-up, and click <span class="field">Submit</span>.</li>
+                <li>To block seats from selection: select the seats and click <span class="field">Mark as Unavailable</span>, enter a note, and click <span class="field">Submit</span>.</li>
+                <li>The audit trail feature tracks all actions performed under the venue — access it via the audit trail button next to the maintenance mode toggle. You can expand items per page and filter the audit list by price band, seat status, block, and bookings via the <span class="field">Filters</span> drop-down.</li>
               </ol>
-              <p class="excerpt-note">Note: "Using the Allocate button will automatically assign the seats starting from the top left-most available section." — an inline callout preserved from the original guide.</p>
             </div>
           </details>
           <details class="excerpt">
-            <summary>Read excerpt — Booking Status Configuration</summary>
+            <summary>Read full guide — Managing Booking Statuses</summary>
             <div class="excerpt-body">
-              <p>To add a new booking status:</p>
               <ol>
-                <li>From Setup → Bookings → Booking Statuses, click <span class="field">Add New Booking Status</span>.</li>
-                <li>Select a <span class="field">Parent Booking Status</span> to establish the status hierarchy — this determines the progression path a booking can follow.</li>
-                <li>Configure checkboxes for whether the status reserves stock, requires specific user rights to edit, requires a linked client, or should be hidden from the public portal.</li>
-                <li>Under the <span class="field">Approval</span> tab, optionally require approval to enter this status, with separate drop-downs for the approved and rejected outcome statuses.</li>
-                <li>If the parent status is Provisional or Quotation, an <span class="field">Expiry</span> tab appears, letting the status auto-expire after a set number of days or relative to the event's start/end date.</li>
+                <li>Login to the Venuix portal using the username and password provided to you.</li>
+                <li>Select the <span class="field">Setup</span> module.</li>
+                <li>Select <span class="field">Bookings</span> from the left side panel, then <span class="field">Booking Statuses</span>.</li>
+                <li>All booking statuses are listed in tabular format. Search using the search bar, or sort by name via the sort button next to <span class="field">Booking Status Name</span>.</li>
+                <li>To edit or delete an existing status, click its ellipsis icon: <span class="field">Edit</span> opens the status for changes (click <span class="field">Save</span> to confirm); <span class="field">Delete</span> opens a confirmation pop-up (<span class="field">Yes, delete it!</span> to confirm).</li>
+                <li>To add a new status, click <span class="field">Add New Booking Status</span>.</li>
+                <li>Under the <span class="field">General</span> tab:
+                  <ul>
+                    <li>Select a <span class="field">Parent Booking Status</span> to establish the status hierarchy, which determines the progression path.</li>
+                    <li>Provide a name under <span class="field">Booking Status</span>.</li>
+                    <li><span class="field">Reserve Stock</span> — whether stock/resources are reserved while the booking remains in this status.</li>
+                    <li><span class="field">Require User Rights to Edit the Booking</span> — restricts editing to users with appropriate rights (others get read-only mode).</li>
+                    <li><span class="field">Booking Client Restriction</span> — checks that a client is linked before the booking can transition to this status.</li>
+                    <li><span class="field">Hide Booking from Portal</span> — useful for internal-only statuses.</li>
+                    <li>Enter details under <span class="field">Description</span>, select <span class="field">Business Area(s)</span> (or Select All), and set a <span class="field">CalenderColor</span> for the status.</li>
+                    <li>Click <span class="field">Save</span> to create the status.</li>
+                  </ul>
+                </li>
+                <li>Under the <span class="field">Approval</span> tab:
+                  <ul>
+                    <li>Tick <span class="field">Requires Approval</span> to enable the Approved/Rejected Booking Status section — select statuses the booking automatically progresses to on approval or rejection.</li>
+                    <li>To add advance approval conditions, expand <span class="field">Advance Approval Conditions</span> and click <span class="field">Add Advance Approval Condition</span>.
+                      <details>
+                        <summary>Advance approval condition options</summary>
+                        <p>Provide a <span class="field">Requirement Name</span>, then choose how multiple conditions are evaluated: <strong>AND</strong> (all conditions must be met) or <strong>OR</strong> (any one condition is sufficient).</p>
+                        <p><strong>Business Parameters:</strong></p>
+                        <ul>
+                          <li>Sales person belongs to a specified user group(s)</li>
+                          <li>Customer belongs to a specified client category(s)</li>
+                          <li>Sales channel is any of specified (online, walk-in, call center, etc.)</li>
+                          <li>A package in the booking is of specified business area(s)</li>
+                          <li>An item in the booking is of specified item category(s)</li>
+                          <li>Booking Value — within a specified monetary range</li>
+                          <li>Discount Percentage — within a specified percentage range</li>
+                        </ul>
+                        <p><strong>Exceptional Parameters:</strong></p>
+                        <ul>
+                          <li>A discount has been applied (manual or automatic)</li>
+                          <li>Standard package price has been changed</li>
+                        </ul>
+                        <p><strong>Approver Sequence:</strong> <span class="field">Any</span> (any appointed user/group can approve), <span class="field">All in parallel</span> (all required, in parallel), or <span class="field">All in sequence</span> (approved in order, one after another). Use the Select user / Select user group drop-downs — approval from either is valid if both are selected.</p>
+                        <p><strong>Settings:</strong> Set the <span class="field">Rejected Booking Status</span> a booking moves to on rejection, and optionally hide booking conflict warnings in the Approval Confirmation popup (this doesn't apply when approving into a stock-allocated status).</p>
+                        <p>Click <span class="field">Add</span> to confirm each condition — add as many as needed, then click <span class="field">Save</span>.</p>
+                      </details>
+                    </li>
+                  </ul>
+                </li>
+                <li>If the selected Parent Booking Status is <span class="field">Provisional</span> or <span class="field">Quotation</span>, an <span class="field">Expiry</span> tab becomes available:
+                  <ul>
+                    <li>Tick <span class="field">Booking Expires in x Days</span> to auto-expire after a set number of days.</li>
+                    <li>Tick <span class="field">Booking Expires After</span> to tie expiry to the <span class="field">Event Start Date</span> or <span class="field">Event End Date</span>.</li>
+                    <li>Select the status the booking moves to on expiry from <span class="field">Expiry Booking Status</span>.
+                      <blockquote>Note: This field is mandatory.</blockquote>
+                    </li>
+                    <li>Click <span class="field">Save</span> to save the changes.</li>
+                  </ul>
+                </li>
               </ol>
-              <p>This workflow demonstrates documenting conditional logic — fields and tabs that only appear based on earlier selections — clearly enough for a non-technical admin to configure correctly.</p>
             </div>
           </details>
         </div>
@@ -393,14 +559,39 @@
           <details class="excerpt">
             <summary>Read excerpt — Abstract</summary>
             <div class="excerpt-body">
-              <p>The serious game "Bright Horizons" uses a procedurally generated approach to level design, producing a unique experience each playthrough to maximize engagement for individuals affected by Trisomy-21 (Down syndrome), who are strong visual learners. A regression model calculates ideal activity engagement time from gene expression data, while learning resources — numbers, letters, and colors — are distributed throughout the gameplay loop so players can learn while engaged.</p>
+              <p>The special education domain caters to a multitude of individuals with varying mental and physical challenges. Individuals affected by Trisomy 21 fall under the same umbrella as individuals requiring special education. This genetic disorder is commonly referred to as Down syndrome (DS), which is a result of an extra chromosome in an individual's DNA and can cause developmental and cognitive challenges all throughout their lives. The conventional methods of educating children in third world countries, with the inclusion of Sri Lanka, shows signs of disparity towards individuals with special needs. Children affected by Trisomy 21 fall victim to the lack of tailored educational approaches.</p>
+              <p>Respective medical data shows that higher Gamma Aminobutyric Acid (GABA) levels in the brain of an individual affected by Trisomy 21 reduces neuroplasticity, which also reduces the effectiveness of learning resources provided to them. Medical data also indicate that certain game genres increase the levels of dopamine in the brains of these individuals which result in lower GABA levels for a brief period of time. Furthermore, it has been identified that individuals affected by Trisomy 21 are strong visual learners, hence the proposed solution by the author comes in the form of a serious game, which not only caters to the visual learning preferences of these individuals but also aims to reduce the GABA levels in the brain to effectively provide learning resources.</p>
+              <p>The serious game 'Bright Horizons,' uses a procedurally generated approach to level design, resulting in a unique experience for the individual each playthrough, to ensure the highest possibility of engagement. Furthermore, a regression model is used to calculate the ideal activity engagement time based on acquired medical data containing gene expression change values. Learning resources such as numbers, letters and colors are distributed throughout the gameplay loop so that individuals in consideration can actively learn while being engaged in gameplay.</p>
             </div>
           </details>
           <details class="excerpt">
-            <summary>Read excerpt — System implementation</summary>
+            <summary>Read excerpt — Problem Background (Section 1.2)</summary>
             <div class="excerpt-body">
-              <p>The solution has two components: the game, built in Unity3D with C# logic scripts, and a regression model. Key scripts include a Procedural_Generation script that builds the terrain, places collectibles, and positions the finish line in a safe zone each run, alongside movement, life-cycle, and menu scripts.</p>
-              <p>The regression model was trained on medical data from four Excel sheets of gene expression changes, consolidated into a dataset of 10,000+ entries using pandas, then used to predict ideal activity engagement times consumed by the game engine at runtime.</p>
+              <p>The primary objective of this project is to lay the educational foundation for children affected by Trisomy 21. This unique population faces significant challenges all throughout their educational journeys and day-to-day life. In third world countries, most of these children fail to even receive their basic education let alone consider career opportunities. This genetic disorder causes distress to both children and their respective caretakers, and addressing this issue is paramount.</p>
+              <p>It has been proven that children affected by this condition respond well to game-based learning since they are strong visual learners, as opposed to conventional learning methods. Current educational practices, especially in Sri Lanka, fail to deliver these tailored educational approaches. Serious games are met quite often in the military, government, and healthcare with extensive use in education and learning, since they are proven to be engaging and appealing to people of all social classes. Even though technologies like virtual reality (VR) are on the rise as means of education, there are limited real-life use case scenarios of serious games in the special education domain.</p>
+              <p>Users are encouraged to make mistakes while they play serious games, as the key objectives are learning, knowledge retention, understanding of new concepts, problem-solving and real-time data analysis. The significance of this research lies in its potential to improve the quality of education and the overall quality of life for individuals with Trisomy 21.</p>
+            </div>
+          </details>
+          <details class="excerpt">
+            <summary>Read excerpt — System Implementation (Section 7.3)</summary>
+            <div class="excerpt-body">
+              <p>The proposed solution in this project is comprised of two major components: the game itself and the machine learning model. The serious game, built using the Unity3D engine, uses C# for creating logical scripts. These scripts govern the various functionalities of the game - from the main menu and gameplay loop through to the end screen.</p>
+              <p>Key scripts and their functions:</p>
+              <ul>
+                <li><strong>Start_Menu Script</strong> — Executed on launch; loads the main menu of the game.</li>
+                <li><strong>Camera_Controller Script</strong> — Ensures the camera object follows the player character as it moves.</li>
+                <li><strong>Player_Movement Script</strong> — Controls player movement states: idle, running, jumping, and falling. Each state is assigned an animation and a sound. The player character can only occupy one state at a time, and the sprite flips based on movement direction. Jumping is only permitted when the player is in a grounded state.</li>
+                <li><strong>Player_Life Script</strong> — Oversees the player life and death cycle. Upon colliding with an enemy or trap, the player loses a life and respawns at the start of the level.</li>
+                <li><strong>Item_Collector Script</strong> — Allows the player to collect numbers, letters, or colors scattered throughout the game world. Each collectible is assigned a collider object that detects the player's rigid body. Upon collision, the game object is destroyed and the score is incremented.</li>
+                <li><strong>Sticky_Platform Script</strong> — Ensures that once the player character lands on a moving platform, they remain attached as it moves. This is achieved by setting the player object as a child of the platform upon collision.</li>
+                <li><strong>Waypoint_Follower Script</strong> — Manages platform movement between two waypoint objects placed in the game world, creating back-and-forth motion.</li>
+                <li><strong>Pause_Menu Script</strong> — Switches the game's time scale between 1 (running) and 0 (paused).</li>
+                <li><strong>End_Menu Script</strong> — Displayed upon game completion; allows the player to return to the main menu or quit.</li>
+                <li><strong>Options_Menu Script</strong> — Manages user preferences including resolution, graphical presets, volume, difficulty, and learning resource preferences. Changes take immediate effect and are saved locally for future sessions.</li>
+                <li><strong>Level_Manager Script</strong> — Determines the number of levels to generate based on the selected difficulty level, and handles level display and completion messaging.</li>
+                <li><strong>Procedural_Generation Script</strong> — The most complex script in the project, responsible for generating the game world based on difficulty level. This includes creating hills and platforms with varying heights and widths, placing them randomly across the terrain, setting start and end borders, positioning the finish line in a safe zone clear of terrain elements, and distributing collectible items throughout the level.</li>
+              </ul>
+              <p>The regression model was constructed to determine ideal activity engagement times. Medical data was sourced from four Excel sheets containing gene expression changes, which first required a processing stage to remove inconsistent columns and combine the files into a single dataset of over ten thousand entries. This dataset was loaded using the pandas library and underwent a second processing stage - replacing empty Gene ID cells with 'unknown' and converting Direction values to binary representations of 'up' and 'down'. A new column, 'Activity Engagement Time', was created by assigning randomised values between 60 and 120 seconds. The data was then split into features and targets, divided into training and testing sets, and used to train a linear regression model. The trained model predicts ideal activity engagement times and saves the output for use by the game engine.</p>
             </div>
           </details>
         </div>
