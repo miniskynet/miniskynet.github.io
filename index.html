@@ -201,6 +201,14 @@
     padding-left:10px; margin:8px 0;
   }
 
+  .excerpt-body pre.code{
+    font-family:var(--mono); font-size:0.76rem; line-height:1.55; background:var(--paper-dim);
+    border:1px solid var(--line); border-radius:6px; padding:10px 12px; margin:8px 0;
+    overflow-x:auto; white-space:pre; color:var(--ink);
+  }
+  .excerpt-body.email{border-left:2px solid var(--line); padding-left:14px;}
+  .excerpt-body.email ol, .excerpt-body.email li{color:var(--slate);}
+
   .skills-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:10px; margin-top:16px;}
   .skill-chip{
     font-family:var(--mono); font-size:0.78rem; padding:8px 12px; background:var(--paper-dim);
@@ -372,6 +380,9 @@
         </div>
       </div>
     </section>
+
+    <section id="case-studies">
+      <div class="endpoint-label"><span class="method get">GET</span> /case-studies</div>
       <h2>Case studies</h2>
       <p class="dim">Sanitized enterprise documentation samples, published under the placeholder product name "Venuix."</p>
 
@@ -629,6 +640,66 @@
           </details>
         </div>
         <div class="case-card">
+          <span class="tag">API Integration Support</span>
+          <h3>Client emails - API integration questions</h3>
+          <p><strong>What it is:</strong> Excerpts from emails I sent to client developers during their API integrations, answering their questions and clarifying how the API behaves.</p>
+          <p><strong>What it shows:</strong> How I explain API behavior to clients, confirm or correct their understanding, suggest workarounds, and flag when something is a bug rather than expected behavior.</p>
+
+          <details class="excerpt">
+            <summary>Read email - Reviewing a client's endpoint mapping</summary>
+            <div class="excerpt-body email">
+              <p>Hi [Client],</p>
+              <p>Thanks for the mapping, here's our confirmation on each scenario:</p>
+              <ol>
+                <li>Change Quantity → <span class="field">[update booking endpoint]</span>. Correct as proposed.</li>
+                <li>Remove Booked Option → <span class="field">[remove booked item endpoint]</span>. Please note <span class="field">[cancel booking endpoint]</span> should not be listed here, that cancels the entire booking, not a single option.</li>
+                <li>Add new option to an already booked time slot → <span class="field">[update booking endpoint]</span>. Correct as proposed.</li>
+                <li>Change Date → <span class="field">[update booking endpoint]</span>, not a separate change date endpoint (that path doesn't exist). Include the booked item's ID and its new start date in the request. The end date is optional.</li>
+                <li>Change Session → same as above, <span class="field">[update booking endpoint]</span> with the new start date on the relevant booked item.</li>
+              </ol>
+              <p>On booking status IDs: there is no fixed status ID that is the same across all environments, these are configurable per system. What is fixed is the parent status. If you need the exact status ID values for a given environment, you can retrieve them using <span class="field">[booking statuses endpoint]</span>.</p>
+              <p>Please let me know if you need further clarifications.</p>
+            </div>
+          </details>
+
+          <details class="excerpt">
+            <summary>Read email - Expected behavior vs. a bug</summary>
+            <div class="excerpt-body email">
+              <p>Hi [Client],</p>
+              <p>Please see our responses below:</p>
+              <p>1) Regarding the linked packages not appearing in the responses, we checked the [package name] package, and it appears that this package does not actually have any linked packages configured, which is why no linked package data is returned. The fact that it is listed as an "Adult Package" does not necessarily mean it should have linked packages associated with it.</p>
+              <p>2) Regarding the error when updating the booking with a discount item, as the booking was already created with a discount applied, attempting to add another percentage discount on top of it is not supported. A package on a booking can only have one percentage discount at a time. This is the expected behavior and the reason you are receiving the error. To apply a different discount, you would need to remove the existing discount first before adding a new one.</p>
+              <p>Additionally, we wanted to flag that the 500 error you received is not the correct response in this scenario. The expected response should have been an HTTP 400 error with a message indicating that only one percentage discount is allowed. We will look into this error response mismatch on our end.</p>
+              <p>Please let us know if you have any further queries in the meantime.</p>
+            </div>
+          </details>
+
+          <details class="excerpt">
+            <summary>Read email - Suggesting a workaround</summary>
+            <div class="excerpt-body email">
+              <p>Hi [Client],</p>
+              <p>The <span class="field">[discounted package details endpoint]</span> does not currently support a direct filter to retrieve only public packages (e.g., filtering by event type is not supported at this stage).</p>
+              <p>To ensure you are retrieving only public event packages, we recommend using the <span class="field">[public packages endpoint]</span>.</p>
+              <p>If needed, there is an event ID filter available in the <span class="field">[discounted package details endpoint]</span>. If you have a known list of public event IDs, you could use that as a workaround to narrow down results.</p>
+              <p>Please let us know if you have any further questions.</p>
+            </div>
+          </details>
+
+          <details class="excerpt">
+            <summary>Read email - Pulling only changed records</summary>
+            <div class="excerpt-body email">
+              <p>Hi [Client],</p>
+              <p>As requested, here are examples demonstrating how to perform delta extraction using the API:</p>
+              <pre class="code">GET [bookings endpoint]?[updated after filter]=2030-10-30T00:00:00
+GET [bookings endpoint]?[updated before filter]=2030-10-30T00:00:00</pre>
+              <p>These filters allow you to retrieve only the bookings that have changed since your last extraction, rather than pulling each booking individually.</p>
+              <p>For clarity, the API also supports delta extraction using the inserted and updated audit timestamps, which can be used for more granular filtering if required.</p>
+            </div>
+          </details>
+          <div class="excerpt-note">Excerpts from real client emails, lightly trimmed. Client names, endpoints, IDs and system details are replaced with placeholders.</div>
+        </div>
+
+        <div class="case-card">
           <span class="tag">Onboarding &amp; Handbook</span>
           <h3>SEF Volunteer Handbook - Organizational Overview</h3>
           <p><strong>What it is:</strong> An introduction to the Sustainable Education Foundation written for the handbook I created during my time as Associate Software Engineer at SEF (2022-2023). This section sets the tone for the entire handbook and speaks to prospective volunteers across all backgrounds.</p>
@@ -738,14 +809,14 @@
         </div>
         <div class="case-card">
           <span class="tag">Medium</span>
-          <h3>Interning as a Software Engineer at hSenid Mobile — Part I</h3>
+          <h3>Interning as a Software Engineer at hSenid Mobile: Part I</h3>
           <p>A firsthand account of my software engineering internship, covering onboarding, tools, and early experiences in a professional dev environment.</p>
           <p class="dim" style="font-size:0.85rem;">📖 554 views · 77 reads</p>
           <a href="https://medium.com/@desirawijesundara/interning-as-a-software-engineer-at-hsenid-mobile-part-i-d42d925749d7" target="_blank" rel="noopener">Read on Medium ↗</a>
         </div>
         <div class="case-card">
           <span class="tag">Medium</span>
-          <h3>Interning as a Software Engineer at hSenid Mobile — Part II</h3>
+          <h3>Interning as a Software Engineer at hSenid Mobile: Part II</h3>
           <p>Continued reflections on the internship including deeper technical work and lessons learned.</p>
           <p class="dim" style="font-size:0.85rem;">📖 545 views · 70 reads</p>
           <a href="https://medium.com/@desirawijesundara/interning-as-a-software-engineer-at-hsenid-mobile-part-ii-3fff8c6b5194" target="_blank" rel="noopener">Read on Medium ↗</a>
