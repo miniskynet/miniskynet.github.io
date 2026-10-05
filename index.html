@@ -209,6 +209,24 @@
   .excerpt-body.email{border-left:2px solid var(--line); padding-left:14px;}
   .excerpt-body.email ol, .excerpt-body.email li{color:var(--slate);}
 
+  .excerpt-body table.params{width:100%; border-collapse:collapse; margin:8px 0 12px; font-size:0.82rem; display:block; overflow-x:auto;}
+  .excerpt-body table.params th, .excerpt-body table.params td{
+    text-align:left; vertical-align:top; padding:6px 8px; border-bottom:1px solid var(--line);
+  }
+  .excerpt-body table.params th{font-family:var(--mono); font-size:0.72rem; color:var(--slate); font-weight:500;}
+  .excerpt-body table.params td:first-child, .excerpt-body table.params td:nth-child(2){font-family:var(--mono); font-size:0.78rem; white-space:nowrap;}
+  .excerpt-body .endpoint-line{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .excerpt-body .endpoint-line .method{font-family:var(--mono); font-size:0.68rem; padding:1px 6px; border-radius:3px; font-weight:500;}
+  .excerpt-body .marker{display:inline-block; font-family:var(--mono); font-size:0.62rem; padding:0 5px; border-radius:3px; margin-left:4px; vertical-align:1px;}
+  .excerpt-body .marker.req{background:#FCEFDD; color:#9A5B12;}
+  .excerpt-body .marker.opt{background:var(--paper-dim); color:var(--slate);}
+  .excerpt-body .marker.ro{background:#E8EEFC; color:var(--cobalt);}
+  .excerpt-body table.params.errors td:nth-child(2){font-family:inherit; font-size:0.82rem; white-space:normal;}
+  .case-grid > .case-card{min-width:0;}
+  .case-group-label{font-family:var(--mono); font-size:0.72rem; color:var(--slate); text-transform:uppercase; letter-spacing:0.06em; margin:14px 0 -6px;}
+  .case-group-label:first-child{margin-top:4px;}
+  .skill-group-label{font-family:var(--mono); font-size:0.72rem; color:var(--slate); text-transform:uppercase; letter-spacing:0.06em; margin:22px 0 -6px;}
+
   .skills-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:10px; margin-top:16px;}
   .skill-chip{
     font-family:var(--mono); font-size:0.78rem; padding:8px 12px; background:var(--paper-dim);
@@ -247,7 +265,7 @@
         <li><a href="#experience"><span class="method get">GET</span>/experience</a></li>
         <li><a href="#case-studies"><span class="method get">GET</span>/case-studies</a></li>
         <li><a href="#writing"><span class="method get">GET</span>/writing</a></li>
-        <li><a href="#skills"><span class="method get">GET</span>/skills</a></li>
+        <li><a href="#skills"><span class="method get">GET</span>/toolchain</a></li>
         <li><a href="#contact"><span class="method post">POST</span>/contact</a></li>
       </ul>
     </nav>
@@ -267,7 +285,6 @@
         <div class="cta-row">
           <a class="btn primary" href="#contact">Get in touch</a>
           <a class="btn ghost" href="Desira_Wijesundara_Resume.pdf" target="_blank" rel="noopener">Download résumé</a>
-          <a class="btn ghost" href="https://spotty-shampoo-6df.notion.site/Desira-Wijesundara-Technical-Writer-Software-Engineer-3630d06cde63804aa00ff8498abc86dd" target="_blank" rel="noopener">Browse Notion workspace ↗</a>
         </div>
       </div>
 
@@ -384,9 +401,177 @@
     <section id="case-studies">
       <div class="endpoint-label"><span class="method get">GET</span> /case-studies</div>
       <h2>Case studies</h2>
-      <p class="dim">Sanitized enterprise documentation samples, published under the placeholder product name "Venuix."</p>
+      <p class="dim">Sanitized documentation samples. The user guides use the placeholder product name "Venuix"; the API samples use invented examples.</p>
 
       <div class="case-grid">
+        <div class="case-group-label">API documentation</div>
+        <div class="case-card">
+          <span class="tag">API Reference</span>
+          <h3>Sample - endpoint reference</h3>
+          <p><strong>What it is:</strong> Illustrative samples of the reference documentation I write in OpenAPI/Swagger, and how I did it at scale. To protect my employer's systems, the API, endpoints and fields are invented.</p>
+          <p><strong>What it shows:</strong> Reference a developer can actually use: clear summaries, documented filters, sorting and includes, request fields marked as required, optional or read-only, payload and response examples, and errors that explain what went wrong.</p>
+
+          <details class="excerpt">
+            <summary>View endpoint - List reservations</summary>
+            <div class="excerpt-body">
+              <p class="endpoint-line"><span class="method get">GET</span> <span class="field">/reservations</span> <strong>List reservations</strong></p>
+              <p>Returns a paginated list of reservations. Use filters to narrow the results, <span class="field">sort</span> to order them, and <span class="field">include</span> to return related records in the same response.</p>
+              <table class="params">
+                <thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                  <tr><td>page</td><td>integer</td><td>Page number to return. Starts at 1. Default: 1.</td></tr>
+                  <tr><td>size</td><td>integer</td><td>Number of reservations per page. Default: 25. Maximum: 100.</td></tr>
+                  <tr><td>status</td><td>string</td><td>Filters by status. Accepted values: <span class="field">confirmed</span>, <span class="field">pending</span>, <span class="field">cancelled</span>.</td></tr>
+                  <tr><td>sort</td><td>string</td><td>Field to sort by. Add a <span class="field">-</span> prefix for descending order. Supported fields: <span class="field">start</span>, <span class="field">created_at</span>.</td></tr>
+                  <tr><td>include</td><td>string</td><td>Related records to return with each reservation. Supported values: <span class="field">customer</span>, <span class="field">items</span>.</td></tr>
+                </tbody>
+              </table>
+              <p><strong>Example request</strong></p>
+              <pre class="code">GET /reservations?status=confirmed&amp;sort=-start&amp;include=customer&amp;size=1</pre>
+              <p><strong>Response 200</strong></p>
+              <pre class="code">{
+  "data": [
+    {
+      "id": "res_1042",
+      "status": "confirmed",
+      "start": "2030-05-01T10:00:00Z",
+      "customer": { "id": "cus_310", "name": "Jordan Lee" }
+    }
+  ],
+  "meta": { "page": 1, "size": 1, "total": 48 }
+}</pre>
+            </div>
+          </details>
+
+          <details class="excerpt">
+            <summary>View endpoint - Create a reservation</summary>
+            <div class="excerpt-body">
+              <p class="endpoint-line"><span class="method post">POST</span> <span class="field">/reservations</span> <strong>Create a reservation</strong></p>
+              <p>Creates a reservation for a customer and returns it with its generated ID.</p>
+              <p><strong>Request body</strong></p>
+              <table class="params">
+                <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+                <tbody>
+                  <tr><td>customer_id <span class="marker req">Required</span></td><td>string</td><td>ID of the customer making the reservation.</td></tr>
+                  <tr><td>start <span class="marker req">Required</span></td><td>date-time</td><td>Start time in ISO 8601 format, in UTC.</td></tr>
+                  <tr><td>items <span class="marker req">Required</span></td><td>array</td><td>Items to reserve. Each item needs a <span class="field">product_id</span> and a <span class="field">quantity</span>.</td></tr>
+                  <tr><td>status <span class="marker opt">Optional</span></td><td>string</td><td>Initial status. Default: <span class="field">pending</span>.</td></tr>
+                  <tr><td>notes <span class="marker opt">Optional</span></td><td>string</td><td>Internal notes. Not shown to the customer.</td></tr>
+                  <tr><td>id <span class="marker ro">Read-only</span></td><td>string</td><td>Generated by the API. Ignored if sent.</td></tr>
+                  <tr><td>created_at <span class="marker ro">Read-only</span></td><td>date-time</td><td>Set by the API when the reservation is created.</td></tr>
+                </tbody>
+              </table>
+              <p><strong>Example request</strong></p>
+              <pre class="code">POST /reservations
+
+{
+  "customer_id": "cus_310",
+  "start": "2030-05-01T10:00:00Z",
+  "items": [
+    { "product_id": "prd_12", "quantity": 2 }
+  ],
+  "notes": "Window table requested"
+}</pre>
+              <p><strong>Response 201</strong></p>
+              <pre class="code">{
+  "data": {
+    "id": "res_1043",
+    "status": "pending",
+    "customer_id": "cus_310",
+    "start": "2030-05-01T10:00:00Z",
+    "items": [
+      { "product_id": "prd_12", "quantity": 2 }
+    ],
+    "notes": "Window table requested",
+    "created_at": "2030-04-20T09:15:00Z"
+  }
+}</pre>
+              <p><strong>Errors</strong></p>
+              <table class="params errors">
+                <thead><tr><th>Status</th><th>Meaning</th></tr></thead>
+                <tbody>
+                  <tr><td>400</td><td>A required field is missing or invalid. The message names the field, for example <span class="field">start is required</span>.</td></tr>
+                  <tr><td>404</td><td>The <span class="field">customer_id</span> or a <span class="field">product_id</span> doesn't exist.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </details>
+
+          <details class="excerpt">
+            <summary>Read - How I did it at scale</summary>
+            <div class="excerpt-body">
+              <ul>
+                <li>Across an 800+ endpoint API, I hand-wrote the first 2,600+ field and endpoint descriptions, tracing each one back to the source code rather than guessing.</li>
+                <li>I then scaled the work with AI-assisted audits (Claude Code) that flagged gaps in descriptions, filters, sorting, includes and examples, reaching 7,000+ descriptions.</li>
+                <li>I hand-verified every flagged item against the source before trusting it. In one batch, only 13 of 102 findings were real problems, so I patched the scans themselves to stop the same false positives from coming back.</li>
+                <li>Testing the documentation against the live API also surfaced real backend bugs, which I raised with the developers and tracked through to fixes.</li>
+              </ul>
+            </div>
+          </details>
+          <div class="excerpt-note">Illustrative sample. The API, endpoints and fields are invented; the approach reflects my real reference documentation work.</div>
+        </div>
+
+        <div class="case-card">
+          <span class="tag">API Integration Support</span>
+          <h3>Client emails - API integration questions</h3>
+          <p><strong>What it is:</strong> Excerpts from emails I sent to client developers during their API integrations, answering their questions and clarifying how the API behaves.</p>
+          <p><strong>What it shows:</strong> How I explain API behavior to clients, confirm or correct their understanding, suggest workarounds, and flag when something is a bug rather than expected behavior.</p>
+
+          <details class="excerpt">
+            <summary>Read email - Reviewing a client's endpoint mapping</summary>
+            <div class="excerpt-body email">
+              <p>Hi [Client],</p>
+              <p>Thanks for the mapping, here's our confirmation on each scenario:</p>
+              <ol>
+                <li>Change Quantity → <span class="field">[update booking endpoint]</span>. Correct as proposed.</li>
+                <li>Remove Booked Option → <span class="field">[remove booked item endpoint]</span>. Please note <span class="field">[cancel booking endpoint]</span> should not be listed here, that cancels the entire booking, not a single option.</li>
+                <li>Add new option to an already booked time slot → <span class="field">[update booking endpoint]</span>. Correct as proposed.</li>
+                <li>Change Date → <span class="field">[update booking endpoint]</span>, not a separate change date endpoint (that path doesn't exist). Include the booked item's ID and its new start date in the request. The end date is optional.</li>
+                <li>Change Session → same as above, <span class="field">[update booking endpoint]</span> with the new start date on the relevant booked item.</li>
+              </ol>
+              <p>On booking status IDs: there is no fixed status ID that is the same across all environments, these are configurable per system. What is fixed is the parent status. If you need the exact status ID values for a given environment, you can retrieve them using <span class="field">[booking statuses endpoint]</span>.</p>
+              <p>Please let me know if you need further clarifications.</p>
+            </div>
+          </details>
+
+          <details class="excerpt">
+            <summary>Read email - Expected behavior vs. a bug</summary>
+            <div class="excerpt-body email">
+              <p>Hi [Client],</p>
+              <p>Please see our responses below:</p>
+              <p>1) Regarding the linked packages not appearing in the responses, we checked the [package name] package, and it appears that this package does not actually have any linked packages configured, which is why no linked package data is returned. The fact that it is listed as an "Adult Package" does not necessarily mean it should have linked packages associated with it.</p>
+              <p>2) Regarding the error when updating the booking with a discount item, as the booking was already created with a discount applied, attempting to add another percentage discount on top of it is not supported. A package on a booking can only have one percentage discount at a time. This is the expected behavior and the reason you are receiving the error. To apply a different discount, you would need to remove the existing discount first before adding a new one.</p>
+              <p>Additionally, we wanted to flag that the 500 error you received is not the correct response in this scenario. The expected response should have been an HTTP 400 error with a message indicating that only one percentage discount is allowed. We will look into this error response mismatch on our end.</p>
+              <p>Please let us know if you have any further queries in the meantime.</p>
+            </div>
+          </details>
+
+          <details class="excerpt">
+            <summary>Read email - Suggesting a workaround</summary>
+            <div class="excerpt-body email">
+              <p>Hi [Client],</p>
+              <p>The <span class="field">[discounted package details endpoint]</span> does not currently support a direct filter to retrieve only public packages (e.g., filtering by event type is not supported at this stage).</p>
+              <p>To ensure you are retrieving only public event packages, we recommend using the <span class="field">[public packages endpoint]</span>.</p>
+              <p>If needed, there is an event ID filter available in the <span class="field">[discounted package details endpoint]</span>. If you have a known list of public event IDs, you could use that as a workaround to narrow down results.</p>
+              <p>Please let us know if you have any further questions.</p>
+            </div>
+          </details>
+
+          <details class="excerpt">
+            <summary>Read email - Pulling only changed records</summary>
+            <div class="excerpt-body email">
+              <p>Hi [Client],</p>
+              <p>As requested, here are examples demonstrating how to perform delta extraction using the API:</p>
+              <pre class="code">GET [bookings endpoint]?[updated after filter]=2030-10-30T00:00:00
+GET [bookings endpoint]?[updated before filter]=2030-10-30T00:00:00</pre>
+              <p>These filters allow you to retrieve only the bookings that have changed since your last extraction, rather than pulling each booking individually.</p>
+              <p>For clarity, the API also supports delta extraction using the inserted and updated audit timestamps, which can be used for more granular filtering if required.</p>
+            </div>
+          </details>
+          <div class="excerpt-note">Excerpts from real client emails, lightly trimmed. Client names, endpoints, IDs and system details are replaced with placeholders.</div>
+        </div>
+
+        <div class="case-group-label">User &amp; onboarding documentation</div>
         <div class="case-card">
           <span class="tag">Enterprise User Guides</span>
           <h3>Venuix - event &amp; venue management platform</h3>
@@ -639,71 +824,12 @@
             </div>
           </details>
         </div>
-        <div class="case-card">
-          <span class="tag">API Integration Support</span>
-          <h3>Client emails - API integration questions</h3>
-          <p><strong>What it is:</strong> Excerpts from emails I sent to client developers during their API integrations, answering their questions and clarifying how the API behaves.</p>
-          <p><strong>What it shows:</strong> How I explain API behavior to clients, confirm or correct their understanding, suggest workarounds, and flag when something is a bug rather than expected behavior.</p>
-
-          <details class="excerpt">
-            <summary>Read email - Reviewing a client's endpoint mapping</summary>
-            <div class="excerpt-body email">
-              <p>Hi [Client],</p>
-              <p>Thanks for the mapping, here's our confirmation on each scenario:</p>
-              <ol>
-                <li>Change Quantity → <span class="field">[update booking endpoint]</span>. Correct as proposed.</li>
-                <li>Remove Booked Option → <span class="field">[remove booked item endpoint]</span>. Please note <span class="field">[cancel booking endpoint]</span> should not be listed here, that cancels the entire booking, not a single option.</li>
-                <li>Add new option to an already booked time slot → <span class="field">[update booking endpoint]</span>. Correct as proposed.</li>
-                <li>Change Date → <span class="field">[update booking endpoint]</span>, not a separate change date endpoint (that path doesn't exist). Include the booked item's ID and its new start date in the request. The end date is optional.</li>
-                <li>Change Session → same as above, <span class="field">[update booking endpoint]</span> with the new start date on the relevant booked item.</li>
-              </ol>
-              <p>On booking status IDs: there is no fixed status ID that is the same across all environments, these are configurable per system. What is fixed is the parent status. If you need the exact status ID values for a given environment, you can retrieve them using <span class="field">[booking statuses endpoint]</span>.</p>
-              <p>Please let me know if you need further clarifications.</p>
-            </div>
-          </details>
-
-          <details class="excerpt">
-            <summary>Read email - Expected behavior vs. a bug</summary>
-            <div class="excerpt-body email">
-              <p>Hi [Client],</p>
-              <p>Please see our responses below:</p>
-              <p>1) Regarding the linked packages not appearing in the responses, we checked the [package name] package, and it appears that this package does not actually have any linked packages configured, which is why no linked package data is returned. The fact that it is listed as an "Adult Package" does not necessarily mean it should have linked packages associated with it.</p>
-              <p>2) Regarding the error when updating the booking with a discount item, as the booking was already created with a discount applied, attempting to add another percentage discount on top of it is not supported. A package on a booking can only have one percentage discount at a time. This is the expected behavior and the reason you are receiving the error. To apply a different discount, you would need to remove the existing discount first before adding a new one.</p>
-              <p>Additionally, we wanted to flag that the 500 error you received is not the correct response in this scenario. The expected response should have been an HTTP 400 error with a message indicating that only one percentage discount is allowed. We will look into this error response mismatch on our end.</p>
-              <p>Please let us know if you have any further queries in the meantime.</p>
-            </div>
-          </details>
-
-          <details class="excerpt">
-            <summary>Read email - Suggesting a workaround</summary>
-            <div class="excerpt-body email">
-              <p>Hi [Client],</p>
-              <p>The <span class="field">[discounted package details endpoint]</span> does not currently support a direct filter to retrieve only public packages (e.g., filtering by event type is not supported at this stage).</p>
-              <p>To ensure you are retrieving only public event packages, we recommend using the <span class="field">[public packages endpoint]</span>.</p>
-              <p>If needed, there is an event ID filter available in the <span class="field">[discounted package details endpoint]</span>. If you have a known list of public event IDs, you could use that as a workaround to narrow down results.</p>
-              <p>Please let us know if you have any further questions.</p>
-            </div>
-          </details>
-
-          <details class="excerpt">
-            <summary>Read email - Pulling only changed records</summary>
-            <div class="excerpt-body email">
-              <p>Hi [Client],</p>
-              <p>As requested, here are examples demonstrating how to perform delta extraction using the API:</p>
-              <pre class="code">GET [bookings endpoint]?[updated after filter]=2030-10-30T00:00:00
-GET [bookings endpoint]?[updated before filter]=2030-10-30T00:00:00</pre>
-              <p>These filters allow you to retrieve only the bookings that have changed since your last extraction, rather than pulling each booking individually.</p>
-              <p>For clarity, the API also supports delta extraction using the inserted and updated audit timestamps, which can be used for more granular filtering if required.</p>
-            </div>
-          </details>
-          <div class="excerpt-note">Excerpts from real client emails, lightly trimmed. Client names, endpoints, IDs and system details are replaced with placeholders.</div>
-        </div>
 
         <div class="case-card">
-          <span class="tag">Onboarding &amp; Handbook</span>
-          <h3>SEF Volunteer Handbook - Organizational Overview</h3>
-          <p><strong>What it is:</strong> An introduction to the Sustainable Education Foundation written for the handbook I created during my time as Associate Software Engineer at SEF (2022-2023). This section sets the tone for the entire handbook and speaks to prospective volunteers across all backgrounds.</p>
-          <p><strong>What it shows:</strong> Ability to write welcoming, accessible organizational content that balances professionalism with warmth.</p>
+          <span class="tag">Onboarding &amp; Web Copy</span>
+          <h3>SEF - volunteer handbook &amp; web copy</h3>
+          <p><strong>What it is:</strong> Writing from my time as Associate Software Engineer at the Sustainable Education Foundation (2022-2023): the volunteer handbook I created, covering the organization and Engineering Team onboarding, and web copy for the main SEF website addressed to students, industry experts and volunteers.</p>
+          <p><strong>What it shows:</strong> Welcoming, accessible organizational content, onboarding content for a technical audience without losing the human element, structured step-by-step instructional writing, and web copy that adapts its tone for different readers.</p>
           <details class="excerpt">
             <summary>Read excerpt - SEF Handbook Introduction</summary>
             <div class="excerpt-body">
@@ -715,12 +841,6 @@ GET [bookings endpoint]?[updated before filter]=2030-10-30T00:00:00</pre>
               </div>
             </div>
           </details>
-        </div>
-        <div class="case-card">
-          <span class="tag">Onboarding &amp; Handbook</span>
-          <h3>SEF Volunteer Handbook - Engineering Team Onboarding (Part 1)</h3>
-          <p><strong>What it is:</strong> The opening section of the Engineering Team chapter from the same handbook, covering who the team is and what they do.</p>
-          <p><strong>What it shows:</strong> Ability to write onboarding content for a technical audience without losing the human element.</p>
           <details class="excerpt">
             <summary>Read excerpt - Being part of the Engineering Team: About us</summary>
             <div class="excerpt-body">
@@ -731,12 +851,6 @@ GET [bookings endpoint]?[updated before filter]=2030-10-30T00:00:00</pre>
               </div>
             </div>
           </details>
-        </div>
-        <div class="case-card">
-          <span class="tag">Onboarding &amp; Handbook</span>
-          <h3>SEF Volunteer Handbook - Engineering Team Onboarding (Part 2)</h3>
-          <p><strong>What it is:</strong> The continuation of the Engineering Team chapter, covering prerequisites for joining such as setting up GitHub, Slack, and Hive accounts, and introducing yourself to the community.</p>
-          <p><strong>What it shows:</strong> Structured, step-by-step instructional writing broken into clear, digestible sections.</p>
           <details class="excerpt">
             <summary>Read excerpt - Getting started</summary>
             <div class="excerpt-body">
@@ -755,14 +869,8 @@ GET [bookings endpoint]?[updated before filter]=2030-10-30T00:00:00</pre>
               </div>
             </div>
           </details>
-        </div>
-        <div class="case-card">
-          <span class="tag">Web Copy</span>
-          <h3>SEF Website - Public Facing Copy</h3>
-          <p><strong>What it is:</strong> Web copy I wrote for the main SEF website, introducing the organization to three distinct audiences. This includes students, industry experts, and volunteers, where each is addressed in their own paragraph.</p>
-          <p><strong>What it shows:</strong> Audience segmentation, concise web copywriting, and the ability to adapt tone for different readers within a single piece.</p>
           <details class="excerpt">
-            <summary>Read excerpt - Students</summary>
+            <summary>Read excerpt - Web copy: Students</summary>
             <div class="excerpt-body">
               <p>Interact directly with a curated list of industry experts and academics across the globe via our host of programs including OneLive, ScholarX and IRC to gain valuable perspectives and insight on how to customise and innovate a new career path for you. Our AcadeMix and Student Ambassador Program offerings will also get you industry ready by your graduation and expose you to postgraduate, internship and job opportunities.</p>
               <div class="excerpt-screenshot">
@@ -772,7 +880,7 @@ GET [bookings endpoint]?[updated before filter]=2030-10-30T00:00:00</pre>
             </div>
           </details>
           <details class="excerpt">
-            <summary>Read excerpt - Experts</summary>
+            <summary>Read excerpt - Web copy: Experts</summary>
             <div class="excerpt-body">
               <p>If you are an expert in the industry, join SEF, for we host mentoring programs, where you can showcase your expertise to the scholars seeking guidance. You will also get a chance to connect with the young talent in Sri Lanka, and make an impact on the Sri Lankan education system with the plethora of knowledge you possess.</p>
               <div class="excerpt-screenshot">
@@ -782,7 +890,7 @@ GET [bookings endpoint]?[updated before filter]=2030-10-30T00:00:00</pre>
             </div>
           </details>
           <details class="excerpt">
-            <summary>Read excerpt - Volunteers</summary>
+            <summary>Read excerpt - Web copy: Volunteers</summary>
             <div class="excerpt-body">
               <p>Becoming a volunteer at SEF gives you a chance to develop skills that are critical in the workforce, and to get exposed to startup workspace culture, by connecting and managing a diverse intercontinental community.</p>
               <div class="excerpt-screenshot">
@@ -869,43 +977,51 @@ GET [bookings endpoint]?[updated before filter]=2030-10-30T00:00:00</pre>
     </section>
 
     <section id="skills">
-      <div class="endpoint-label"><span class="method get">GET</span> /skills</div>
+      <div class="endpoint-label"><span class="method get">GET</span> /toolchain</div>
       <h2>Toolchain</h2>
+      <div class="skill-group-label">Documentation &amp; API</div>
       <div class="skills-grid">
-        <span class="skill-chip">OpenAPI / Swagger</span>
-        <span class="skill-chip">Postman</span>
+        <span class="skill-chip">OpenAPI/Swagger</span>
         <span class="skill-chip">REST APIs</span>
         <span class="skill-chip">JSON</span>
         <span class="skill-chip">API testing</span>
+        <span class="skill-chip">Postman</span>
         <span class="skill-chip">docs-as-code</span>
-        <span class="skill-chip">Git</span>
-        <span class="skill-chip">Azure DevOps</span>
-        <span class="skill-chip">Claude Code</span>
         <span class="skill-chip">Adobe RoboHelp</span>
         <span class="skill-chip">Markdown</span>
         <span class="skill-chip">HTML</span>
         <span class="skill-chip">CSS</span>
+      </div>
+      <div class="skill-group-label">Languages &amp; Frameworks</div>
+      <div class="skills-grid">
         <span class="skill-chip">C#</span>
-        <span class="skill-chip">Python</span>
         <span class="skill-chip">Java</span>
         <span class="skill-chip">JavaScript</span>
+        <span class="skill-chip">TypeScript</span>
+        <span class="skill-chip">Python</span>
+        <span class="skill-chip">Ruby</span>
+        <span class="skill-chip">SQL</span>
+        <span class="skill-chip">Spring Boot</span>
         <span class="skill-chip">React.js</span>
         <span class="skill-chip">Node.js</span>
-        <span class="skill-chip">Spring Boot</span>
-        <span class="skill-chip">SQL</span>
-        <span class="skill-chip">Bash</span>
-        <span class="skill-chip">Ansible</span>
-        <span class="skill-chip">Linux</span>
-        <span class="skill-chip">TypeScript</span>
-        <span class="skill-chip">Ruby</span>
         <span class="skill-chip">jQuery</span>
         <span class="skill-chip">Bootstrap</span>
-        <span class="skill-chip">PostgreSQL</span>
-        <span class="skill-chip">MongoDB</span>
+      </div>
+      <div class="skill-group-label">Tools &amp; Infrastructure</div>
+      <div class="skills-grid">
+        <span class="skill-chip">Claude Code</span>
+        <span class="skill-chip">Git</span>
+        <span class="skill-chip">Azure DevOps</span>
+        <span class="skill-chip">Ansible</span>
         <span class="skill-chip">Maven</span>
         <span class="skill-chip">VIM</span>
+        <span class="skill-chip">Bash</span>
+        <span class="skill-chip">Linux</span>
+        <span class="skill-chip">PostgreSQL</span>
+        <span class="skill-chip">MongoDB</span>
         <span class="skill-chip">Adobe Premiere Pro</span>
       </div>
+
     </section>
 
     <section id="contact">
@@ -920,7 +1036,6 @@ GET [bookings endpoint]?[updated before filter]=2030-10-30T00:00:00</pre>
         <a class="btn primary" href="mailto:desirasenal@gmail.com">Email me</a>
         <a class="btn ghost" href="https://linkedin.com/in/desira-wijesundara" target="_blank" rel="noopener">LinkedIn ↗</a>
         <a class="btn ghost" href="https://github.com/miniskynet" target="_blank" rel="noopener">GitHub ↗</a>
-        <a class="btn ghost" href="https://spotty-shampoo-6df.notion.site/Desira-Wijesundara-Technical-Writer-Software-Engineer-3630d06cde63804aa00ff8498abc86dd" target="_blank" rel="noopener">Browse full Notion workspace ↗</a>
       </div>
     </section>
 
@@ -941,6 +1056,9 @@ GET [bookings endpoint]?[updated before filter]=2030-10-30T00:00:00</pre>
       const rect = sec.getBoundingClientRect();
       if (rect.top <= 120) current = sec.id;
     });
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
+      current = sections[sections.length - 1].id;
+    }
     navLinks.forEach(link => {
       link.classList.toggle('active', link.getAttribute('href') === '#' + current);
     });
