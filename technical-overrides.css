@@ -82,12 +82,12 @@ button:focus-visible {
 }
 
 .nav-links {
-  gap: clamp(16px, 2.5vw, 32px);
+  gap: clamp(18px, 2.5vw, 36px);
 }
 
 .nav-links a {
-  font-family: var(--mono);
-  font-size: 10px;
+  font: 13px var(--mono);
+  text-transform: uppercase;
   letter-spacing: .07em;
   color: var(--muted);
 }
