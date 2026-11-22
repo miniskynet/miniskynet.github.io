@@ -1,0 +1,33 @@
+@import url("/assets/portfolio.css");
+
+/* Add after the existing stylesheet in index.html. It intentionally restyles
+   the existing content rather than replacing or deleting it. */
+body { background:var(--paper)!important; color:var(--ink)!important; font-family:var(--sans)!important; }
+.layout { max-width:1440px!important; padding:0 clamp(16px,4vw,56px); gap:clamp(24px,4vw,64px); }
+.sidebar { width:220px!important; padding-top:42px!important; }
+.sidebar .brand { font:600 16px var(--sans)!important; letter-spacing:-.04em; }
+.sidebar .brand-sub { font:10px var(--mono)!important; letter-spacing:.1em!important; }
+.sidebar nav a { border-left:0!important; border-radius:0!important; padding:8px 0!important; font:11px var(--mono)!important; text-transform:uppercase; letter-spacing:.06em; }
+.sidebar nav a.active { color:var(--accent)!important; }
+main { border-left:0!important; padding:58px 0 100px!important; }
+h1,h2,h3 { font-family:var(--serif)!important; letter-spacing:-.04em!important; }
+h2 { font-size:clamp(32px,4vw,48px)!important; line-height:1.05; }
+h3 { font-size:24px!important; }
+.hero { grid-template-columns:1.15fr .85fr!important; gap:clamp(28px,5vw,76px)!important; padding:48px 0 70px!important; align-items:center!important; }
+.hero h1 { font-size:clamp(52px,7vw,92px)!important; line-height:.98!important; letter-spacing:-.06em!important; }
+.hero .tagline { font-size:18px!important; line-height:1.7; max-width:48ch; }
+.endpoint-label { color:var(--accent)!important; font:10px var(--mono)!important; text-transform:uppercase; letter-spacing:.12em; }
+.response-panel { border-radius:2px!important; padding:28px!important; box-shadow:14px 14px 0 var(--paper-2)!important; }
+.case-card { border:0!important; border-top:1px solid var(--line)!important; border-radius:0!important; background:transparent!important; padding:26px 0!important; }
+.case-card .tag { color:var(--accent)!important; }
+.skill-chip { background:var(--paper-2)!important; border-radius:2px!important; padding:9px 12px!important; }
+.btn { border-radius:2px!important; font:11px var(--mono)!important; text-transform:uppercase; letter-spacing:.06em; padding:13px 18px!important; }
+.btn.primary { background:var(--ink)!important; border-color:var(--ink)!important; }
+.badge { border-radius:2px!important; background:transparent!important; }
+footer { font:10px var(--mono)!important; text-transform:uppercase; letter-spacing:.06em; }
+@media (max-width:880px) {
+  .layout { padding:0 20px; }
+  .sidebar { width:100%!important; padding:24px 0 0!important; }
+  main { padding:30px 0 70px!important; }
+  .hero { grid-template-columns:1fr!important; padding:36px 0 48px!important; }
+}
