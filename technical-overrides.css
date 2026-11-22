@@ -1,4 +1,4 @@
-@import url("/assets/portfolio.css");
+@import url("/portfolio.css");
 
 /* Add after the existing stylesheet in index.html. It intentionally restyles
    the existing content rather than replacing or deleting it. */
