@@ -1,1 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f1e9">
+  <title>Photography — Desira Wijesundara</title>
+  <link rel="stylesheet" href="../portfolio.css">
 
+  <style>
+    :root {
+      --photo-paper: #f4f1e9;
+      --photo-ink: #20251f;
+      --photo-muted: #77796f;
+      --photo-line: rgba(32, 37, 31, .17);
+    }
+
+    body {
+      background: var(--photo-paper);
+      color: var(--photo-ink);
+    }
+
+    .photo-page {
+      width: min(1440px, calc(100% - 10vw));
+      margin: 0 auto;
+    }
+
+    .photo-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 26px 0;
+      border-bottom: 1px solid var(--photo-line);
+      font-size: 13px;
+    }
+
+    .photo-brand {
+      color: var(--photo-ink);
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: -.03em;
+    }
+
+    .photo-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .photo-links a {
+      color: var(--photo-muted);
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    .photo-links a:hover,
+    .photo-links a.active {
+      color: var(--photo-ink);
+    }
+
+    .photo-hero {
+      padding: clamp(70px, 11vw, 150px) 0 70px;
+      border-bottom: 1px solid var(--photo-line);
+    }
+
+    .photo-eyebrow {
+      margin: 0 0 24px;
+      color: var(--photo-muted);
+      font-size: 11px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .photo-hero h1 {
+      max-width: 900px;
+      margin: 0;
+      font-size: clamp(64px, 11vw, 150px);
+      line-height: .88;
+      letter-spacing: -.085em;
+      font-weight: 500;
+    }
+
+    .photo-intro {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .photo-intro p {
+      max-width: 430px;
+      margin: 0;
+      color: var(--photo-muted);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .photo-count {
+      flex-shrink: 0;
+      color: var(--photo-muted);
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .gallery-section {
+      padding: 48px 0 100px;
+    }
+
+    .gallery-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+    }
+
+    .gallery-heading h2 {
+      margin: 0;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .gallery-grid {
+      columns: 3 280px;
+      column-gap: 18px;
+    }
+
+    .gallery-item {
+      display: block;
+      position: relative;
+      width: 100%;
+      margin: 0 0 18px;
+      padding: 0;
+      border: 0;
+      background: #e8e4da;
+      overflow: hidden;
+      cursor: zoom-in;
+      break-inside: avoid;
+      text-align: left;
+    }
+
+    .gallery-item img {
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: transform .65s cubic-bezier(.2, .7, .2, 1);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.035);
+    }
+
+    .gallery-item::after {
+      content: "↗";
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--photo-paper);
+      color: var(--photo-ink);
+      font-size: 17px;
+      opacity: 0;
+      transform: translateY(5px);
+      transition: .25s ease;
+    }
+
+    .gallery-item:hover::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-status {
+      padding: 70px 20px;
+      color: var(--photo-muted);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .photo-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 24px 0 36px;
+      border-top: 1px solid var(--photo-line);
+      color: var(--photo-muted);
+      font-size: 12px;
+    }
+
+    .photo-footer a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .photo-footer a:hover {
+      color: var(--photo-ink);
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 55px;
+      background: rgba(18, 20, 18, .96);
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      display: block;
+      max-width: 100%;
+      max-height: calc(100vh - 110px);
+      object-fit: contain;
+    }
+
+    .lightbox button {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 50%;
+      background: transparent;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .lightbox button:hover {
+      background: rgba(255,255,255,.12);
+    }
+
+    .lightbox-close {
+      top: 22px;
+      right: 24px;
+    }
+
+    .lightbox-prev {
+      left: 22px;
+    }
+
+    .lightbox-next {
+      right: 22px;
+    }
+
+    .lightbox-link {
+      position: absolute;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,.7);
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .lightbox-link:hover {
+      color: white;
+    }
+
+    @media (max-width: 650px) {
+      .photo-page {
+        width: calc(100% - 40px);
+      }
+
+      .photo-nav {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .photo-links {
+        gap: 16px;
+        font-size: 12px;
+      }
+
+      .photo-intro {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .gallery-grid {
+        columns: 2 140px;
+        column-gap: 10px;
+      }
+
+      .gallery-item {
+        margin-bottom: 10px;
+      }
+
+      .lightbox {
+        padding: 45px 12px;
+      }
+
+      .lightbox-prev {
+        left: 8px;
+      }
+
+      .lightbox-next {
+        right: 8px;
+      }
+
+      .photo-footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="photo-page">
+
+    <nav class="photo-nav">
+      <a class="photo-brand" href="../">DESIRA WIJESUNDARA</a>
+
+      <div class="photo-links">
+        <a href="../">Technical</a>
+        <a class="active" href="./">Photography</a>
+        <a href="../videography/">Videography</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </nav>
+
+    <header class="photo-hero">
+      <p class="photo-eyebrow">Photography / Selected moments</p>
+      <h1>Through<br>my lens.</h1>
+
+      <div class="photo-intro">
+        <p>
+          A collection of moments, places and perspectives.
+          An ongoing visual journal, captured along the way.
+        </p>
+        <span class="photo-count" id="photo-count">Loading collection</span>
+      </div>
+    </header>
+
+    <main class="gallery-section">
+      <div class="gallery-heading">
+        <h2>The collection</h2>
+        <span class="photo-count">01 — Ongoing</span>
+      </div>
+
+      <div id="gallery" class="gallery-grid"></div>
+      <div id="gallery-status" class="gallery-status">
+        Loading photographs…
+      </div>
+    </main>
+
+    <footer class="photo-footer">
+      <span>© <span id="year"></span> Desira Wijesundara</span>
+      <a href="https://www.instagram.com/desira_senal/"
+         target="_blank" rel="noopener">More on Instagram ↗</a>
+    </footer>
+  </div>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="close-lightbox" aria-label="Close">×</button>
+    <button class="lightbox-prev" id="prev-photo" aria-label="Previous photo">‹</button>
+    <img id="lightbox-image" src="" alt="">
+    <button class="lightbox-next" id="next-photo" aria-label="Next photo">›</button>
+    <a class="lightbox-link" id="instagram-link"
+       href="#" target="_blank" rel="noopener">View on Instagram ↗</a>
+  </div>
+
+  <script>
+    const API_URL =
+      "https://desira-instagram-gallery.desirasenal.workers.dev/api/gallery";
+
+    const gallery = document.getElementById("gallery");
+    const status = document.getElementById("gallery-status");
+    const count = document.getElementById("photo-count");
+
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImage = document.getElementById("lightbox-image");
+    const instagramLink = document.getElementById("instagram-link");
+
+    let photos = [];
+    let currentIndex = 0;
+
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    function cleanCaption(caption = "") {
+      return caption
+        .replace(/#\w+/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function openLightbox(index) {
+      currentIndex = index;
+      showLightboxPhoto();
+      lightbox.classList.add("open");
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+
+    function showLightboxPhoto() {
+      const photo = photos[currentIndex];
+      lightboxImage.src = photo.mediaUrl;
+      lightboxImage.alt = cleanCaption(photo.caption) || "Photograph";
+      instagramLink.href = photo.permalink || "#";
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove("open");
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    function movePhoto(direction) {
+      currentIndex =
+        (currentIndex + direction + photos.length) % photos.length;
+      showLightboxPhoto();
+    }
+
+    document.getElementById("close-lightbox")
+      .addEventListener("click", closeLightbox);
+
+    document.getElementById("prev-photo")
+      .addEventListener("click", () => movePhoto(-1));
+
+    document.getElementById("next-photo")
+      .addEventListener("click", () => movePhoto(1));
+
+    lightbox.addEventListener("click", event => {
+      if (event.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener("keydown", event => {
+      if (!lightbox.classList.contains("open")) return;
+
+      if (event.key === "Escape") closeLightbox();
+      if (event.key === "ArrowLeft") movePhoto(-1);
+      if (event.key === "ArrowRight") movePhoto(1);
+    });
+
+    async function loadGallery() {
+      try {
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+          throw new Error("Gallery request failed.");
+        }
+
+        const data = await response.json();
+
+        photos = (data.items || [])
+          .filter(item =>
+            item.mediaUrl &&
+            (!item.mediaType || item.mediaType === "IMAGE")
+          )
+          .map(item => ({
+            ...item,
+            mediaUrl: item.mediaUrl.replace(/&amp;/g, "&")
+          }));
+
+        if (!photos.length) {
+          status.textContent = "No photographs are available right now.";
+          count.textContent = "0 photographs";
+          return;
+        }
+
+        count.textContent = `${photos.length} photographs`;
+        status.remove();
+
+        photos.forEach((photo, index) => {
+          const button = document.createElement("button");
+          button.className = "gallery-item";
+          button.type = "button";
+          button.setAttribute("aria-label", `Open photograph ${index + 1}`);
+
+          const image = document.createElement("img");
+          image.src = photo.mediaUrl;
+          image.alt = cleanCaption(photo.caption) || "Photograph";
+          image.loading = "lazy";
+          image.decoding = "async";
+
+          button.appendChild(image);
+          button.addEventListener("click", () => openLightbox(index));
+
+          gallery.appendChild(button);
+        });
+
+      } catch (error) {
+        console.error("Photography gallery:", error);
+        status.textContent =
+          "The photographs couldn't be loaded. Please try again later.";
+        count.textContent = "Collection unavailable";
+      }
+    }
+
+    loadGallery();
+  </script>
+</body>
+</html>
