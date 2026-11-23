@@ -378,87 +378,94 @@
   <script>
     const API_URL =
       "https://desira-instagram-gallery.desirasenal.workers.dev/api/gallery";
-
+  
     const gallery = document.getElementById("gallery");
     const status = document.getElementById("gallery-status");
     const count = document.getElementById("photo-count");
-
+  
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = document.getElementById("lightbox-image");
     const instagramLink = document.getElementById("instagram-link");
-
+  
     let photos = [];
+    let viewerPhotos = [];
     let currentIndex = 0;
-
+  
     document.getElementById("year").textContent =
       new Date().getFullYear();
-
+  
     function cleanCaption(caption = "") {
       return caption
         .replace(/#\w+/g, "")
         .replace(/\s+/g, " ")
         .trim();
     }
-
+  
     function openLightbox(index) {
-      currentIndex = index;
+      currentIndex = photos[index].startIndex;
       showLightboxPhoto();
+  
       lightbox.classList.add("open");
       lightbox.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
     }
-
+  
     function showLightboxPhoto() {
-      const photo = photos[currentIndex];
+      const photo = viewerPhotos[currentIndex];
+  
       lightboxImage.src = photo.mediaUrl;
-      lightboxImage.alt = cleanCaption(photo.caption) || "Photograph";
+      lightboxImage.alt =
+        cleanCaption(photo.caption) || "Photograph";
+  
       instagramLink.href = photo.permalink || "#";
     }
-
+  
     function closeLightbox() {
       lightbox.classList.remove("open");
       lightbox.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
     }
-
+  
     function movePhoto(direction) {
       currentIndex =
-        (currentIndex + direction + photos.length) % photos.length;
+        (currentIndex + direction + viewerPhotos.length) %
+        viewerPhotos.length;
+  
       showLightboxPhoto();
     }
-
+  
     document.getElementById("close-lightbox")
       .addEventListener("click", closeLightbox);
-
+  
     document.getElementById("prev-photo")
       .addEventListener("click", () => movePhoto(-1));
-
+  
     document.getElementById("next-photo")
       .addEventListener("click", () => movePhoto(1));
-
+  
     lightbox.addEventListener("click", event => {
       if (event.target === lightbox) closeLightbox();
     });
-
+  
     document.addEventListener("keydown", event => {
       if (!lightbox.classList.contains("open")) return;
-
+  
       if (event.key === "Escape") closeLightbox();
       if (event.key === "ArrowLeft") movePhoto(-1);
       if (event.key === "ArrowRight") movePhoto(1);
     });
-
+  
     async function loadGallery() {
       try {
         const response = await fetch(API_URL);
-
+  
         if (!response.ok) {
           throw new Error("Gallery request failed.");
         }
-
+  
         const data = await response.json();
-
-        photos = (data.items || [])
+  
+        const images = (data.items || [])
           .filter(item =>
             item.mediaUrl &&
             (!item.mediaType || item.mediaType === "IMAGE")
@@ -467,43 +474,93 @@
             ...item,
             mediaUrl: item.mediaUrl.replace(/&amp;/g, "&")
           }));
-
+  
+        // Group carousel images by their original Instagram post.
+        const groupedPosts = new Map();
+  
+        images.forEach(item => {
+          const postId = String(item.parentId || item.id);
+  
+          if (!groupedPosts.has(postId)) {
+            groupedPosts.set(postId, {
+              ...item,
+              media: []
+            });
+          }
+  
+          groupedPosts.get(postId).media.push(item);
+        });
+  
+        photos = Array.from(groupedPosts.values());
+  
         if (!photos.length) {
-          status.textContent = "No photographs are available right now.";
+          status.textContent =
+            "No photographs are available right now.";
           count.textContent = "0 photographs";
           return;
         }
-
-        count.textContent = `${photos.length} photographs`;
+  
+        // Create one continuous sequence for the lightbox.
+        viewerPhotos = [];
+  
+        photos.forEach(post => {
+          post.startIndex = viewerPhotos.length;
+          viewerPhotos.push(...post.media);
+        });
+  
+        const totalImages = viewerPhotos.length;
+  
+        count.textContent =
+          `${totalImages} photographs · ${photos.length} posts`;
+  
         status.remove();
-
-        photos.forEach((photo, index) => {
+  
+        photos.forEach((post, index) => {
+          const cover = post.media[0];
+  
           const button = document.createElement("button");
           button.className = "gallery-item";
           button.type = "button";
-          button.setAttribute("aria-label", `Open photograph ${index + 1}`);
-
+  
+          button.setAttribute(
+            "aria-label",
+            `Open post ${index + 1} with ${post.media.length} photograph${post.media.length === 1 ? "" : "s"}`
+          );
+  
           const image = document.createElement("img");
-          image.src = photo.mediaUrl;
-          image.alt = cleanCaption(photo.caption) || "Photograph";
+          image.src = cover.mediaUrl;
+          image.alt =
+            cleanCaption(post.caption) || "Photograph";
           image.loading = "lazy";
           image.decoding = "async";
-
+  
           button.appendChild(image);
+  
+          // Show a small indicator when a post contains multiple images.
+          if (post.media.length > 1) {
+            const indicator = document.createElement("span");
+            indicator.className = "gallery-item-count";
+            indicator.textContent = `${post.media.length} photos`;
+            button.appendChild(indicator);
+          }
+  
           button.addEventListener("click", () => openLightbox(index));
-
+  
           gallery.appendChild(button);
         });
-
+  
       } catch (error) {
         console.error("Photography gallery:", error);
+  
         status.textContent =
           "The photographs couldn't be loaded. Please try again later.";
+  
         count.textContent = "Collection unavailable";
       }
     }
-
+  
     loadGallery();
   </script>
+
 </body>
 </html>
