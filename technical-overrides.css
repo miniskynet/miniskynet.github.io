@@ -217,7 +217,7 @@ p {
   grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr) !important;
   align-items: center !important;
   gap: clamp(36px, 6vw, 88px) !important;
-  padding: clamp(64px, 8vw, 100px) 0 84px !important;
+  padding: 36px 0 84px !important;
   border-bottom: 1px solid var(--line);
 }
 
