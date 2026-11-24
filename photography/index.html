@@ -183,15 +183,19 @@
       z-index: 2;
       padding: 5px 10px;
       border-radius: 999px;
-      background: rgba(17, 18, 20, .72);
+      background: rgba(17, 18, 20, .8); /* no backdrop blur: too costly on phones with many tiles */
       color: #fff;
       font-family: var(--mono);
       font-size: .7rem;
       letter-spacing: .04em;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
       pointer-events: none;
     }
+
+    .gallery-more {
+      display: flex;
+      margin: 28px auto 0;
+    }
+    .gallery-more[hidden] { display: none; }
 
     .gallery-status {
       padding: 70px 20px;
@@ -341,6 +345,7 @@
       </div>
 
       <div id="gallery" class="gallery-grid"></div>
+      <button id="gallery-more" class="btn ghost gallery-more" type="button" hidden>Show more photos</button>
       <div id="gallery-status" class="gallery-status" role="status">
         Loading photographs…
       </div>
@@ -420,16 +425,29 @@
       const style = getComputedStyle(gallery);
       const columns = style.gridTemplateColumns.split(" ").filter(Boolean).length || 1;
       const gap = parseFloat(style.columnGap) || 16;
-      const heights = new Array(columns).fill(0);
 
-      items.forEach(item => {
-        const span = Math.ceil((item.getBoundingClientRect().height + gap) / ROW_HEIGHT);
+      // Read every height first, then write every position. Mixing reads and
+      // writes forces the browser to recalculate the page once per tile.
+      const spans = items.map(item =>
+        Math.ceil((item.getBoundingClientRect().height + gap) / ROW_HEIGHT));
+
+      const heights = new Array(columns).fill(0);
+      items.forEach((item, i) => {
         const column = heights.indexOf(Math.min(...heights));
         item.style.gridColumn = String(column + 1);
-        item.style.gridRow = `${heights[column] + 1} / span ${span}`;
-        heights[column] += span;
+        item.style.gridRow = `${heights[column] + 1} / span ${spans[i]}`;
+        heights[column] += spans[i];
       });
     }
+
+    // ---------- Image sizes ----------
+    // Instagram only serves full-size images (1440 px, ~180 KB each). Grid tiles
+    // use resized WebP copies from wsrv.nl (an open-source image proxy), and fall
+    // back to the original if the proxy is unavailable. The viewer uses originals.
+    function thumbUrl(url, width) {
+      return `https://wsrv.nl/?url=${encodeURIComponent(url)}&w=${width}&output=webp&q=78`;
+    }
+    const TILE_SIZES = "(max-width: 650px) 50vw, (max-width: 1500px) 31vw, 460px";
 
     function queueLayout() {
       if (layoutQueued) return;
@@ -563,6 +581,101 @@
       }
     });
 
+    // ---------- Build tiles in batches ----------
+    // Rendering all 72 posts at once makes phones download and decode dozens of
+    // images together. Add 12 at a time as the visitor nears the end of the grid.
+    const BATCH_SIZE = 12;
+    const PRIORITY_TILES = 4; // first row(s): load straight away
+    const moreButton = document.getElementById("gallery-more");
+    let rendered = 0;
+
+    function buildTile(post, index) {
+      const cover = post.media[0];
+      const date = parseDate(post.timestamp);
+      const photoCount = post.media.length;
+
+      const button = document.createElement("button");
+      button.className = "gallery-item";
+      button.type = "button";
+      button.setAttribute(
+        "aria-label",
+        `Open ${photoCount === 1 ? "photo" : `${photoCount} photos`}` +
+        (date ? ` from ${monthYear(date)}` : "")
+      );
+
+      const image = document.createElement("img");
+      image.alt = altText(date);
+      image.decoding = "async";
+      if (index < PRIORITY_TILES) {
+        image.loading = "eager";
+        image.setAttribute("fetchpriority", "high");
+      } else {
+        image.loading = "lazy";
+      }
+
+      // Once the real size is known, use the photo's own shape and re-flow.
+      const fit = () => {
+        if (image.naturalWidth && image.naturalHeight) {
+          image.style.aspectRatio = `${image.naturalWidth} / ${image.naturalHeight}`;
+          image.style.objectFit = "fill";
+          queueLayout();
+        }
+      };
+      image.addEventListener("load", fit);
+      image.addEventListener("error", () => {
+        // Proxy unavailable: fall back to Instagram's original once.
+        if (image.dataset.fallback) return;
+        image.dataset.fallback = "1";
+        image.removeAttribute("srcset");
+        image.src = cover.mediaUrl;
+      });
+
+      image.sizes = TILE_SIZES;
+      image.srcset = `${thumbUrl(cover.mediaUrl, 480)} 480w, ${thumbUrl(cover.mediaUrl, 900)} 900w`;
+      image.src = thumbUrl(cover.mediaUrl, 900);
+      if (image.complete) fit();
+
+      button.appendChild(image);
+
+      if (photoCount > 1) {
+        const indicator = document.createElement("span");
+        indicator.className = "gallery-item-count";
+        indicator.textContent = `${photoCount} photos`;
+        indicator.setAttribute("aria-hidden", "true");
+        button.appendChild(indicator);
+      }
+
+      button.addEventListener("click", () => openLightbox(index));
+      return button;
+    }
+
+    function renderNextBatch() {
+      const end = Math.min(rendered + BATCH_SIZE, photos.length);
+      const fragment = document.createDocumentFragment();
+      for (let i = rendered; i < end; i++) fragment.appendChild(buildTile(photos[i], i));
+      gallery.appendChild(fragment);
+      rendered = end;
+      moreButton.hidden = rendered >= photos.length;
+      queueLayout();
+      // On tall screens the button may still be in range after this batch;
+      // the observer only fires on crossing into range, so check once here.
+      requestAnimationFrame(() => {
+        if (!moreButton.hidden &&
+            moreButton.getBoundingClientRect().top < window.innerHeight + 900) {
+          renderNextBatch();
+        }
+      });
+    }
+
+    moreButton.addEventListener("click", renderNextBatch);
+
+    // Load the next batch automatically when the button comes within ~1 screen.
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(entries => {
+        if (entries[0].isIntersecting && rendered < photos.length) renderNextBatch();
+      }, { rootMargin: "0px 0px 900px 0px" }).observe(moreButton);
+    }
+
     // ---------- Load the feed ----------
     async function loadGallery() {
       try {
@@ -632,53 +745,7 @@
         }
 
         status.remove();
-
-        photos.forEach((post, index) => {
-          const cover = post.media[0];
-          const date = parseDate(post.timestamp);
-
-          const button = document.createElement("button");
-          button.className = "gallery-item";
-          button.type = "button";
-          const photoCount = post.media.length;
-          button.setAttribute(
-            "aria-label",
-            `Open ${photoCount === 1 ? "photo" : `${photoCount} photos`}` +
-            (date ? ` from ${monthYear(date)}` : "")
-          );
-
-          const image = document.createElement("img");
-          image.alt = altText(date);
-          image.loading = "lazy";
-          image.decoding = "async";
-          // Once the real size is known, use the photo's own shape and re-flow.
-          const fit = () => {
-            if (image.naturalWidth && image.naturalHeight) {
-              image.style.aspectRatio = `${image.naturalWidth} / ${image.naturalHeight}`;
-              image.style.objectFit = "fill";
-              queueLayout();
-            }
-          };
-          image.addEventListener("load", fit);
-          image.src = cover.mediaUrl;
-          if (image.complete) fit();
-
-          button.appendChild(image);
-
-          // Show a small indicator when a post contains multiple images.
-          if (photoCount > 1) {
-            const indicator = document.createElement("span");
-            indicator.className = "gallery-item-count";
-            indicator.textContent = `${photoCount} photos`;
-            indicator.setAttribute("aria-hidden", "true");
-            button.appendChild(indicator);
-          }
-
-          button.addEventListener("click", () => openLightbox(index));
-          gallery.appendChild(button);
-        });
-
-        queueLayout();
+        renderNextBatch();
 
       } catch (error) {
         console.error("Photography gallery:", error);
