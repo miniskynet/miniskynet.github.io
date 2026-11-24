@@ -595,7 +595,7 @@ main > .stats + section { margin-top: clamp(76px, 8vw, 108px); }
 
 .flow {
   list-style: none; padding: 0; margin-top: 28px;
-  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px;
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;
   counter-reset: none;
 }
 .flow li {

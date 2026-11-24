@@ -245,8 +245,7 @@
       <div class="case-grid">
         <article class="case-card featured">
           <span class="tag">Featured · API reference at scale</span>
-          <h3>Scaling an 800+ endpoint API reference with AI audits I verify by hand</h3>
-          <p class="featured-lead">I hand-wrote the first 2,600+ descriptions from the source code, then used AI-assisted audits to reach 7,000+, checking every finding against the code before trusting it.</p>
+          <h3>How I did it at scale</h3>
 
           <div class="feature-stats">
             <div class="feature-stat"><span class="fs-num">2,600<span class="plus">+</span></span><span class="fs-label">descriptions hand-written, each traced to the source code</span></div>
@@ -255,25 +254,25 @@
           </div>
 
           <ol class="flow" aria-label="How the work was done">
-            <li><span class="flow-n">01</span><strong>Write from source</strong><span>Hand-wrote field and endpoint descriptions, tracing each one back to the source code rather than guessing.</span></li>
-            <li><span class="flow-n">02</span><strong>Audit with AI</strong><span>Ran Claude Code audits that flagged gaps in descriptions, filters, sorting, includes and examples.</span></li>
-            <li><span class="flow-n">03</span><strong>Verify by hand</strong><span>Checked every flagged item against the source before trusting it. In one batch, only 13 of 102 were real.</span></li>
-            <li><span class="flow-n">04</span><strong>Fix the scanner</strong><span>Patched the scans themselves so the same false positives couldn't come back.</span></li>
-            <li><span class="flow-n">05</span><strong>Test against live</strong><span>Testing the docs against the live API surfaced real backend bugs, raised with developers and tracked to fixes.</span></li>
+            <li><span class="flow-n">01</span><strong>Write</strong><span>Across an 800+ endpoint API, I hand-wrote the first 2,600+ field and endpoint descriptions, tracing each one back to the source code rather than guessing.</span></li>
+            <li><span class="flow-n">02</span><strong>Scale</strong><span>I then scaled the work with AI-assisted audits (Claude Code) that flagged gaps in descriptions, filters, sorting, includes and examples, reaching 7,000+ descriptions.</span></li>
+            <li><span class="flow-n">03</span><strong>Verify</strong><span>I hand-verified every flagged item against the source before trusting it. In one batch, only 13 of 102 findings were real problems, so I patched the scans themselves to stop the same false positives from coming back.</span></li>
+            <li><span class="flow-n">04</span><strong>Test</strong><span>Testing the documentation against the live API also surfaced real backend bugs, which I raised with the developers and tracked through to fixes.</span></li>
           </ol>
         </article>
 
         <div class="case-group-label">API documentation</div>
         <div class="case-card">
-          <span class="tag">API Reference · Docs-as-code</span>
+          <span class="tag">API Reference</span>
           <h3>Sample - endpoint reference</h3>
-          <p><strong>What it is:</strong> Illustrative samples of the reference documentation I write in OpenAPI/Swagger, backed by a full OpenAPI spec I maintain as docs-as-code: versioned in Git, linted in CI and rendered as an interactive reference. To protect my employer's systems, the API, endpoints and fields are invented.</p>
+          <p><strong>What it is:</strong> Illustrative samples of the reference documentation I write in OpenAPI/Swagger, and how I did it at scale. To protect my employer's systems, the API, endpoints and fields are invented.</p>
           <p><strong>What it shows:</strong> Reference a developer can actually use: clear summaries, documented filters, sorting and includes, request fields marked as required, optional or read-only, payload and response examples, and errors that explain what went wrong.</p>
           <div class="sample-links">
             <a class="btn btn-sm primary" href="https://miniskynet.github.io/reservations-api-docs/" target="_blank" rel="noopener">Open the interactive reference <span aria-hidden="true">↗</span></a>
             <a class="btn btn-sm ghost" href="https://github.com/miniskynet/reservations-api-docs" target="_blank" rel="noopener">OpenAPI source on GitHub <span aria-hidden="true">↗</span></a>
             <a class="btn btn-sm ghost" href="https://github.com/miniskynet/reservations-api-docs/blob/main/docs/getting-started.md" target="_blank" rel="noopener">Getting-started guide <span aria-hidden="true">↗</span></a>
           </div>
+          <div class="excerpt-note">Docs-as-code sample (OpenAPI spec, interactive reference and guide for a fictional API), drafted with Claude (AI) and reviewed by Desira.</div>
 
           <details class="excerpt">
             <summary>View endpoint - List reservations</summary>
@@ -428,7 +427,7 @@ GET [bookings endpoint]?[updated before filter]=2030-10-30T00:00:00</pre>
         <div class="case-card">
           <span class="tag">Enterprise User Guides</span>
           <h3>Venuix - event &amp; venue management platform</h3>
-          <p><strong>What it is:</strong> A selection of user guides I wrote in my current role as Junior Technical Writer at Programus Ltd., documenting workflows and features for an enterprise event and venue management platform used by multiple enterprise clients. Venuix is a fictional name used in place of the actual product name for confidentiality purposes. These guides cover three distinct workflows: simplified event setup, seating chart management, and booking status configuration. They represent the type of end-to-end documentation I produce daily in a professional enterprise environment.</p>
+          <p><strong>What it is:</strong> A selection of user guides I wrote in my current role as Junior Technical Writer at Programus Ltd., documenting workflows and features for an enterprise event and venue management platform used by multiple enterprise clients. Venuix is a fictional name used in place of the actual product name for confidentiality purposes. These guides cover three distinct workflows. These are simplified event setup, seating chart management, and booking status configuration and it represent the type of end-to-end documentation I produce daily in a professional enterprise environment.</p>
           <p><strong>What it shows:</strong> Ability to document complex, multi-step administrative workflows accurately and consistently for a non-technical audience, covering varied feature complexity across a single platform, from high-level setup processes to granular configuration and conditional logic.</p>
           <details class="excerpt">
             <summary>Read full guide - Simplified Event Setup (Quick Flow)</summary>
