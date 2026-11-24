@@ -529,6 +529,8 @@ main > .stats + section { margin-top: clamp(76px, 8vw, 108px); }
 }
 .case-group-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 .case-group-label:first-child { margin-top: 0; }
+.subsection-label { margin-top: 56px; line-height: 1.4; }
+.subsection-label + .timeline { margin-top: 24px; }
 
 .case-card {
   position: relative;

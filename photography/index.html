@@ -12,8 +12,16 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Photography - Desira Wijesundara">
   <meta property="og:description" content="A collection of moments, places and perspectives. An ongoing visual journal, captured along the way.">
-  <meta property="og:image" content="https://miniskynet.github.io/og-image.png">
+  <meta property="og:site_name" content="Desira Wijesundara">
+  <meta property="og:image" content="https://miniskynet.github.io/photography/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://miniskynet.github.io/photography/">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Photography - Desira Wijesundara">
+  <meta name="twitter:description" content="A collection of moments, places and perspectives. An ongoing visual journal, captured along the way.">
+  <meta name="twitter:image" content="https://miniskynet.github.io/photography/og-image.png">
 
   <script>
     (function () {
@@ -142,7 +150,7 @@
     .gallery-item:hover img { transform: scale(1.035); }
 
     .gallery-item::after {
-      content: "↗";
+      content: "⤢"; /* expand: tiles open the viewer, not a new page */
       position: absolute;
       right: 14px;
       bottom: 14px;
@@ -222,9 +230,31 @@
     .lightbox img {
       max-width: 100%;
       max-height: calc(100vh - 128px);
+      max-height: calc(100dvh - 128px);
       object-fit: contain;
       border-radius: 6px;
     }
+    .lightbox.blank img { visibility: hidden; }
+
+    /* Spinner while the full-size photo downloads. Delayed so cached
+       photos never flash it. */
+    .lightbox-spinner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 34px;
+      height: 34px;
+      margin: -17px 0 0 -17px;
+      border: 2px solid rgba(255, 255, 255, .2);
+      border-top-color: #fff;
+      border-radius: 50%;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .lightbox.loading .lightbox-spinner {
+      animation: spin .8s linear infinite, fadeIn .2s ease .25s forwards;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     .lightbox button {
       position: absolute;
@@ -360,7 +390,8 @@
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" aria-hidden="true">
     <button class="lightbox-close" id="close-lightbox" type="button" aria-label="Close">×</button>
     <button class="lightbox-prev" id="prev-photo" type="button" aria-label="Previous photo">‹</button>
-    <img id="lightbox-image" src="" alt="">
+    <img id="lightbox-image" alt="">
+    <span class="lightbox-spinner" aria-hidden="true"></span>
     <button class="lightbox-next" id="next-photo" type="button" aria-label="Next photo">›</button>
     <div class="lightbox-meta">
       <span class="lightbox-dots" id="lightbox-dots" aria-hidden="true" hidden></span>
@@ -393,6 +424,7 @@
     let viewerPhotos = [];  // every image, in order, for the viewer
     let currentIndex = 0;
     let lastFocused = null;
+    let loadToken = 0;      // ignores slow downloads of photos already skipped past
 
     // ---------- Dates ----------
     // Instagram sends "+0000" offsets; make them ISO so every browser parses them.
@@ -472,8 +504,13 @@
 
       lightbox.classList.add("open");
       lightbox.setAttribute("aria-hidden", "false");
+      document.documentElement.style.overflow = "hidden";
       document.body.style.overflow = "hidden";
       closeButton.focus();
+
+      // Give the viewer its own history entry, so the phone's Back button
+      // closes the viewer instead of leaving the page.
+      history.pushState({ viewer: true }, "");
     }
 
     function preload(index) {
@@ -489,7 +526,31 @@
       const post = photos[photo.postIndex];
       const date = parseDate(photo.timestamp || post.timestamp);
 
-      lightboxImage.src = photo.mediaUrl;
+      // Show the grid thumbnail straight away (it is already downloaded), then
+      // swap in the full-size photo when it arrives. Without a thumbnail, hide
+      // the previous photo so it is clear the viewer has moved on.
+      const token = ++loadToken;
+      lightbox.classList.add("loading");
+      if (photo.thumbSrc) {
+        lightbox.classList.remove("blank");
+        lightboxImage.src = photo.thumbSrc;
+      } else {
+        lightbox.classList.add("blank");
+      }
+      const full = new Image();
+      const done = () => {
+        if (token !== loadToken) return; // the visitor has already moved on
+        lightboxImage.src = full.src;
+        lightbox.classList.remove("loading", "blank");
+      };
+      full.onload = done;
+      full.onerror = () => {
+        // Full size unavailable: keep the thumbnail if there is one.
+        if (token !== loadToken) return;
+        if (photo.thumbSrc) lightbox.classList.remove("loading", "blank");
+        else done();
+      };
+      full.src = photo.mediaUrl;
       lightboxImage.alt = altText(date);
       instagramLink.href = photo.permalink || post.permalink || "#";
       dateLabel.textContent = fullDate(date);
@@ -520,12 +581,25 @@
       preload(currentIndex - 1);
     }
 
-    function closeLightbox() {
-      lightbox.classList.remove("open");
+    function hideLightbox() {
+      lightbox.classList.remove("open", "loading", "blank");
       lightbox.setAttribute("aria-hidden", "true");
+      document.documentElement.style.overflow = "";
       document.body.style.overflow = "";
+      loadToken++;
       if (lastFocused) lastFocused.focus();
     }
+
+    // Closing goes back through history so the entry added on open is removed;
+    // the popstate handler below then hides the viewer.
+    function closeLightbox() {
+      if (history.state && history.state.viewer) history.back();
+      else hideLightbox();
+    }
+
+    window.addEventListener("popstate", () => {
+      if (lightbox.classList.contains("open")) hideLightbox();
+    });
 
     function movePhoto(direction) {
       currentIndex =
@@ -618,6 +692,7 @@
         if (image.naturalWidth && image.naturalHeight) {
           image.style.aspectRatio = `${image.naturalWidth} / ${image.naturalHeight}`;
           image.style.objectFit = "fill";
+          cover.thumbSrc = image.currentSrc || image.src; // instant placeholder for the viewer
           queueLayout();
         }
       };
@@ -730,8 +805,7 @@
           });
         });
 
-        count.textContent =
-          `${viewerPhotos.length} photographs · ${photos.length} posts`;
+        count.textContent = `${viewerPhotos.length} photographs`;
 
         // Year range of the collection, e.g. "2020 – 2024".
         const postYears = photos
