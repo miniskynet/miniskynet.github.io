@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Photography - Desira Wijesundara</title>
-  <meta name="description" content="Photography by Desira Wijesundara. A collection of moments, places and perspectives.">
+  <title>Photo &amp; Video - Desira Wijesundara</title>
+  <meta name="description" content="Photography and video by Desira Wijesundara. A collection of moments, places and perspectives.">
   <meta name="theme-color" content="#f6f4ef">
   <link rel="canonical" href="https://miniskynet.github.io/photography/">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2315171C'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23F6F4EF' text-anchor='middle'%3EDW%3C/text%3E%3Ccircle cx='50' cy='14' r='5' fill='%23F0875F'/%3E%3C/svg%3E">
 
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Photography - Desira Wijesundara">
+  <meta property="og:title" content="Photo &amp; Video - Desira Wijesundara">
   <meta property="og:description" content="A collection of moments, places and perspectives. An ongoing visual journal, captured along the way.">
   <meta property="og:site_name" content="Desira Wijesundara">
   <meta property="og:image" content="https://miniskynet.github.io/photography/og-image.png">
@@ -19,7 +19,7 @@
   <meta property="og:url" content="https://miniskynet.github.io/photography/">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Photography - Desira Wijesundara">
+  <meta name="twitter:title" content="Photo &amp; Video - Desira Wijesundara">
   <meta name="twitter:description" content="A collection of moments, places and perspectives. An ongoing visual journal, captured along the way.">
   <meta name="twitter:image" content="https://miniskynet.github.io/photography/og-image.png">
 
@@ -212,6 +212,97 @@
     }
 
     .photo-page .site-footer { margin-top: 0; padding-bottom: 36px; }
+    .photo-page .site-footer .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+
+    /* Jump links in the hero */
+    .jump-links { display: flex; gap: 10px; flex-wrap: wrap; }
+    .jump-links a {
+      padding: 6px 14px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: .74rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .jump-links a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+    /* ---------- Video: a swipeable row of vertical Shorts ---------- */
+    .video-section { margin-bottom: 64px; }
+
+    .row-controls { display: flex; align-items: center; gap: 10px; }
+    .row-controls a { font-family: var(--mono); font-size: .76rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .row-controls a:hover { color: var(--accent); text-decoration: none; }
+    .row-btn {
+      display: grid; place-items: center;
+      width: 36px; height: 36px;
+      border: 1px solid var(--line-strong); border-radius: 50%;
+      background: var(--surface); color: var(--ink);
+      font-size: 18px; line-height: 1;
+    }
+    .row-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .row-btn:disabled { opacity: .35; pointer-events: none; }
+
+    .video-row {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: clamp(170px, 17vw, 236px);
+      gap: 16px;
+      margin: 0;
+      padding: 0 0 14px;
+      list-style: none;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: thin;
+    }
+    .video-card { scroll-snap-align: start; min-width: 0; }
+
+    .video-frame {
+      position: relative;
+      display: block;
+      aspect-ratio: 9 / 16;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--bg-2);
+    }
+    .video-frame img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform .7s var(--ease);
+    }
+    a.video-frame:hover img { transform: scale(1.035); }
+    a.video-frame:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    .play-icon {
+      position: absolute; left: 50%; top: 50%;
+      width: 56px; height: 56px; margin: -28px 0 0 -28px;
+      border-radius: 50%;
+      background: rgba(17, 18, 20, .62);
+      border: 1px solid rgba(255, 255, 255, .45);
+      transition: transform .25s var(--ease), background-color .25s ease;
+    }
+    .play-icon::after {
+      content: ""; position: absolute; left: 22px; top: 18px;
+      border-style: solid; border-width: 10px 0 10px 16px;
+      border-color: transparent transparent transparent #fff;
+    }
+    a.video-frame:hover .play-icon { transform: scale(1.08); background: rgba(17, 18, 20, .8); }
+
+    .video-title {
+      margin-top: 10px;
+      font-size: .9rem;
+      line-height: 1.4;
+      color: var(--ink);
+    }
+
+    @media (max-width: 650px) {
+      .video-row { grid-auto-columns: 40vw; gap: 10px; /* a third card peeks in, so it reads as swipeable */ }
+      .row-btn { display: none; }
+      .video-frame { border-radius: 8px; }
+    }
 
     /* Lightbox */
     .lightbox {
@@ -340,7 +431,7 @@
       </a>
       <nav class="nav-links" aria-label="Portfolio sections">
         <a href="../">Technical</a>
-        <a href="./" aria-current="page">Photography</a>
+        <a href="./" aria-current="page">Photo &amp; Video</a>
         <a href="https://linkedin.com/in/desira-wijesundara" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
       </nav>
       <div class="nav-actions">
@@ -356,7 +447,7 @@
 
   <div class="photo-page">
     <header class="photo-hero">
-      <p class="eyebrow">Photography</p>
+      <p class="eyebrow">Photography &amp; Video</p>
       <h1>Through my <em>lens.</em></h1>
 
       <div class="photo-intro">
@@ -365,25 +456,46 @@
           An ongoing visual journal, captured along the way.
         </p>
         <span class="photo-count" id="photo-count">Loading collection</span>
+        <nav class="jump-links" aria-label="Jump to">
+          <a href="#video">Video</a>
+          <a href="#photos">Photography</a>
+        </nav>
       </div>
     </header>
 
     <main class="gallery-section" id="gallery-main">
-      <div class="gallery-heading">
-        <h2>The collection</h2>
-        <span class="photo-count" id="gallery-years"></span>
-      </div>
+      <section class="video-section" id="video" aria-labelledby="video-heading">
+        <div class="gallery-heading">
+          <h2 id="video-heading">Video</h2>
+          <div class="row-controls">
+            <a href="https://www.youtube.com/@spicemarine98" target="_blank" rel="noopener">Spice Marine on YouTube ↗</a>
+            <button class="row-btn" id="video-prev" type="button" aria-label="Scroll videos left">‹</button>
+            <button class="row-btn" id="video-next" type="button" aria-label="Scroll videos right">›</button>
+          </div>
+        </div>
+        <ul class="video-row" id="video-row"></ul>
+      </section>
 
-      <div id="gallery" class="gallery-grid"></div>
-      <button id="gallery-more" class="btn ghost gallery-more" type="button" hidden>Show more photos</button>
-      <div id="gallery-status" class="gallery-status" role="status">
-        Loading photographs…
-      </div>
+      <section id="photos" aria-labelledby="photos-heading">
+        <div class="gallery-heading">
+          <h2 id="photos-heading">Photography</h2>
+          <span class="photo-count" id="gallery-years"></span>
+        </div>
+
+        <div id="gallery" class="gallery-grid"></div>
+        <button id="gallery-more" class="btn ghost gallery-more" type="button" hidden>Show more photos</button>
+        <div id="gallery-status" class="gallery-status" role="status">
+          Loading photographs…
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
       <span>© <span data-year>2026</span> Desira Wijesundara</span>
-      <a href="https://www.instagram.com/desira_senal/" target="_blank" rel="noopener">More on Instagram ↗</a>
+      <span class="footer-links">
+        <a href="https://www.youtube.com/@spicemarine98" target="_blank" rel="noopener">YouTube ↗</a>
+        <a href="https://www.instagram.com/desira_senal/" target="_blank" rel="noopener">More on Instagram ↗</a>
+      </span>
     </footer>
   </div>
 
@@ -751,6 +863,121 @@
       }, { rootMargin: "0px 0px 900px 0px" }).observe(moreButton);
     }
 
+    // ---------- Video ----------
+    // YouTube Shorts from the Spice Marine channel, newest first. To curate,
+    // delete or reorder lines here. Text after "|" (hashtags) is not shown.
+    const VIDEOS = [
+      ["mWWmTvut9SY", "Have you ever seen beans this big? | #asmr #cooking #recipe"],
+      ["jSuV1WiAAZI", "Tropical Fruit Salad for the Summer"],
+      ["o4sajU1cYRo", "Sri Lankan Super Food"],
+      ["h-Yg4DlG6Bk", "You can never go wrong with a stew | #asmr #shorts #cooking"],
+      ["32WbWLau-rg", "Have you tried Taro this way? | #shorts #cooking #asmr #recipe"],
+      ["8JhSgkyyZkA", "A chicken recipe to die for | #shorts #cooking #recipe"],
+      ["GYM9foOV9-0", "Tales from the Garden - EP 01 | #asmr #shorts #garden"],
+      ["qX_1xXMvLkU", "Sri Lankan Beetroot Curry | #asmr #shorts #cooking #recipe #cooking"],
+      ["Sohztfxrr-A", "Sri Lankan Water Spinach Stir-Fry | #asmr #shorts #cooking #recipe #easyrecipe"],
+      ["L6a5ZCtZ1Ak", "Sri Lankan Omelette - Anyone can cook EP 01 | #shorts #asmr #recipe #omelette"],
+      ["gU0PzOjz5As", "Sri Lankan Ash Plantain Curry | #shorts #asmr #cooking #curry #recipe"],
+      ["I5lLzVtyYBM", "Sri Lankan Fried Fish Curry | #shorts #asmr #cooking #curry #recipe"],
+      ["1m-ftfCR4UU", "Sri Lankan Stir Fried Long Beans | #shorts #cooking #asmr #srilankanfood #recipe"],
+      ["paEjxY8O24w", "Sri Lankan Chicken Curry | #asmr #cooking #food #srilankanfood #recipe"],
+      ["kHAF4VaFK5k", "Sri Lankan Pennywort Salad |  #cooking #asmr #food #recipe #salad #easyrecipe"],
+      ["RKdUlXcul7E", "Sri Lankan Radish Stir Fry | #asmr #cooking #food #srilankanfood #recipe"],
+      ["LZBHcF4uPgA", "Sri Lankan Dhal Curry | #asmr #cooking #food #dhal #recipe #vegetarian #curry"],
+      ["m85qZ15IQUo", "Sri Lankan Fried Bitter Gourd Salad | #asmr #cooking #food #srilankanfood #recipe"],
+      ["Le0hQwxhAUk", "Sri Lankan Black Pork Curry | #cooking #asmr #srilankanfood"]
+    ];
+
+    const videoRow = document.getElementById("video-row");
+    const videoPrev = document.getElementById("video-prev");
+    const videoNext = document.getElementById("video-next");
+    let playing = null; // { frame, link } of the video currently embedded
+
+    const cleanTitle = title => title.split("|")[0].trim();
+    const posterUrl = id => `https://i.ytimg.com/vi/${id}/oar2.jpg`; // vertical Shorts poster
+
+    // Only one video plays at a time: put the previous one back to its poster.
+    function stopVideo() {
+      if (!playing) return;
+      playing.frame.replaceWith(playing.link);
+      playing = null;
+    }
+
+    function playVideo(link, id, title) {
+      stopVideo();
+      const frame = document.createElement("div");
+      frame.className = "video-frame";
+      const iframe = document.createElement("iframe");
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&playsinline=1&rel=0`;
+      iframe.title = title;
+      iframe.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen";
+      iframe.allowFullscreen = true;
+      frame.appendChild(iframe);
+      link.replaceWith(frame);
+      playing = { frame, link };
+      iframe.focus();
+    }
+
+    function buildVideoCard([id, rawTitle]) {
+      const title = cleanTitle(rawTitle);
+      const item = document.createElement("li");
+      item.className = "video-card";
+
+      // A real link, so the video still opens on YouTube if scripts fail.
+      const link = document.createElement("a");
+      link.className = "video-frame";
+      link.href = `https://www.youtube.com/shorts/${id}`;
+      link.target = "_blank";
+      link.rel = "noopener";
+      link.setAttribute("aria-label", `Play video: ${title}`);
+
+      const poster = document.createElement("img");
+      poster.alt = "";
+      poster.loading = "lazy";
+      poster.decoding = "async";
+      poster.sizes = "(max-width: 650px) 40vw, 236px";
+      poster.srcset = `${thumbUrl(posterUrl(id), 360)} 360w, ${thumbUrl(posterUrl(id), 540)} 540w`;
+      poster.src = thumbUrl(posterUrl(id), 540);
+      poster.addEventListener("error", () => {
+        if (poster.dataset.fallback) return;
+        poster.dataset.fallback = "1";
+        poster.removeAttribute("srcset");
+        poster.src = posterUrl(id);
+      });
+
+      const play = document.createElement("span");
+      play.className = "play-icon";
+      play.setAttribute("aria-hidden", "true");
+
+      link.append(poster, play);
+      link.addEventListener("click", event => {
+        event.preventDefault();
+        playVideo(link, id, title);
+      });
+
+      const caption = document.createElement("p");
+      caption.className = "video-title";
+      caption.textContent = title;
+
+      item.append(link, caption);
+      return item;
+    }
+
+    videoRow.append(...VIDEOS.map(buildVideoCard));
+
+    // Arrow buttons scroll by most of a screen; disabled at either end.
+    function updateRowButtons() {
+      const max = videoRow.scrollWidth - videoRow.clientWidth - 2;
+      videoPrev.disabled = videoRow.scrollLeft <= 2;
+      videoNext.disabled = videoRow.scrollLeft >= max;
+    }
+    const scrollRow = direction =>
+      videoRow.scrollBy({ left: direction * videoRow.clientWidth * 0.85, behavior: "smooth" });
+    videoPrev.addEventListener("click", () => scrollRow(-1));
+    videoNext.addEventListener("click", () => scrollRow(1));
+    videoRow.addEventListener("scroll", updateRowButtons, { passive: true });
+    new ResizeObserver(updateRowButtons).observe(videoRow);
+
     // ---------- Load the feed ----------
     async function loadGallery() {
       try {
@@ -805,7 +1032,7 @@
           });
         });
 
-        count.textContent = `${viewerPhotos.length} photographs`;
+        count.textContent = `${viewerPhotos.length} photographs · ${VIDEOS.length} videos`;
 
         // Year range of the collection, e.g. "2020 – 2024".
         const postYears = photos
