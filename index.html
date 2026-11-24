@@ -5,16 +5,22 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Desira Wijesundara - Technical Writer</title>
 <meta name="description" content="Technical writer and software engineer specializing in API documentation, developer guides, and enterprise platform docs. Open to remote roles worldwide, relocation with visa sponsorship, or on-site in Sri Lanka.">
+<meta name="author" content="Desira Wijesundara">
+<meta name="theme-color" content="#f6f4ef">
+<link rel="canonical" href="https://miniskynet.github.io/">
 
-<!-- Favicon: "DW" monogram, ink on paper, matching site branding -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%231C2333'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='30' font-weight='600' fill='%23FAF9F5' text-anchor='middle'%3EDW%3C/text%3E%3C/svg%3E">
+<!-- Favicon: "DW" monogram -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2315171C'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23F6F4EF' text-anchor='middle'%3EDW%3C/text%3E%3Ccircle cx='50' cy='14' r='5' fill='%23F0875F'/%3E%3C/svg%3E">
 
 <!-- Open Graph / social preview -->
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Desira Wijesundara">
 <meta property="og:title" content="Desira Wijesundara - Technical Writer">
 <meta property="og:description" content="Docs that make complex APIs feel obvious. Technical writer and software engineer, open to remote roles worldwide, relocation with visa sponsorship, or on-site in Sri Lanka.">
 <meta property="og:image" content="https://miniskynet.github.io/og-image.png">
-<meta property="og:url" content="https://miniskynet.github.io">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://miniskynet.github.io/">
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
@@ -22,256 +28,72 @@
 <meta name="twitter:description" content="Docs that make complex APIs feel obvious. Technical writer and software engineer, open to remote roles worldwide, relocation with visa sponsorship, or on-site in Sri Lanka.">
 <meta name="twitter:image" content="https://miniskynet.github.io/og-image.png">
 
+<!-- Structured data so search engines understand who this page is about -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Desira Wijesundara",
+  "jobTitle": "Technical Writer",
+  "url": "https://miniskynet.github.io/",
+  "sameAs": [
+    "https://linkedin.com/in/desira-wijesundara",
+    "https://github.com/miniskynet",
+    "https://desirawijesundara.medium.com"
+  ],
+  "alumniOf": "University of Westminster",
+  "knowsAbout": ["API documentation", "OpenAPI", "Swagger", "Technical writing", "Developer experience"]
+}
+</script>
+
+<!-- Apply saved theme before first paint (prevents a light/dark flash) -->
+<script>
+  (function () {
+    var r = document.documentElement;
+    r.classList.add("js");
+    try {
+      var t = localStorage.getItem("theme");
+      if (t === "light" || t === "dark") r.dataset.theme = t;
+    } catch (e) {}
+  })();
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper:#FAF9F5;
-    --paper-dim:#F1EFE7;
-    --ink:#1C2333;
-    --slate:#5B6472;
-    --slate-light:#8A93A0;
-    --cobalt:#3454D1;
-    --amber:#D98E2B;
-    --line:#E4E1D8;
-    --mono: 'IBM Plex Mono', monospace;
-    --sans: 'IBM Plex Sans', sans-serif;
-    --serif: 'Fraunces', serif;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:var(--sans);
-    line-height:1.6;
-    font-size:16px;
-  }
-  a{color:var(--cobalt); text-decoration:none;}
-  a:hover{text-decoration:underline;}
-  a:focus-visible, button:focus-visible{outline:2px solid var(--cobalt); outline-offset:3px;}
-
-  .layout{display:flex; max-width:1200px; margin:0 auto;}
-
-  /* Sidebar nav, styled like an API reference sidebar */
-  .sidebar{
-    width:250px; flex-shrink:0;
-    padding:48px 24px 48px 0;
-    position:sticky; top:0; align-self:flex-start;
-    height:100vh; overflow-y:auto;
-  }
-  .sidebar .brand{
-    font-family:var(--serif); font-weight:500; font-size:1.15rem;
-    margin-bottom:4px;
-  }
-  .sidebar .brand-sub{
-    font-family:var(--mono); font-size:0.72rem; color:var(--slate-light);
-    letter-spacing:0.03em; margin-bottom:36px; display:block;
-  }
-  .sidebar nav ul{list-style:none;}
-  .sidebar nav li{margin-bottom:2px;}
-  .sidebar nav a{
-    display:block; color:var(--slate); font-size:0.88rem;
-    padding:6px 10px; border-left:2px solid transparent; border-radius:0 4px 4px 0;
-  }
-  .sidebar nav a:hover{color:var(--ink); text-decoration:none; background:var(--paper-dim);}
-  .sidebar nav a.active{color:var(--cobalt); border-left-color:var(--cobalt); font-weight:500;}
-  .sidebar .method{
-    font-family:var(--mono); font-size:0.65rem; padding:1px 5px; border-radius:3px;
-    margin-right:6px; font-weight:500;
-  }
-  .method.get{background:#E8EEFC; color:var(--cobalt);}
-  .method.post{background:#FCEFDD; color:var(--amber);}
-
-  main{flex:1; min-width:0; padding:48px 32px 120px 40px; border-left:1px solid var(--line);}
-
-  section{padding-top:64px; margin-top:-64px;}
-  section + section{margin-top:72px; padding-top:16px;}
-
-  .endpoint-label{
-    font-family:var(--mono); font-size:0.75rem; color:var(--slate);
-    display:flex; align-items:center; gap:8px; margin-bottom:10px;
-  }
-  h1,h2,h3{font-family:var(--serif); font-weight:500; letter-spacing:-0.01em;}
-  h2{font-size:1.6rem; margin-bottom:6px;}
-  h3{font-size:1.1rem; margin-bottom:4px; font-weight:600;}
-  p{color:var(--ink);}
-  .dim{color:var(--slate);}
-
-  /* Hero */
-  .hero{padding-top:32px !important; margin-top:0 !important; display:grid; grid-template-columns:1.1fr 1fr; gap:48px; align-items:start;}
-  .hero h1{font-size:2.6rem; line-height:1.08; margin-bottom:14px;}
-  .hero .tagline{font-size:1.05rem; color:var(--slate); max-width:44ch; margin-bottom:24px;}
-  .hero .badges{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:28px;}
-  .badge{
-    font-family:var(--mono); font-size:0.72rem; padding:4px 10px; border-radius:14px;
-    border:1px solid var(--line); color:var(--slate); background:#fff;
-  }
-  .badge.status{color:#1F7A4D; border-color:#BFE3CC; background:#EFFAF3;}
-  .badge.status::before{content:"●"; margin-right:5px; font-size:0.6rem;}
-  .cta-row{display:flex; gap:14px; flex-wrap:wrap;}
-  .btn{
-    font-family:var(--mono); font-size:0.82rem; padding:10px 18px; border-radius:6px;
-    display:inline-block; border:1px solid var(--ink);
-  }
-  .btn.primary{background:var(--ink); color:#fff;}
-  .btn.primary:hover{background:#000; text-decoration:none;}
-  .btn.ghost{color:var(--ink); border-color:var(--line);}
-  .btn.ghost:hover{border-color:var(--ink); text-decoration:none;}
-
-  /* JSON response panel - signature element */
-  .response-panel{
-    background:var(--ink); color:#DCE3F5; border-radius:10px; padding:22px 24px;
-    font-family:var(--mono); font-size:0.82rem; overflow-x:auto;
-    box-shadow:0 20px 40px -20px rgba(28,35,51,0.35);
-  }
-  .response-panel .status-line{color:#7FE0A8; margin-bottom:14px; font-size:0.78rem;}
-  .response-panel .key{color:#8FB2FF;}
-  .response-panel .string{color:#F2C879;}
-  .response-panel .punct{color:#6C7690;}
-  .response-panel .array{color:#DCE3F5;}
-
-  /* Experience timeline */
-  .role{border-bottom:1px solid var(--line); padding-bottom:22px; margin-bottom:22px;}
-  .role:last-child{border-bottom:none;}
-  .role-head{display:flex; justify-content:space-between; align-items:baseline; gap:16px; flex-wrap:wrap;}
-  .role-meta{font-family:var(--mono); font-size:0.75rem; color:var(--slate-light); white-space:nowrap;}
-  .role ul{margin:10px 0 0 20px; color:var(--slate);}
-  .role li{margin-bottom:4px;}
-
-  /* Case studies as cards */
-  .case-grid{display:grid; gap:20px; margin-top:20px;}
-  .case-card{
-    border:1px solid var(--line); border-radius:10px; padding:22px 24px; background:#fff;
-  }
-  .case-card .tag{
-    font-family:var(--mono); font-size:0.68rem; color:var(--amber); text-transform:uppercase;
-    letter-spacing:0.05em; margin-bottom:8px; display:block;
-  }
-  .case-card p{color:var(--slate); font-size:0.95rem; margin:8px 0 12px;}
-  .case-card a{font-family:var(--mono); font-size:0.8rem;}
-
-  .excerpt{
-    margin-top:14px; border-top:1px solid var(--line); padding-top:14px;
-  }
-  .excerpt summary{
-    font-family:var(--mono); font-size:0.78rem; color:var(--cobalt); cursor:pointer;
-    list-style:none; display:flex; align-items:center; gap:6px;
-  }
-  .excerpt summary::-webkit-details-marker{display:none;}
-  .excerpt summary::before{content:"▸"; font-size:0.7rem; transition:transform 0.15s ease;}
-  .excerpt[open] summary::before{transform:rotate(90deg);}
-  .excerpt-body{
-    margin-top:12px; font-size:0.88rem; color:var(--ink); line-height:1.65;
-  }
-  .excerpt-body p{margin-bottom:10px;}
-  .excerpt-body ol, .excerpt-body ul{margin:8px 0 10px 20px; color:var(--ink);}
-  .excerpt-body li{margin-bottom:6px;}
-  .excerpt-body .field{
-    font-family:var(--mono); font-size:0.82rem; background:var(--paper-dim);
-    padding:1px 5px; border-radius:3px;
-  }
-  .excerpt-note{
-    font-family:var(--mono); font-size:0.7rem; color:var(--slate-light); margin-top:10px;
-  }
-  .excerpt-screenshot{
-    margin-top:14px; border:1px solid var(--line); border-radius:8px; overflow:hidden;
-    background:#fff;
-  }
-  .excerpt-screenshot img{
-    display:block; width:100%; height:auto;
-  }
-  .excerpt-screenshot-label{
-    font-family:var(--mono); font-size:0.68rem; color:var(--slate-light);
-    padding:6px 10px; border-top:1px solid var(--line); background:var(--paper-dim);
-  }
-  .excerpt-body details{
-    margin:8px 0 8px 0; border-left:2px solid var(--line); padding-left:12px;
-  }
-  .excerpt-body details summary{
-    font-family:var(--mono); font-size:0.76rem; color:var(--cobalt); cursor:pointer;
-    list-style:none; margin-bottom:6px;
-  }
-  .excerpt-body details summary::-webkit-details-marker{display:none;}
-  .excerpt-body details summary::before{content:"▸ "; font-size:0.7rem;}
-  .excerpt-body details[open] summary::before{content:"▾ ";}
-  .excerpt-body blockquote{
-    font-size:0.85rem; color:var(--slate); border-left:2px solid var(--amber);
-    padding-left:10px; margin:8px 0;
-  }
-
-  .excerpt-body pre.code{
-    font-family:var(--mono); font-size:0.76rem; line-height:1.55; background:var(--paper-dim);
-    border:1px solid var(--line); border-radius:6px; padding:10px 12px; margin:8px 0;
-    overflow-x:auto; white-space:pre; color:var(--ink);
-  }
-  .excerpt-body.email{border-left:2px solid var(--line); padding-left:14px;}
-  .excerpt-body.email ol, .excerpt-body.email li{color:var(--slate);}
-
-  .excerpt-body table.params{width:100%; border-collapse:collapse; margin:8px 0 12px; font-size:0.82rem; display:block; overflow-x:auto;}
-  .excerpt-body table.params th, .excerpt-body table.params td{
-    text-align:left; vertical-align:top; padding:6px 8px; border-bottom:1px solid var(--line);
-  }
-  .excerpt-body table.params th{font-family:var(--mono); font-size:0.72rem; color:var(--slate); font-weight:500;}
-  .excerpt-body table.params td:first-child, .excerpt-body table.params td:nth-child(2){font-family:var(--mono); font-size:0.78rem; white-space:nowrap;}
-  .excerpt-body .endpoint-line{display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
-  .excerpt-body .endpoint-line .method{font-family:var(--mono); font-size:0.68rem; padding:1px 6px; border-radius:3px; font-weight:500;}
-  .excerpt-body .marker{display:inline-block; font-family:var(--mono); font-size:0.62rem; padding:0 5px; border-radius:3px; margin-left:4px; vertical-align:1px;}
-  .excerpt-body .marker.req{background:#FCEFDD; color:#9A5B12;}
-  .excerpt-body .marker.opt{background:var(--paper-dim); color:var(--slate);}
-  .excerpt-body .marker.ro{background:#E8EEFC; color:var(--cobalt);}
-  .excerpt-body table.params.errors td:nth-child(2){font-family:inherit; font-size:0.82rem; white-space:normal;}
-  .case-grid > .case-card{min-width:0;}
-  .case-group-label{font-family:var(--mono); font-size:0.72rem; color:var(--slate); text-transform:uppercase; letter-spacing:0.06em; margin:14px 0 -6px;}
-  .case-group-label:first-child{margin-top:4px;}
-  .skill-group-label{font-family:var(--mono); font-size:0.72rem; color:var(--slate); text-transform:uppercase; letter-spacing:0.06em; margin:22px 0 -6px;}
-
-  .skills-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(150px,1fr)); gap:10px; margin-top:16px;}
-  .skill-chip{
-    font-family:var(--mono); font-size:0.78rem; padding:8px 12px; background:var(--paper-dim);
-    border-radius:6px; color:var(--ink);
-  }
-
-  footer{
-    border-top:1px solid var(--line); margin-top:80px; padding-top:28px;
-    font-family:var(--mono); font-size:0.78rem; color:var(--slate-light);
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px;
-  }
-
-  .note{
-    font-family:var(--mono); font-size:0.72rem; color:var(--slate-light);
-    background:var(--paper-dim); border-left:2px solid var(--amber);
-    padding:8px 12px; margin-top:14px; border-radius:0 4px 4px 0;
-  }
-
-  @media (max-width: 880px){
-    .layout{flex-direction:column;}
-    .sidebar{position:relative; height:auto; width:100%; padding:24px 24px 0;}
-    main{padding:32px 20px 80px; border-left:none;}
-    .hero{grid-template-columns:1fr;}
-  }
-</style>
-<link rel="stylesheet" href="/technical-overrides.css">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
-<header class="site-nav">
-  <a class="brand" href="/" aria-label="Desira Wijesundara home">DESIRA <span>WIJESUNDARA</span></a>
-  <nav class="nav-links" aria-label="Portfolio sections">
-    <a href="/" aria-current="page">Technical</a>
-    <a href="/photography/">Photography</a>
-    <a href="/videography/">Videography</a>
-    <a href="https://linkedin.com/in/desira-wijesundara" target="_blank" rel="noopener">LinkedIn ↗</a>
-  </nav>
-</header> 
+<a class="skip-link" href="#main">Skip to content</a>
 
-<div class="layout">
-  <aside class="sidebar">
-    <div class="brand">Desira Wijesundara</div>
-    <span class="brand-sub">TECHNICAL WRITER · API DOCS</span>
-    <nav>
+<header class="site-nav">
+  <div class="site-nav-inner">
+    <a class="brand" href="./" aria-label="Desira Wijesundara home">
+      <span class="brand-mark" aria-hidden="true">DW</span>
+      <span class="brand-name">Desira Wijesundara</span>
+    </a>
+    <nav class="nav-links" aria-label="Portfolio sections">
+      <a href="./" aria-current="page">Technical</a>
+      <a href="photography/">Photography</a>
+      <a href="https://linkedin.com/in/desira-wijesundara" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+    </nav>
+    <div class="nav-actions">
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode">
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2v2.2M12 19.8V22M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M2 12h2.2M19.8 12H22M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6"/></svg>
+      </button>
+      <a class="btn btn-sm primary" href="Desira_Wijesundara_Resume.pdf" target="_blank" rel="noopener">Résumé <span class="arrow down" aria-hidden="true">↓</span></a>
+    </div>
+  </div>
+  <div class="scroll-progress" aria-hidden="true"></div>
+</header>
+
+<div class="shell">
+  <aside class="sidebar" aria-label="On this page">
+    <p class="sidebar-title">Endpoints</p>
+    <nav aria-label="Page sections">
       <ul>
-        <li><a href="#overview" class="active"><span class="method get">GET</span>/overview</a></li>
+        <li><a href="#overview"><span class="method get">GET</span>/overview</a></li>
         <li><a href="#experience"><span class="method get">GET</span>/experience</a></li>
         <li><a href="#case-studies"><span class="method get">GET</span>/case-studies</a></li>
         <li><a href="#writing"><span class="method get">GET</span>/writing</a></li>
@@ -281,11 +103,12 @@
     </nav>
   </aside>
 
-  <main>
+  <main id="main">
     <section class="hero" id="top">
-      <div>
-        <h1>Docs that make complex APIs feel obvious.</h1>
-        <p class="tagline">I'm a technical writer and software engineer who lives at the intersection of both disciplines. With a BEng (Hons) in Software Engineering from the University of Westminster and hands-on experience building real-world applications, I bring genuine technical depth to the work of documentation and developer experience.</p>
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="pulse" aria-hidden="true"></span><strong>Desira Wijesundara</strong><span class="sep" aria-hidden="true">·</span><span class="role-line">Technical Writer · API Docs</span></p>
+        <h1>Docs that make complex APIs <em>feel obvious.</em></h1>
+        <p class="tagline">I'm a technical writer with a software engineering degree. I read the source, test the API, and write docs developers don't have to second-guess.</p>
         <div class="badges">
           <span class="badge status">Open to work</span>
           <span class="badge">Remote (worldwide)</span>
@@ -293,126 +116,125 @@
           <span class="badge">Sri Lanka</span>
         </div>
         <div class="cta-row">
-          <a class="btn primary" href="#contact">Get in touch</a>
-          <a class="btn ghost" href="Desira_Wijesundara_Resume.pdf" target="_blank" rel="noopener">Download résumé</a>
+          <a class="btn primary" href="#contact">Get in touch <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn ghost" href="Desira_Wijesundara_Resume.pdf" target="_blank" rel="noopener">Download résumé <span class="arrow down" aria-hidden="true">↓</span></a>
         </div>
       </div>
 
-      <div class="response-panel">
-        <div class="status-line">// 200 OK</div>
-        <span class="punct">{</span><br>
-        &nbsp;&nbsp;<span class="key">"role"</span><span class="punct">:</span> <span class="string">"Junior Technical Writer"</span><span class="punct">,</span><br>
-        &nbsp;&nbsp;<span class="key">"employer"</span><span class="punct">:</span> <span class="string">"Programus Ltd."</span><span class="punct">,</span><br>
-        &nbsp;&nbsp;<span class="key">"based_in"</span><span class="punct">:</span> <span class="string">"Sri Lanka"</span><span class="punct">,</span><br>
-        &nbsp;&nbsp;<span class="key">"education"</span><span class="punct">:</span> <span class="string">"BEng (Hons) Software Engineering, University of Westminster (Upper Second Class Honours)"</span><span class="punct">,</span><br>
-        &nbsp;&nbsp;<span class="key">"toolchain"</span><span class="punct">:</span> <span class="array">[</span><span class="string">"OpenAPI"</span><span class="punct">,</span> <span class="string">"Swagger"</span><span class="punct">,</span> <span class="string">"Postman"</span><span class="punct">,</span> <span class="string">"Git"</span><span class="punct">,</span> <span class="string">"Azure DevOps"</span><span class="punct">,</span> <span class="string">"RoboHelp"</span><span class="punct">,</span> <span class="string">"Claude Code"</span><span class="array">]</span><span class="punct">,</span><br>
-        &nbsp;&nbsp;<span class="key">"background"</span><span class="punct">:</span> <span class="string">"full-stack, Android &amp; API engineering before technical writing"</span><span class="punct">,</span><br>
-        &nbsp;&nbsp;<span class="key">"open_to_roles"</span><span class="punct">:</span> <span class="array">[</span><span class="string">"Technical Writer"</span><span class="punct">,</span> <span class="string">"Documentation Engineer"</span><span class="punct">,</span> <span class="string">"Content Developer"</span><span class="punct">,</span> <span class="string">"Information Developer"</span><span class="punct">,</span> <span class="string">"Developer Advocate"</span><span class="array">]</span><span class="punct">,</span><br>
-        &nbsp;&nbsp;<span class="key">"employment_type"</span><span class="punct">:</span> <span class="array">[</span><span class="string">"Full-time"</span><span class="punct">,</span> <span class="string">"Contract"</span><span class="array">]</span><span class="punct">,</span><br>
-        &nbsp;&nbsp;<span class="key">"start_date"</span><span class="punct">:</span> <span class="string">"Immediately"</span><span class="punct">,</span><br>
-        &nbsp;&nbsp;<span class="key">"targeting"</span><span class="punct">:</span> <span class="string">"technical writing / documentation engineering / developer relations"</span><span class="punct">,</span><br>
-        &nbsp;&nbsp;<span class="key">"work_arrangement"</span><span class="punct">:</span> <span class="array">[</span><span class="string">"Remote (worldwide)"</span><span class="punct">,</span> <span class="string">"Relocation (visa sponsorship)"</span><span class="punct">,</span> <span class="string">"On-site in Sri Lanka"</span><span class="array">]</span><span class="punct">,</span><br>
-        &nbsp;&nbsp;<span class="key">"status"</span><span class="punct">:</span> <span class="string">"open_to_work"</span><br>
-        <span class="punct">}</span>
-      </div>
+      <figure class="api-window" aria-label="Profile summary, formatted as an API response">
+        <div class="api-window-bar" aria-hidden="true">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <span class="api-url"><span class="method get">GET</span>/profile</span>
+          <span class="api-status">200 OK</span>
+        </div>
+        <div class="json">
+          <span class="ln"><span class="p">{</span></span>
+          <span class="ln i"><span class="k">"role"</span><span class="p">: </span><span class="s">"Technical Writer"</span><span class="p">,</span></span>
+          <span class="ln i"><span class="k">"latest"</span><span class="p">: </span><span class="s">"Junior Technical Writer, Programus Ltd."</span><span class="p">,</span></span>
+          <span class="ln i"><span class="k">"education"</span><span class="p">: </span><span class="s">"BEng (Hons) Software Engineering, University of Westminster"</span><span class="p">,</span></span>
+          <span class="ln i"><span class="k">"toolchain"</span><span class="p">: </span><span class="a">[</span><span class="s">"OpenAPI"</span><span class="p">, </span><span class="s">"Swagger"</span><span class="p">, </span><span class="s">"Postman"</span><span class="p">, </span><span class="s">"Git"</span><span class="p">, </span><span class="s">"Azure DevOps"</span><span class="p">, </span><span class="s">"RoboHelp"</span><span class="p">, </span><span class="s">"Claude Code"</span><span class="a">]</span><span class="p">,</span></span>
+          <span class="ln i"><span class="k">"open_to"</span><span class="p">: </span><span class="a">[</span><span class="s">"Technical Writer"</span><span class="p">, </span><span class="s">"Documentation Engineer"</span><span class="p">, </span><span class="s">"Content Developer"</span><span class="p">, </span><span class="s">"Information Developer"</span><span class="p">, </span><span class="s">"Developer Advocate"</span><span class="a">]</span><span class="p">,</span></span>
+          <span class="ln i"><span class="k">"status"</span><span class="p">: </span><span class="s">"open_to_work"</span></span>
+          <span class="ln"><span class="p">}</span><span class="cursor" aria-hidden="true"></span></span>
+        </div>
+      </figure>
     </section>
+
+    <div class="stats" role="list" aria-label="Highlights">
+      <div class="stat" role="listitem" data-count="800"><span class="stat-num"><span class="n">800</span><span class="plus">+</span></span><span class="stat-label">REST API endpoints documented</span></div>
+      <div class="stat" role="listitem" data-count="7000"><span class="stat-num"><span class="n">7,000</span><span class="plus">+</span></span><span class="stat-label">API descriptions, 2,600+ hand-written</span></div>
+      <div class="stat" role="listitem" data-count="55"><span class="stat-num"><span class="n">55</span></span><span class="stat-label">user guides authored in RoboHelp</span></div>
+      <div class="stat" role="listitem" data-count="40"><span class="stat-num"><span class="n">40</span><span class="plus">+</span></span><span class="stat-label">product tutorial videos produced</span></div>
+      <div class="stat" role="listitem" data-count="10"><span class="stat-num"><span class="n">10</span><span class="plus">+</span></span><span class="stat-label">custom deliverables for 6+ enterprise clients</span></div>
+    </div>
 
     <section id="overview">
       <div class="endpoint-label"><span class="method get">GET</span> /overview</div>
       <h2>Overview</h2>
-      <p class="dim" style="max-width:65ch; margin-top:14px;">
-        At Programus Ltd., I document an enterprise event and venue management platform end to end: the
-        OpenAPI/Swagger reference for its 800+ endpoint REST API, user guides, tutorial videos, release notes,
-        and custom client documentation. I also support clients through their API integrations, from Postman
-        collections to working with developers on confirmed defects.
-      </p>
-      <p class="dim" style="max-width:65ch; margin-top:14px;">
-        Before moving into technical writing I spent time as a software engineer across full-stack web, Android,
-        and API layers with a focus on Java, JavaScript, React.js, Node.js, SQL, Spring Boot, and more. I've
-        written Bash scripts and Ansible playbooks, managed Linux environments, and contributed to open source.
-        That background means I can read a codebase, understand what developers are building, and document it
-        without needing everything explained from scratch.
-      </p>
-      <p class="dim" style="max-width:65ch; margin-top:14px;">
-        I also write about software engineering on Medium. One article, a technical explainer on Python
-        operators, was curated and featured by Medium's editorial team, reaching 2.5K+ readers.
-      </p>
-      <p class="dim" style="max-width:65ch; margin-top:14px;">
-        I'm actively looking for technical writing, documentation engineering, and developer relations roles,
-        whether remote from anywhere, relocation where visa sponsorship is offered, or on-site in Sri Lanka. If you're building a
-        developer-facing product and need someone who genuinely understands both sides, feel free to reach out
-        or check out my portfolio below.
-      </p>
+      <div class="prose">
+        <p class="lead">
+          At Programus Ltd., I document an enterprise event and venue management platform end to end: the
+          OpenAPI/Swagger reference for its 800+ endpoint REST API, user guides, tutorial videos, release notes,
+          and custom client documentation. I also support clients through their API integrations, from Postman
+          collections to working with developers on confirmed defects.
+        </p>
+        <p>
+          Before moving into technical writing I spent time as a software engineer across full-stack web, Android,
+          and API layers with a focus on Java, JavaScript, React.js, Node.js, SQL, Spring Boot, and more. I've
+          written Bash scripts and Ansible playbooks, managed Linux environments, and contributed to open source.
+          That background means I can read a codebase, understand what developers are building, and document it
+          without needing everything explained from scratch.
+        </p>
+        <p>
+          I also write about software engineering on Medium. One article, a technical explainer on Python
+          operators, was curated and featured by Medium's editorial team, reaching 2.5K+ readers.
+        </p>
+      </div>
     </section>
 
     <section id="experience">
       <div class="endpoint-label"><span class="method get">GET</span> /experience</div>
       <h2>Experience</h2>
 
-      <div style="margin-top:20px;">
-        <div class="role">
+      <ol class="timeline">
+        <li class="role current">
           <div class="role-head">
-            <h3>Junior Technical Writer - Programus Ltd.</h3>
-            <span class="role-meta">Sep 2024 - Present</span>
+            <h3>Junior Technical Writer <span class="org">Programus Ltd.</span></h3>
+            <span class="role-meta">Sep 2024 - Dec 2026</span>
           </div>
-            <ul>
-              <li>Owned end-to-end documentation for an enterprise event management platform, spanning API references, user guides, release notes, tutorial videos, and custom client documentation.</li>
-            
-              <li>Expanded the OpenAPI/Swagger reference for an 800+ endpoint REST API, hand-writing 2,600+ descriptions and scaling coverage to 7,000+ through source-verified AI-assisted audits.</li>
-            
-              <li>Supported enterprise API integrations by building Postman collections, validating endpoint behaviour, investigating technical queries, and coordinating confirmed defect reports with developers.</li>
-            
-              <li>Authored 55 user guides in Adobe RoboHelp, updated 24 following client reviews, and maintained product release documentation.</li>
-            
-              <li>Produced 10+ custom documentation deliverables for 6+ enterprise clients, including a 90-page configuration guide and API documentation.</li>
-            
-              <li>Created and edited 40+ product tutorial videos in Adobe Premiere Pro, handling scripting, recording, editing, and voiceovers.</li>
-            
-              <li>Built an internal AI-assisted knowledge base to help the team find answers to API-related questions.</li>
-            </ul>
-        </div>
+          <ul>
+            <li>Owned end-to-end documentation for an enterprise event management platform, spanning API references, user guides, release notes, tutorial videos, and custom client documentation.</li>
+            <li>Expanded the OpenAPI/Swagger reference for an 800+ endpoint REST API, hand-writing 2,600+ descriptions and scaling coverage to 7,000+ through source-verified AI-assisted audits.</li>
+            <li>Supported enterprise API integrations by building Postman collections, validating endpoint behaviour, investigating technical queries, and coordinating confirmed defect reports with developers.</li>
+            <li>Authored 55 user guides in Adobe RoboHelp, updated 24 following client reviews, and maintained product release documentation.</li>
+            <li>Produced 10+ custom documentation deliverables for 6+ enterprise clients, including a 90-page configuration guide and API documentation.</li>
+            <li>Created and edited 40+ product tutorial videos in Adobe Premiere Pro, handling scripting, recording, editing, and voiceovers.</li>
+            <li>Built an internal AI-assisted knowledge base to help the team find answers to API-related questions.</li>
+          </ul>
+        </li>
 
-        <div class="role">
+        <li class="role">
           <div class="role-head">
-            <h3>Trainee Software Engineer - hSenid Mobile Solutions</h3>
+            <h3>Trainee Software Engineer <span class="org">hSenid Mobile Solutions</span></h3>
             <span class="role-meta">Jul 2022 - Jun 2023</span>
           </div>
           <ul>
             <li>Fixed bugs and shipped features across Applova's web, API, and Android kiosk applications.</li>
             <li>Automated builds and database backup/restore with Bash and Ansible, and wrote release notes for the QA team.</li>
           </ul>
-        </div>
+        </li>
 
-        <div class="role">
+        <li class="role">
           <div class="role-head">
-            <h3>Associate Software Engineer - Sustainable Education Foundation</h3>
+            <h3>Associate Software Engineer <span class="org">Sustainable Education Foundation</span></h3>
             <span class="role-meta">Jun 2022 - Jun 2023</span>
           </div>
           <ul>
             <li>Wrote the SEF volunteer handbook and site content, contributed to ScholarX v2 wireframes, and shipped fixes and features to the website.</li>
             <li>Hosted a Google Summer of Code awareness session and led interviews with ScholarX mentors to gather feedback.</li>
           </ul>
-        </div>
-        <div class="role">
+        </li>
+
+        <li class="role">
           <div class="role-head">
-            <h3>Digital Marketing Intern - Antyra Solutions</h3>
+            <h3>Digital Marketing Intern <span class="org">Antyra Solutions</span></h3>
             <span class="role-meta">Sep 2017 - Mar 2018</span>
           </div>
           <ul>
-            <li>Directly handled two clients (Zesta tea and Resplendent Ceylon) and co-handled six clients (Lanka hospitals, Jetwing hotels, Pickme, WOW.lk, Spa Ceylon, and John Keels) running digital marketing campaigns and writing SEO friendly content.</li>
+            <li>Directly handled two clients (Zesta Tea and Resplendent Ceylon) and co-handled six clients (Lanka Hospitals, Jetwing Hotels, PickMe, WOW.lk, Spa Ceylon, and John Keells) running digital marketing campaigns and writing SEO-friendly content.</li>
           </ul>
-        </div>
+        </li>
 
-        <div class="role">
+        <li class="role">
           <div class="role-head">
-            <h3>Freelance Writer - The Nation</h3>
+            <h3>Freelance Writer <span class="org">The Nation</span></h3>
             <span class="role-meta">Aug 2015 - Jan 2016</span>
           </div>
           <ul>
             <li>Wrote three articles for the 'Free' magazine of The Nation newspaper about video games.</li>
           </ul>
-        </div>
-      </div>
+        </li>
+      </ol>
     </section>
 
     <section id="case-studies">
@@ -421,12 +243,37 @@
       <p class="dim">Sanitized documentation samples. The user guides use the placeholder product name "Venuix"; the API samples use invented examples.</p>
 
       <div class="case-grid">
+        <article class="case-card featured">
+          <span class="tag">Featured · API reference at scale</span>
+          <h3>Scaling an 800+ endpoint API reference with AI audits I verify by hand</h3>
+          <p class="featured-lead">I hand-wrote the first 2,600+ descriptions from the source code, then used AI-assisted audits to reach 7,000+, checking every finding against the code before trusting it.</p>
+
+          <div class="feature-stats">
+            <div class="feature-stat"><span class="fs-num">2,600<span class="plus">+</span></span><span class="fs-label">descriptions hand-written, each traced to the source code</span></div>
+            <div class="feature-stat"><span class="fs-num">7,000<span class="plus">+</span></span><span class="fs-label">descriptions after AI-assisted audits with Claude Code</span></div>
+            <div class="feature-stat"><span class="fs-num">13<span class="of"> of </span>102</span><span class="fs-label">flagged items that were real problems in one audit batch</span></div>
+          </div>
+
+          <ol class="flow" aria-label="How the work was done">
+            <li><span class="flow-n">01</span><strong>Write from source</strong><span>Hand-wrote field and endpoint descriptions, tracing each one back to the source code rather than guessing.</span></li>
+            <li><span class="flow-n">02</span><strong>Audit with AI</strong><span>Ran Claude Code audits that flagged gaps in descriptions, filters, sorting, includes and examples.</span></li>
+            <li><span class="flow-n">03</span><strong>Verify by hand</strong><span>Checked every flagged item against the source before trusting it. In one batch, only 13 of 102 were real.</span></li>
+            <li><span class="flow-n">04</span><strong>Fix the scanner</strong><span>Patched the scans themselves so the same false positives couldn't come back.</span></li>
+            <li><span class="flow-n">05</span><strong>Test against live</strong><span>Testing the docs against the live API surfaced real backend bugs, raised with developers and tracked to fixes.</span></li>
+          </ol>
+        </article>
+
         <div class="case-group-label">API documentation</div>
         <div class="case-card">
-          <span class="tag">API Reference</span>
+          <span class="tag">API Reference · Docs-as-code</span>
           <h3>Sample - endpoint reference</h3>
-          <p><strong>What it is:</strong> Illustrative samples of the reference documentation I write in OpenAPI/Swagger, and how I did it at scale. To protect my employer's systems, the API, endpoints and fields are invented.</p>
+          <p><strong>What it is:</strong> Illustrative samples of the reference documentation I write in OpenAPI/Swagger, backed by a full OpenAPI spec I maintain as docs-as-code: versioned in Git, linted in CI and rendered as an interactive reference. To protect my employer's systems, the API, endpoints and fields are invented.</p>
           <p><strong>What it shows:</strong> Reference a developer can actually use: clear summaries, documented filters, sorting and includes, request fields marked as required, optional or read-only, payload and response examples, and errors that explain what went wrong.</p>
+          <div class="sample-links">
+            <a class="btn btn-sm primary" href="https://miniskynet.github.io/reservations-api-docs/" target="_blank" rel="noopener">Open the interactive reference <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-sm ghost" href="https://github.com/miniskynet/reservations-api-docs" target="_blank" rel="noopener">OpenAPI source on GitHub <span aria-hidden="true">↗</span></a>
+            <a class="btn btn-sm ghost" href="https://github.com/miniskynet/reservations-api-docs/blob/main/docs/getting-started.md" target="_blank" rel="noopener">Getting-started guide <span aria-hidden="true">↗</span></a>
+          </div>
 
           <details class="excerpt">
             <summary>View endpoint - List reservations</summary>
@@ -514,17 +361,6 @@
             </div>
           </details>
 
-          <details class="excerpt">
-            <summary>Read - How I did it at scale</summary>
-            <div class="excerpt-body">
-              <ul>
-                <li>Across an 800+ endpoint API, I hand-wrote the first 2,600+ field and endpoint descriptions, tracing each one back to the source code rather than guessing.</li>
-                <li>I then scaled the work with AI-assisted audits (Claude Code) that flagged gaps in descriptions, filters, sorting, includes and examples, reaching 7,000+ descriptions.</li>
-                <li>I hand-verified every flagged item against the source before trusting it. In one batch, only 13 of 102 findings were real problems, so I patched the scans themselves to stop the same false positives from coming back.</li>
-                <li>Testing the documentation against the live API also surfaced real backend bugs, which I raised with the developers and tracked through to fixes.</li>
-              </ul>
-            </div>
-          </details>
           <div class="excerpt-note">Illustrative sample. The API, endpoints and fields are invented; the approach reflects my real reference documentation work.</div>
         </div>
 
@@ -592,7 +428,7 @@ GET [bookings endpoint]?[updated before filter]=2030-10-30T00:00:00</pre>
         <div class="case-card">
           <span class="tag">Enterprise User Guides</span>
           <h3>Venuix - event &amp; venue management platform</h3>
-          <p><strong>What it is:</strong> A selection of user guides I wrote in my current role as Junior Technical Writer at Programus Ltd., documenting workflows and features for an enterprise event and venue management platform used by multiple enterprise clients. Venuix is a fictional name used in place of the actual product name for confidentiality purposes. These guides cover three distinct workflows. These are simplified event setup, seating chart management, and booking status configuration and it represent the type of end-to-end documentation I produce daily in a professional enterprise environment.</p>
+          <p><strong>What it is:</strong> A selection of user guides I wrote in my current role as Junior Technical Writer at Programus Ltd., documenting workflows and features for an enterprise event and venue management platform used by multiple enterprise clients. Venuix is a fictional name used in place of the actual product name for confidentiality purposes. These guides cover three distinct workflows: simplified event setup, seating chart management, and booking status configuration. They represent the type of end-to-end documentation I produce daily in a professional enterprise environment.</p>
           <p><strong>What it shows:</strong> Ability to document complex, multi-step administrative workflows accurately and consistently for a non-technical audience, covering varied feature complexity across a single platform, from high-level setup processes to granular configuration and conditional logic.</p>
           <details class="excerpt">
             <summary>Read full guide - Simplified Event Setup (Quick Flow)</summary>
@@ -924,29 +760,29 @@ GET [bookings endpoint]?[updated before filter]=2030-10-30T00:00:00</pre>
       <div class="endpoint-label"><span class="method get">GET</span> /writing</div>
       <h2>Writing</h2>
 
-      <div class="case-grid">
+      <div class="case-grid writing-grid">
         <div class="case-card">
           <span class="tag">Medium - Featured</span>
           <h3>Working with Operators in Python</h3>
           <p>A beginner-friendly technical explainer on Python operators, selected by Medium editors for the featured tech article list.</p>
-          <p class="dim" style="font-size:0.85rem;">📖 2.5K views · 1.4K reads</p>
+          <p class="read-stats">2.5K views · 1.4K reads</p>
           <a href="https://desirawijesundara.medium.com/working-with-operators-in-python-eb6aaaa1007e" target="_blank" rel="noopener">Read on Medium ↗</a>
         </div>
         <div class="case-card">
           <span class="tag">Medium</span>
           <h3>Interning as a Software Engineer at hSenid Mobile: Part I</h3>
           <p>A firsthand account of my software engineering internship, covering onboarding, tools, and early experiences in a professional dev environment.</p>
-          <p class="dim" style="font-size:0.85rem;">📖 554 views · 77 reads</p>
+          <p class="read-stats">554 views · 77 reads</p>
           <a href="https://medium.com/@desirawijesundara/interning-as-a-software-engineer-at-hsenid-mobile-part-i-d42d925749d7" target="_blank" rel="noopener">Read on Medium ↗</a>
         </div>
         <div class="case-card">
           <span class="tag">Medium</span>
           <h3>Interning as a Software Engineer at hSenid Mobile: Part II</h3>
           <p>Continued reflections on the internship including deeper technical work and lessons learned.</p>
-          <p class="dim" style="font-size:0.85rem;">📖 545 views · 70 reads</p>
+          <p class="read-stats">545 views · 70 reads</p>
           <a href="https://medium.com/@desirawijesundara/interning-as-a-software-engineer-at-hsenid-mobile-part-ii-3fff8c6b5194" target="_blank" rel="noopener">Read on Medium ↗</a>
         </div>
-        <div class="case-card">
+        <div class="case-card wide">
           <span class="tag">Thesis, 2024</span>
           <h3>Bright Horizons - Procedurally Generated Serious Game to Promote Learning in Individuals Affected by Trisomy-21</h3>
           <p><strong>What it is:</strong> Excerpts from my final year undergraduate thesis, "Procedurally Generated Serious Game to Promote Learning in Individuals Affected by Trisomy-21", submitted for my BEng (Hons) in Software Engineering at the University of Westminster (2024).</p>
@@ -996,93 +832,88 @@ GET [bookings endpoint]?[updated before filter]=2030-10-30T00:00:00</pre>
     <section id="skills">
       <div class="endpoint-label"><span class="method get">GET</span> /toolchain</div>
       <h2>Toolchain</h2>
-      <div class="skill-group-label">Documentation &amp; API</div>
-      <div class="skills-grid">
-        <span class="skill-chip">OpenAPI/Swagger</span>
-        <span class="skill-chip">REST APIs</span>
-        <span class="skill-chip">JSON</span>
-        <span class="skill-chip">API testing</span>
-        <span class="skill-chip">Postman</span>
-        <span class="skill-chip">docs-as-code</span>
-        <span class="skill-chip">Adobe RoboHelp</span>
-        <span class="skill-chip">Markdown</span>
-        <span class="skill-chip">HTML</span>
-        <span class="skill-chip">CSS</span>
+      <div class="tool-groups">
+        <div class="tool-group">
+          <h3 class="skill-group-label">Documentation &amp; API</h3>
+          <ul class="skills-grid">
+            <li class="skill-chip">OpenAPI/Swagger</li>
+            <li class="skill-chip">REST APIs</li>
+            <li class="skill-chip">JSON</li>
+            <li class="skill-chip">API testing</li>
+            <li class="skill-chip">Postman</li>
+            <li class="skill-chip">docs-as-code</li>
+            <li class="skill-chip">Adobe RoboHelp</li>
+            <li class="skill-chip">Markdown</li>
+            <li class="skill-chip">HTML</li>
+            <li class="skill-chip">CSS</li>
+          </ul>
+        </div>
+        <div class="tool-group">
+          <h3 class="skill-group-label">Languages &amp; Frameworks</h3>
+          <ul class="skills-grid">
+            <li class="skill-chip">C#</li>
+            <li class="skill-chip">Java</li>
+            <li class="skill-chip">JavaScript</li>
+            <li class="skill-chip">TypeScript</li>
+            <li class="skill-chip">Python</li>
+            <li class="skill-chip">Ruby</li>
+            <li class="skill-chip">SQL</li>
+            <li class="skill-chip">Spring Boot</li>
+            <li class="skill-chip">React.js</li>
+            <li class="skill-chip">Node.js</li>
+            <li class="skill-chip">jQuery</li>
+            <li class="skill-chip">Bootstrap</li>
+          </ul>
+        </div>
+        <div class="tool-group">
+          <h3 class="skill-group-label">Tools &amp; Infrastructure</h3>
+          <ul class="skills-grid">
+            <li class="skill-chip">Claude Code</li>
+            <li class="skill-chip">Git</li>
+            <li class="skill-chip">Azure DevOps</li>
+            <li class="skill-chip">Ansible</li>
+            <li class="skill-chip">Maven</li>
+            <li class="skill-chip">Vim</li>
+            <li class="skill-chip">Bash</li>
+            <li class="skill-chip">Linux</li>
+            <li class="skill-chip">PostgreSQL</li>
+            <li class="skill-chip">MongoDB</li>
+            <li class="skill-chip">Adobe Premiere Pro</li>
+          </ul>
+        </div>
       </div>
-      <div class="skill-group-label">Languages &amp; Frameworks</div>
-      <div class="skills-grid">
-        <span class="skill-chip">C#</span>
-        <span class="skill-chip">Java</span>
-        <span class="skill-chip">JavaScript</span>
-        <span class="skill-chip">TypeScript</span>
-        <span class="skill-chip">Python</span>
-        <span class="skill-chip">Ruby</span>
-        <span class="skill-chip">SQL</span>
-        <span class="skill-chip">Spring Boot</span>
-        <span class="skill-chip">React.js</span>
-        <span class="skill-chip">Node.js</span>
-        <span class="skill-chip">jQuery</span>
-        <span class="skill-chip">Bootstrap</span>
-      </div>
-      <div class="skill-group-label">Tools &amp; Infrastructure</div>
-      <div class="skills-grid">
-        <span class="skill-chip">Claude Code</span>
-        <span class="skill-chip">Git</span>
-        <span class="skill-chip">Azure DevOps</span>
-        <span class="skill-chip">Ansible</span>
-        <span class="skill-chip">Maven</span>
-        <span class="skill-chip">VIM</span>
-        <span class="skill-chip">Bash</span>
-        <span class="skill-chip">Linux</span>
-        <span class="skill-chip">PostgreSQL</span>
-        <span class="skill-chip">MongoDB</span>
-        <span class="skill-chip">Adobe Premiere Pro</span>
-      </div>
-
     </section>
 
     <section id="contact">
-      <div class="endpoint-label"><span class="method post">POST</span> /contact</div>
-      <h2>Get in touch</h2>
-      <p class="dim" style="margin-top:10px; max-width:55ch;">
-        Open to technical writer, documentation engineer, content developer, information developer, and
-        developer advocate roles: remote from anywhere, relocation with visa sponsorship, or on-site and
-        hybrid in Sri Lanka. Available immediately, full-time or contract.
-      </p>
-      <div class="cta-row" style="margin-top:20px;">
-        <a class="btn primary" href="mailto:desirasenal@gmail.com">Email me</a>
-        <a class="btn ghost" href="https://linkedin.com/in/desira-wijesundara" target="_blank" rel="noopener">LinkedIn ↗</a>
-        <a class="btn ghost" href="https://github.com/miniskynet" target="_blank" rel="noopener">GitHub ↗</a>
+      <div class="contact-card">
+        <div class="endpoint-label"><span class="method post">POST</span> /contact</div>
+        <h2>Get in touch</h2>
+        <p>
+          Open to technical writer, documentation engineer, content developer, information developer, and
+          developer advocate roles: remote from anywhere, relocation with visa sponsorship, or on-site and
+          hybrid in Sri Lanka. Available immediately, full-time or contract.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="mailto:desirasenal@gmail.com">Email me <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn ghost" href="https://linkedin.com/in/desira-wijesundara" target="_blank" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
+          <a class="btn ghost" href="https://github.com/miniskynet" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+          <a class="btn ghost" href="Desira_Wijesundara_Resume.pdf" target="_blank" rel="noopener">Résumé <span class="arrow down" aria-hidden="true">↓</span></a>
+        </div>
+        <p class="contact-email">
+          desirasenal@gmail.com
+          <button class="btn btn-sm ghost" type="button" data-copy="desirasenal@gmail.com" data-copy-note="#copied-note">Copy</button>
+          <span class="copied" id="copied-note" role="status">Copied</span>
+        </p>
       </div>
     </section>
 
-    <footer>
-      <span>© 2026 Desira Wijesundara</span>
+    <footer class="site-footer">
+      <span>© <span data-year>2026</span> Desira Wijesundara</span>
       <span>Built with care, documented like an API.</span>
     </footer>
   </main>
 </div>
 
-<script>
-  // Highlight active sidebar link on scroll
-  const sections = document.querySelectorAll('main section[id]');
-  const navLinks = document.querySelectorAll('.sidebar nav a');
-  const setActive = () => {
-    let current = sections[0]?.id;
-    sections.forEach(sec => {
-      const rect = sec.getBoundingClientRect();
-      if (rect.top <= 120) current = sec.id;
-    });
-    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) {
-      current = sections[sections.length - 1].id;
-    }
-    navLinks.forEach(link => {
-      link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-    });
-  };
-  document.addEventListener('scroll', setActive, { passive: true });
-  setActive();
-</script>
-
+<script src="site.js" defer></script>
 </body>
 </html>
