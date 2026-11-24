@@ -38,34 +38,45 @@
       padding: 0 clamp(20px, 4vw, 48px);
     }
 
+    /* Compact hero: title left, intro right, so photos start above the fold */
     .photo-hero {
-      padding: clamp(56px, 9vw, 120px) 0 56px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 18px 48px;
+      padding: clamp(28px, 4.5vw, 56px) 0 28px;
       border-bottom: 1px solid var(--line);
     }
 
-    .photo-hero .eyebrow { margin-bottom: 22px; }
+    .photo-hero .eyebrow { grid-column: 1 / -1; margin-bottom: 0; }
 
     .photo-hero h1 {
       font-family: var(--display);
       font-weight: 400;
-      font-size: clamp(4rem, 11vw, 9.5rem);
-      line-height: .9;
+      font-size: clamp(3.2rem, 7.2vw, 6.4rem);
+      line-height: .92;
       letter-spacing: -.03em;
     }
     .photo-hero h1 em { color: var(--accent); }
 
     .photo-intro {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: flex-end;
-      gap: 32px;
-      margin-top: 40px;
+      gap: 12px;
+      text-align: right;
+      padding-bottom: 6px;
     }
     .photo-intro p {
-      max-width: 440px;
+      max-width: 380px;
       color: var(--muted);
-      font-size: 1.05rem;
-      line-height: 1.7;
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    @media (max-width: 760px) {
+      .photo-hero { grid-template-columns: minmax(0, 1fr); }
+      .photo-intro { align-items: flex-start; text-align: left; }
     }
 
     .photo-count {
@@ -77,7 +88,7 @@
       color: var(--muted);
     }
 
-    .gallery-section { padding: 40px 0 88px; }
+    .gallery-section { padding: 26px 0 88px; }
 
     .gallery-heading {
       display: flex;
@@ -95,23 +106,28 @@
       color: var(--ink);
     }
 
+    /* Masonry on CSS grid: script places each photo in the shortest column,
+       so photos read left to right in date order and Tab follows that order. */
     .gallery-grid {
-      columns: 3 280px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-auto-rows: 4px;
       column-gap: 16px;
+      row-gap: 0;
     }
 
     .gallery-item {
       display: block;
       position: relative;
       width: 100%;
-      margin: 0 0 16px;
+      align-self: start;
+      margin: 0;
       padding: 0;
       border: 0;
       border-radius: 12px;
       background: var(--bg-2);
       overflow: hidden;
       cursor: zoom-in;
-      break-inside: avoid;
       text-align: left;
       animation: galleryReveal .7s var(--ease) both;
     }
@@ -119,6 +135,8 @@
     .gallery-item img {
       width: 100%;
       height: auto;
+      aspect-ratio: 4 / 5; /* placeholder shape until the real size is known */
+      object-fit: cover;
       transition: transform .7s var(--ease), filter .4s ease;
     }
     .gallery-item:hover img { transform: scale(1.035); }
@@ -239,12 +257,33 @@
     }
     .lightbox-meta a { color: rgba(255, 255, 255, .85); }
     .lightbox-meta a:hover { color: #fff; }
+    .lightbox-meta [hidden] { display: none; }
+
+    .lightbox-dots { display: flex; gap: 6px; align-items: center; }
+    .lightbox-dots span {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: rgba(255, 255, 255, .35);
+      transition: background-color .2s ease, transform .2s ease;
+    }
+    .lightbox-dots span.active { background: #fff; transform: scale(1.35); }
+
+    #lightbox-counter { color: #fff; }
+
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px; overflow: hidden;
+      clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+    }
 
     @media (max-width: 650px) {
       .photo-intro { flex-direction: column; align-items: flex-start; gap: 18px; }
-      .gallery-grid { columns: 2 140px; column-gap: 10px; }
-      .gallery-item { margin-bottom: 10px; border-radius: 8px; }
+      .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 10px; }
+      .gallery-item { border-radius: 8px; }
       .lightbox { padding: 56px 10px; }
+      .lightbox-meta {
+        width: calc(100% - 24px);
+        flex-wrap: wrap; justify-content: center;
+        gap: 8px 14px; white-space: normal; text-align: center;
+      }
       .lightbox-prev { left: 8px; }
       .lightbox-next { right: 8px; }
     }
@@ -284,7 +323,7 @@
   <div class="photo-page">
     <header class="photo-hero">
       <p class="eyebrow">Photography / Selected moments</p>
-      <h1>Through<br>my <em>lens.</em></h1>
+      <h1>Through my <em>lens.</em></h1>
 
       <div class="photo-intro">
         <p>
@@ -298,7 +337,7 @@
     <main class="gallery-section" id="gallery-main">
       <div class="gallery-heading">
         <h2>The collection</h2>
-        <span class="photo-count">01 — Ongoing</span>
+        <span class="photo-count" id="gallery-years"></span>
       </div>
 
       <div id="gallery" class="gallery-grid"></div>
@@ -319,9 +358,12 @@
     <img id="lightbox-image" src="" alt="">
     <button class="lightbox-next" id="next-photo" type="button" aria-label="Next photo">›</button>
     <div class="lightbox-meta">
-      <span id="lightbox-counter" aria-live="polite"></span>
+      <span class="lightbox-dots" id="lightbox-dots" aria-hidden="true" hidden></span>
+      <span id="lightbox-counter" aria-hidden="true" hidden></span>
+      <span id="lightbox-date" aria-hidden="true"></span>
       <a id="instagram-link" href="#" target="_blank" rel="noopener">View on Instagram ↗</a>
     </div>
+    <span class="visually-hidden" id="lightbox-announcer" aria-live="polite"></span>
   </div>
 
   <script>
@@ -331,27 +373,80 @@
     const gallery = document.getElementById("gallery");
     const status = document.getElementById("gallery-status");
     const count = document.getElementById("photo-count");
+    const years = document.getElementById("gallery-years");
 
     const lightbox = document.getElementById("lightbox");
     const lightboxImage = document.getElementById("lightbox-image");
     const instagramLink = document.getElementById("instagram-link");
     const counter = document.getElementById("lightbox-counter");
+    const dots = document.getElementById("lightbox-dots");
+    const dateLabel = document.getElementById("lightbox-date");
+    const announcer = document.getElementById("lightbox-announcer");
     const closeButton = document.getElementById("close-lightbox");
 
-    let photos = [];
-    let viewerPhotos = [];
+    let photos = [];        // one entry per Instagram post
+    let viewerPhotos = [];  // every image, in order, for the viewer
     let currentIndex = 0;
     let lastFocused = null;
 
-    // Strip hashtags and Instagram's ". . ." spacer lines from captions.
-    function cleanCaption(caption = "") {
-      return caption
-        .replace(/#\w+/g, "")
-        .replace(/(^|\s)\.(?=\s|$)/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
+    // ---------- Dates ----------
+    // Instagram sends "+0000" offsets; make them ISO so every browser parses them.
+    function parseDate(timestamp) {
+      if (!timestamp) return null;
+      const date = new Date(timestamp.replace(/([+-]\d{2})(\d{2})$/, "$1:$2"));
+      return isNaN(date) ? null : date;
+    }
+    const monthYear = date =>
+      date ? date.toLocaleDateString("en-GB", { month: "long", year: "numeric" }) : "";
+    const fullDate = date =>
+      date ? date.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "";
+
+    // Neutral alt text until hand-written descriptions are added.
+    function altText(date) {
+      return date ? `Photograph, ${monthYear(date)}` : "Photograph";
     }
 
+    // ---------- Masonry layout ----------
+    // Each photo goes into whichever column is currently shortest. The DOM keeps
+    // date order, so reading order and Tab order follow the timeline.
+    const ROW_HEIGHT = 4; // matches grid-auto-rows in the CSS
+    let layoutQueued = false;
+
+    function layoutGallery() {
+      layoutQueued = false;
+      const items = Array.from(gallery.children);
+      if (!items.length) return;
+
+      const style = getComputedStyle(gallery);
+      const columns = style.gridTemplateColumns.split(" ").filter(Boolean).length || 1;
+      const gap = parseFloat(style.columnGap) || 16;
+      const heights = new Array(columns).fill(0);
+
+      items.forEach(item => {
+        const span = Math.ceil((item.getBoundingClientRect().height + gap) / ROW_HEIGHT);
+        const column = heights.indexOf(Math.min(...heights));
+        item.style.gridColumn = String(column + 1);
+        item.style.gridRow = `${heights[column] + 1} / span ${span}`;
+        heights[column] += span;
+      });
+    }
+
+    function queueLayout() {
+      if (layoutQueued) return;
+      layoutQueued = true;
+      requestAnimationFrame(layoutGallery);
+    }
+
+    let lastWidth = 0;
+    new ResizeObserver(entries => {
+      const width = entries[0].contentRect.width;
+      if (Math.abs(width - lastWidth) > 1) {
+        lastWidth = width;
+        queueLayout();
+      }
+    }).observe(gallery);
+
+    // ---------- Viewer ----------
     function openLightbox(index) {
       lastFocused = document.activeElement;
       currentIndex = photos[index].startIndex;
@@ -363,13 +458,48 @@
       closeButton.focus();
     }
 
+    function preload(index) {
+      const photo = viewerPhotos[(index + viewerPhotos.length) % viewerPhotos.length];
+      if (photo && !photo.preloaded) {
+        new Image().src = photo.mediaUrl;
+        photo.preloaded = true;
+      }
+    }
+
     function showLightboxPhoto() {
       const photo = viewerPhotos[currentIndex];
+      const post = photos[photo.postIndex];
+      const date = parseDate(photo.timestamp || post.timestamp);
 
       lightboxImage.src = photo.mediaUrl;
-      lightboxImage.alt = cleanCaption(photo.caption) || "Photograph";
-      instagramLink.href = photo.permalink || "#";
-      counter.textContent = `${currentIndex + 1} / ${viewerPhotos.length}`;
+      lightboxImage.alt = altText(date);
+      instagramLink.href = photo.permalink || post.permalink || "#";
+      dateLabel.textContent = fullDate(date);
+
+      // Position within a multi-photo post: "3 / 8" plus dots.
+      const size = post.media.length;
+      if (size > 1) {
+        counter.textContent = `${photo.indexInPost + 1} / ${size}`;
+        counter.hidden = false;
+        dots.hidden = false;
+        dots.replaceChildren(...post.media.map((_, i) => {
+          const dot = document.createElement("span");
+          if (i === photo.indexInPost) dot.className = "active";
+          return dot;
+        }));
+      } else {
+        counter.hidden = true;
+        dots.hidden = true;
+        dots.replaceChildren();
+      }
+
+      announcer.textContent = size > 1
+        ? `Photo ${photo.indexInPost + 1} of ${size}. ${fullDate(date)}.`
+        : `${fullDate(date)}.`;
+
+      // Load the neighbours now so moving next/previous is instant.
+      preload(currentIndex + 1);
+      preload(currentIndex - 1);
     }
 
     function closeLightbox() {
@@ -394,6 +524,23 @@
       if (event.target === lightbox) closeLightbox();
     });
 
+    // Swipe left/right on touch screens.
+    let touchStart = null;
+    lightbox.addEventListener("touchstart", event => {
+      const t = event.changedTouches[0];
+      touchStart = { x: t.clientX, y: t.clientY };
+    }, { passive: true });
+    lightbox.addEventListener("touchend", event => {
+      if (!touchStart) return;
+      const t = event.changedTouches[0];
+      const dx = t.clientX - touchStart.x;
+      const dy = t.clientY - touchStart.y;
+      touchStart = null;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+        movePhoto(dx < 0 ? 1 : -1);
+      }
+    }, { passive: true });
+
     document.addEventListener("keydown", event => {
       if (!lightbox.classList.contains("open")) return;
 
@@ -416,6 +563,7 @@
       }
     });
 
+    // ---------- Load the feed ----------
     async function loadGallery() {
       try {
         const response = await fetch(API_URL);
@@ -457,49 +605,80 @@
           return;
         }
 
-        // Create one continuous sequence for the lightbox.
+        // Create one continuous sequence for the viewer.
         viewerPhotos = [];
 
-        photos.forEach(post => {
+        photos.forEach((post, postIndex) => {
           post.startIndex = viewerPhotos.length;
-          viewerPhotos.push(...post.media);
+          post.media.forEach((photo, indexInPost) => {
+            photo.postIndex = postIndex;
+            photo.indexInPost = indexInPost;
+            viewerPhotos.push(photo);
+          });
         });
 
         count.textContent =
           `${viewerPhotos.length} photographs · ${photos.length} posts`;
 
+        // Year range of the collection, e.g. "2020 – 2024".
+        const postYears = photos
+          .map(post => parseDate(post.timestamp))
+          .filter(Boolean)
+          .map(date => date.getFullYear());
+        if (postYears.length) {
+          const first = Math.min(...postYears);
+          const last = Math.max(...postYears);
+          years.textContent = first === last ? String(first) : `${first} – ${last}`;
+        }
+
         status.remove();
 
         photos.forEach((post, index) => {
           const cover = post.media[0];
+          const date = parseDate(post.timestamp);
 
           const button = document.createElement("button");
           button.className = "gallery-item";
           button.type = "button";
+          const photoCount = post.media.length;
           button.setAttribute(
             "aria-label",
-            `Open post ${index + 1} with ${post.media.length} photograph${post.media.length === 1 ? "" : "s"}`
+            `Open ${photoCount === 1 ? "photo" : `${photoCount} photos`}` +
+            (date ? ` from ${monthYear(date)}` : "")
           );
 
           const image = document.createElement("img");
-          image.src = cover.mediaUrl;
-          image.alt = cleanCaption(post.caption) || "Photograph";
+          image.alt = altText(date);
           image.loading = "lazy";
           image.decoding = "async";
+          // Once the real size is known, use the photo's own shape and re-flow.
+          const fit = () => {
+            if (image.naturalWidth && image.naturalHeight) {
+              image.style.aspectRatio = `${image.naturalWidth} / ${image.naturalHeight}`;
+              image.style.objectFit = "fill";
+              queueLayout();
+            }
+          };
+          image.addEventListener("load", fit);
+          image.src = cover.mediaUrl;
+          if (image.complete) fit();
 
           button.appendChild(image);
 
           // Show a small indicator when a post contains multiple images.
-          if (post.media.length > 1) {
+          if (photoCount > 1) {
             const indicator = document.createElement("span");
             indicator.className = "gallery-item-count";
-            indicator.textContent = `${post.media.length} photos`;
+            indicator.textContent = `${photoCount} photos`;
+            indicator.setAttribute("aria-hidden", "true");
             button.appendChild(indicator);
           }
 
           button.addEventListener("click", () => openLightbox(index));
           gallery.appendChild(button);
         });
+
+        queueLayout();
 
       } catch (error) {
         console.error("Photography gallery:", error);
