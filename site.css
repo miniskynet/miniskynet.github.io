@@ -506,6 +506,7 @@ main > .stats + section { margin-top: clamp(76px, 8vw, 108px); }
 }
 .role-head h3 { font-size: 1.2rem; }
 .role-head .org { display: block; margin-top: 2px; font-size: .95rem; font-weight: 500; color: var(--accent); }
+.role-head .org-note { display: inline; color: var(--muted); font-weight: 400; }
 .role-meta {
   font-family: var(--mono); font-size: .76rem; color: var(--muted);
   padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line);
