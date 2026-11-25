@@ -984,6 +984,59 @@
     videoRow.addEventListener("scroll", updateRowButtons, { passive: true });
     new ResizeObserver(updateRowButtons).observe(videoRow);
 
+    // ---------- Selected photographs ----------
+    // Instagram media IDs, in display order. To change the selection, delete,
+    // add or reorder lines. The number after // is the photo's position in the
+    // full feed (newest first) at the time of curation, 25 Nov 2026.
+    const SELECTED = [
+      "18034872718643366", // 21 sunset silhouettes on the rock
+      "17854146170119077", // 94 fisherman with net, B&W
+      "17912426092594159", // 73 misty road
+      "17997422180018421", // 34 orange gazania
+      "17887101796618764", // 95 boys on the boat
+      "17881469329769034", // 81 tree in mist
+      "17951125136514740", // 42 dog, low angle
+      "17852417336792392", // 62 tree and pink cloud
+      "17869926272981119", // 24 street, pigeons, B&W
+      "18054401974250565", // 78 white flower, rain
+      "17910652570864866", // 68 sunset over the sea
+      "17975437759309690", // 86 winding road in mist
+      "17861168950980585", // 106 laughing boy
+      "18252207631114797", // 54 dog on the bridge, teal sky
+      "17994177836249610", // 33 blue agapanthus
+      "18018987682792768", // 22 couple at sunset
+      "17919598726437770", // 96 dachshund, B&W
+      "17944553233378065", // 79 sunrise with birds
+      "17849870912210638", // 92 figure on the stairs
+      "17999812256400223", // 13 palms and surf
+      "17886066724600678", // 110 butterfly on a hand
+      "17866942471847259", // 111 bird on a hand
+      "18025637020495713", // 51 waterfall
+      "18087587365478216", // 7 portrait, colour
+      "18033199073219305", // 6 portrait, B&W
+      "18060484897337294", // 55 basketball hoop
+      "18007416464239984", // 18 river and bridge
+      "18241300270207408", // 43 dog at sunset
+      "17877349318681995", // 112 puppy, B&W
+      "18159654166293875", // 35 white daisies
+      "17929927246437990", // 77 blue hour
+      "17958526870327746", // 103 street with tuk-tuk
+      "17905187899511739", // 85 forest road in mist
+      "17911782332405331", // 63 storm clouds
+      "18076897399440178", // 14 transformer, industrial
+      "18005818003288359", // 89 pink flowers
+      "17921164456425426", // 93 seated portrait, B&W
+      "17906223679878256", // 69 palms and sky
+      "17877588961947478", // 76 rocky shore at dusk
+      "18015587827883869", // 36 red leaves
+      "17956881667338435", // 98 wing over the mountains
+      "17877138226749332", // 90 mist over the tea
+      "18161788447023166", // 80 puppy in the pillows, B&W
+      "18016158031983194", // 25 fruit stall, B&W
+      "17867519126002446"  // 83 bare tree
+    ];
+    const CURATED_UNTIL = new Date("2024-08-25T12:30:00+00:00"); // newest post when curated
+
     // ---------- Load the feed ----------
     async function loadGallery() {
       try {
@@ -1005,20 +1058,18 @@
             mediaUrl: item.mediaUrl.replace(/&amp;/g, "&")
           }));
 
-        // Group carousel images by their original Instagram post.
-        const groupedPosts = new Map();
-
-        images.forEach(item => {
-          const postId = String(item.parentId || item.id);
-
-          if (!groupedPosts.has(postId)) {
-            groupedPosts.set(postId, { ...item, media: [] });
-          }
-
-          groupedPosts.get(postId).media.push(item);
+        // Curated: each chosen photo is its own tile, in SELECTED order.
+        // Photos posted after the curation date appear first automatically.
+        const byId = new Map(images.map(item => [String(item.id), item]));
+        const fresh = images.filter(item => {
+          const date = parseDate(item.timestamp);
+          return date && date > CURATED_UNTIL;
         });
+        const chosen = SELECTED.map(id => byId.get(id)).filter(Boolean);
+        // If the IDs ever stop matching, show the whole feed rather than nothing.
+        const list = chosen.length ? [...fresh, ...chosen] : images;
 
-        photos = Array.from(groupedPosts.values());
+        photos = list.map(item => ({ ...item, media: [item] }));
 
         if (!photos.length) {
           status.textContent = "No photographs are available right now.";
