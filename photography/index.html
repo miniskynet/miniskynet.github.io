@@ -308,6 +308,18 @@
       border-style: solid; border-width: 10px 0 10px 16px;
       border-color: transparent transparent transparent #fff;
     }
+    .video-tag {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 3px 9px;
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
     a.video-frame:hover .play-icon { transform: scale(1.08); background: rgba(17, 18, 20, .8); }
 
     .video-title {
@@ -976,6 +988,7 @@
     // ---------- Video ----------
     // YouTube Shorts from the Spice Marine channel, newest first. To curate,
     // delete or reorder lines here. Text after "|" (hashtags) is not shown.
+    // A third value of true adds a "Voiceover" label (Desira's own voiceover).
     const VIDEOS = [
       ["mWWmTvut9SY", "Have you ever seen beans this big? | #asmr #cooking #recipe"],
       ["jSuV1WiAAZI", "Tropical Fruit Salad for the Summer"],
@@ -983,8 +996,8 @@
       ["h-Yg4DlG6Bk", "You can never go wrong with a stew | #asmr #shorts #cooking"],
       ["32WbWLau-rg", "Have you tried Taro this way? | #shorts #cooking #asmr #recipe"],
       ["8JhSgkyyZkA", "A chicken recipe to die for | #shorts #cooking #recipe"],
-      ["GYM9foOV9-0", "Tales from the Garden - EP 01 | #asmr #shorts #garden"],
-      ["L6a5ZCtZ1Ak", "Sri Lankan Omelette - Anyone can cook EP 01 | #shorts #asmr #recipe #omelette"],
+      ["GYM9foOV9-0", "Tales from the Garden - EP 01 | #asmr #shorts #garden", true],
+      ["L6a5ZCtZ1Ak", "Sri Lankan Omelette - Anyone can cook EP 01 | #shorts #asmr #recipe #omelette", true],
       ["gU0PzOjz5As", "Sri Lankan Ash Plantain Curry | #shorts #asmr #cooking #curry #recipe"]
     ];
 
@@ -1021,7 +1034,7 @@
       iframe.focus();
     }
 
-    function buildVideoCard([id, rawTitle]) {
+    function buildVideoCard([id, rawTitle, voiceover]) {
       const title = cleanTitle(rawTitle);
       const item = document.createElement("li");
       item.className = "video-card";
@@ -1070,8 +1083,15 @@
       const caption = document.createElement("p");
       caption.className = "video-title";
       caption.textContent = title;
-
       item.append(link, caption);
+
+      // Below the title rather than on the poster, so it stays visible while playing.
+      if (voiceover) {
+        const tag = document.createElement("span");
+        tag.className = "video-tag";
+        tag.textContent = "Voiceover";
+        item.append(tag);
+      }
       return item;
     }
 
