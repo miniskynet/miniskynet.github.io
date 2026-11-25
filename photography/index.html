@@ -1004,7 +1004,10 @@
     let playing = null; // { frame, link } of the video currently embedded
 
     const cleanTitle = title => title.split("|")[0].trim();
-    const posterUrl = id => `https://i.ytimg.com/vi/${id}/oar2.jpg`; // vertical Shorts poster
+    // Vertical Shorts poster. "oardefault" is the thumbnail chosen in YouTube
+    // Studio (the one the channel page shows); "oar2" is an auto-picked frame.
+    const posterUrl = id => `https://i.ytimg.com/vi/${id}/oardefault.jpg`;
+    const autoFrameUrl = id => `https://i.ytimg.com/vi/${id}/oar2.jpg`;
 
     // Only one video plays at a time: put the previous one back to its poster.
     function stopVideo() {
@@ -1048,11 +1051,20 @@
       poster.sizes = "(max-width: 650px) 40vw, 236px";
       poster.srcset = `${thumbUrl(posterUrl(id), 360)} 360w, ${thumbUrl(posterUrl(id), 540)} 540w`;
       poster.src = thumbUrl(posterUrl(id), 540);
-      poster.addEventListener("error", () => {
-        if (poster.dataset.fallback) return;
-        poster.dataset.fallback = "1";
+      // If the chosen thumbnail is missing (no thumbnail was chosen in Studio),
+      // step down to YouTube's auto frame, resized first, then direct.
+      // YouTube answers a missing thumbnail with a tiny grey placeholder rather
+      // than an error, so anything under 200 px wide counts as missing too.
+      const fallbacks = [thumbUrl(autoFrameUrl(id), 540), autoFrameUrl(id)];
+      const stepDown = () => {
+        const next = fallbacks.shift();
+        if (!next) return;
         poster.removeAttribute("srcset");
-        poster.src = posterUrl(id);
+        poster.src = next;
+      };
+      poster.addEventListener("error", stepDown);
+      poster.addEventListener("load", () => {
+        if (poster.naturalWidth && poster.naturalWidth < 200) stepDown();
       });
 
       const play = document.createElement("span");
