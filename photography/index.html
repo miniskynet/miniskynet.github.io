@@ -199,6 +199,24 @@
       pointer-events: none;
     }
 
+    /* DSLR / Mobile sub-sections */
+    .sub-heading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 18px;
+      font-family: var(--mono);
+      font-size: .74rem;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .sub-heading::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+    .sub-heading span { color: var(--ink); }
+    .sub-heading[hidden], .mobile-block[hidden] { display: none; }
+    .mobile-block { margin-top: 56px; }
+
     .gallery-more {
       display: flex;
       margin: 28px auto 0;
@@ -470,10 +488,16 @@
           <span class="photo-count" id="gallery-years"></span>
         </div>
 
-        <div id="gallery" class="gallery-grid"></div>
+        <h3 class="sub-heading" id="dslr-heading" hidden>DSLR <span id="dslr-count"></span></h3>
+        <div id="gallery" class="gallery-grid" aria-labelledby="dslr-heading"></div>
         <button id="gallery-more" class="btn ghost gallery-more" type="button" hidden>Show more photos</button>
         <div id="gallery-status" class="gallery-status" role="status">
           Loading photographs…
+        </div>
+
+        <div class="mobile-block" id="mobile-block" hidden>
+          <h3 class="sub-heading" id="mobile-heading">Mobile <span id="mobile-count"></span></h3>
+          <div id="gallery-mobile" class="gallery-grid" aria-labelledby="mobile-heading"></div>
         </div>
       </section>
 
@@ -518,7 +542,8 @@
     const API_URL =
       "https://desira-instagram-gallery.desirasenal.workers.dev/api/gallery";
 
-    const gallery = document.getElementById("gallery");
+    const gallery = document.getElementById("gallery");            // DSLR
+    const mobileGrid = document.getElementById("gallery-mobile");  // phone
     const status = document.getElementById("gallery-status");
     const count = document.getElementById("photo-count");
     const years = document.getElementById("gallery-years");
@@ -563,10 +588,15 @@
 
     function layoutGallery() {
       layoutQueued = false;
-      const items = Array.from(gallery.children);
+      layoutGrid(gallery);
+      layoutGrid(mobileGrid);
+    }
+
+    function layoutGrid(grid) {
+      const items = Array.from(grid.children);
       if (!items.length) return;
 
-      const style = getComputedStyle(gallery);
+      const style = getComputedStyle(grid);
       const columns = style.gridTemplateColumns.split(" ").filter(Boolean).length || 1;
       const gap = parseFloat(style.columnGap) || 16;
 
@@ -836,19 +866,20 @@
       return button;
     }
 
-    // Scrolling loads photos automatically only up to AUTO_LIMIT posts; after
-    // that the visitor clicks "Show more photos". Otherwise the grid would keep
-    // growing and the Video section below it could never be reached.
-    const AUTO_LIMIT = 24;
-    const canAutoLoad = () => rendered < AUTO_LIMIT && rendered < photos.length;
+    // DSLR photos are photos[0 .. dslrCount); mobile photos follow them, so the
+    // viewer runs through DSLR first, then mobile. The DSLR grid fills in
+    // batches as the visitor scrolls; the selection is small enough to load all
+    // of it automatically. The button is the fallback without IntersectionObserver.
+    let dslrCount = 0;
+    const canAutoLoad = () => rendered < dslrCount;
 
     function renderNextBatch(count = BATCH_SIZE) {
-      const end = Math.min(rendered + count, photos.length);
+      const end = Math.min(rendered + count, dslrCount);
       const fragment = document.createDocumentFragment();
       for (let i = rendered; i < end; i++) fragment.appendChild(buildTile(photos[i], i));
       gallery.appendChild(fragment);
       rendered = end;
-      moreButton.hidden = rendered >= photos.length;
+      moreButton.hidden = rendered >= dslrCount;
       queueLayout();
       // On tall screens the button may still be in range after this batch;
       // the observer only fires on crossing into range, so check once here.
@@ -997,7 +1028,6 @@
       "17869926272981119", // 24 street, pigeons, B&W
       "17882738120390479", // 66 grey sea
       "18054401974250565", // 78 white flower, rain
-      "17861168950980585", // 106 laughing boy
       "18252207631114797", // 54 dog on the bridge, teal sky
       "17994177836249610", // 33 blue agapanthus
       "18018987682792768", // 22 couple at sunset
@@ -1017,7 +1047,6 @@
       "17877349318681995", // 112 puppy, B&W
       "18159654166293875", // 35 white daisies
       "17929927246437990", // 77 blue hour
-      "17958526870327746", // 103 street with tuk-tuk
       "17992859107855099", // 49 stream through the rocks
       "17905187899511739", // 85 forest road in mist
       "17854111046161815", // 88 stream and purple flowers
@@ -1026,10 +1055,21 @@
       "17906223679878256", // 69 palms and sky
       "17877588961947478", // 76 rocky shore at dusk
       "17871136486884369", // 87 tall trees in mist
-      "17956881667338435", // 98 wing over the mountains
       "18161788447023166", // 80 puppy in the pillows, B&W
       "17981947708373689", // 70 evening sky, pink clouds
       "17867519126002446"  // 83 bare tree
+    ];
+
+    // Mobile (older iPhone) photos, shown in their own section below the DSLR set.
+    const SELECTED_MOBILE = [
+      "17861168950980585", // 106 laughing boy
+      "18154210333051880", // 97 harbour boats
+      "18153007267038240", // 100 beach and palms at dusk
+      "17958526870327746", // 103 street with tuk-tuk
+      "17956881667338435", // 98 wing over the mountains
+      "17914711678436099", // 104 street at sunset, clock tower
+      "17869663765862278", // 102 park path in sunlight
+      "17934289054391366"  // 101 fence and grass
     ];
     const CURATED_UNTIL = new Date("2024-08-25T12:30:00+00:00"); // newest post when curated
 
@@ -1061,11 +1101,14 @@
           const date = parseDate(item.timestamp);
           return date && date > CURATED_UNTIL;
         });
-        const chosen = SELECTED.map(id => byId.get(id)).filter(Boolean);
+        const pick = ids => ids.map(id => byId.get(id)).filter(Boolean);
+        const chosen = pick(SELECTED);
+        const mobile = pick(SELECTED_MOBILE);
         // If the IDs ever stop matching, show the whole feed rather than nothing.
-        const list = chosen.length ? [...fresh, ...chosen] : images;
+        const dslr = chosen.length ? [...fresh, ...chosen] : images;
 
-        photos = list.map(item => ({ ...item, media: [item] }));
+        dslrCount = dslr.length;
+        photos = [...dslr, ...mobile].map(item => ({ ...item, media: [item] }));
 
         if (!photos.length) {
           status.textContent = "No photographs are available right now.";
@@ -1099,6 +1142,18 @@
         }
 
         status.remove();
+
+        // Sub-headings only when there is a mobile set to tell apart.
+        if (mobile.length) {
+          document.getElementById("dslr-heading").hidden = false;
+          document.getElementById("dslr-count").textContent = `· ${dslrCount}`;
+          document.getElementById("mobile-count").textContent = `· ${mobile.length}`;
+          document.getElementById("mobile-block").hidden = false;
+          const fragment = document.createDocumentFragment();
+          for (let i = dslrCount; i < photos.length; i++) fragment.appendChild(buildTile(photos[i], i));
+          mobileGrid.appendChild(fragment);
+        }
+
         renderNextBatch();
 
       } catch (error) {
