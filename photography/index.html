@@ -320,6 +320,24 @@
       text-transform: uppercase;
       color: var(--accent);
     }
+    .video-fs {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 8px 6px 0 0;
+      padding: 4px 11px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: var(--surface);
+      font-family: var(--mono);
+      font-size: .68rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .video-fs:hover { border-color: var(--accent); color: var(--accent); }
+    .video-fs:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .video-tag { margin-right: 6px; }
     a.video-frame:hover .play-icon { transform: scale(1.08); background: rgba(17, 18, 20, .8); }
 
     .video-title {
@@ -1016,11 +1034,28 @@
     function stopVideo() {
       if (!playing) return;
       playing.frame.replaceWith(playing.link);
+      playing.fullscreen.remove();
       playing = null;
+    }
+
+    // YouTube's Shorts player has no full-screen control of its own, so the card
+    // gets one while it plays. iPhone Safari can't make an embedded player full
+    // screen, so there the button opens the video in YouTube instead.
+    function goFullscreen(iframe, id) {
+      const openOnYouTube = () =>
+        window.open(`https://www.youtube.com/shorts/${id}`, "_blank", "noopener");
+      if (document.fullscreenEnabled && iframe.requestFullscreen) {
+        iframe.requestFullscreen().catch(openOnYouTube);
+      } else if (document.webkitFullscreenEnabled && iframe.webkitRequestFullscreen) {
+        iframe.webkitRequestFullscreen();
+      } else {
+        openOnYouTube();
+      }
     }
 
     function playVideo(link, id, title) {
       stopVideo();
+      const item = link.parentElement;
       const frame = document.createElement("div");
       frame.className = "video-frame";
       const iframe = document.createElement("iframe");
@@ -1030,7 +1065,16 @@
       iframe.allowFullscreen = true;
       frame.appendChild(iframe);
       link.replaceWith(frame);
-      playing = { frame, link };
+
+      const fullscreen = document.createElement("button");
+      fullscreen.type = "button";
+      fullscreen.className = "video-fs";
+      fullscreen.setAttribute("aria-label", `Full screen: ${title}`);
+      fullscreen.innerHTML = '<span aria-hidden="true">⤢</span> Full screen';
+      fullscreen.addEventListener("click", () => goFullscreen(iframe, id));
+      item.append(fullscreen);
+
+      playing = { frame, link, fullscreen };
       iframe.focus();
     }
 
