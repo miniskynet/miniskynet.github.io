@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Photo &amp; Video - Desira Wijesundara</title>
-  <meta name="description" content="Photography and video by Desira Wijesundara. A collection of moments, places and perspectives.">
+  <meta name="description" content="Photography and video by Desira Wijesundara. Landscapes, street scenes and portraits, plus short cooking videos.">
   <meta name="theme-color" content="#f6f4ef">
   <link rel="canonical" href="https://miniskynet.github.io/photography/">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2315171C'/%3E%3Ctext x='32' y='43' font-family='Georgia,serif' font-size='30' fill='%23F6F4EF' text-anchor='middle'%3EDW%3C/text%3E%3Ccircle cx='50' cy='14' r='5' fill='%23F0875F'/%3E%3C/svg%3E">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Photo &amp; Video - Desira Wijesundara">
-  <meta property="og:description" content="A collection of moments, places and perspectives. An ongoing visual journal, captured along the way.">
+  <meta property="og:description" content="Moments, places and perspectives, captured in photographs and short-form video.">
   <meta property="og:site_name" content="Desira Wijesundara">
   <meta property="og:image" content="https://miniskynet.github.io/photography/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -20,7 +20,7 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Photo &amp; Video - Desira Wijesundara">
-  <meta name="twitter:description" content="A collection of moments, places and perspectives. An ongoing visual journal, captured along the way.">
+  <meta name="twitter:description" content="Moments, places and perspectives, captured in photographs and short-form video.">
   <meta name="twitter:image" content="https://miniskynet.github.io/photography/og-image.png">
 
   <script>
@@ -247,6 +247,7 @@
     .jump-links a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
 
     /* ---------- Video: a swipeable row of vertical Shorts ---------- */
+    .photo-contact { margin-top: 72px; }
     .video-section { margin-top: 72px; padding-top: 40px; border-top: 1px solid var(--line); }
 
     .row-controls { display: flex; align-items: center; gap: 10px; }
@@ -470,8 +471,8 @@
 
       <div class="photo-intro">
         <p>
-          A collection of moments, places and perspectives.
-          An ongoing visual journal, captured along the way.
+          Moments, places and perspectives, captured in photographs and short-form video.
+          Landscapes, street scenes and portraits, plus short cooking videos from my YouTube channel.
         </p>
         <span class="photo-count" id="photo-count">Loading collection</span>
         <span class="photo-count">Tools: Lightroom · Premiere Pro</span>
@@ -512,6 +513,22 @@
           </div>
         </div>
         <ul class="video-row" id="video-row"></ul>
+      </section>
+
+      <section class="photo-contact" id="contact" aria-labelledby="contact-heading">
+        <div class="contact-card">
+          <h2 id="contact-heading">Get in touch</h2>
+          <div class="cta-row">
+            <a class="btn primary" href="mailto:desirasenal@gmail.com">Email me <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="btn ghost" href="../Desira_Wijesundara_Resume.pdf" target="_blank" rel="noopener">Résumé <span class="arrow down" aria-hidden="true">↓</span></a>
+            <a class="btn ghost" href="../">Technical portfolio <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+          <p class="contact-email">
+            desirasenal@gmail.com
+            <button class="btn btn-sm ghost" type="button" data-copy="desirasenal@gmail.com" data-copy-note="#copied-note">Copy</button>
+            <span class="copied" id="copied-note" role="status">Copied</span>
+          </p>
+        </div>
       </section>
     </main>
 
@@ -576,10 +593,62 @@
     const fullDate = date =>
       date ? date.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "";
 
-    // Neutral alt text until hand-written descriptions are added.
-    function altText(date) {
-      return date ? `Photograph, ${monthYear(date)}` : "Photograph";
+    // Alt text: a description from ALT (below) when the photo has one,
+    // otherwise a neutral "Photograph, Month Year".
+    function altText(item, date) {
+      return ALT[String(item.id)] || (date ? `Photograph, ${monthYear(date)}` : "Photograph");
     }
+
+    // Descriptions of the selected photos, keyed by Instagram media ID.
+    // The number is the photo's position in the full feed when curated.
+    const ALT = {
+      "18034872718643366": "Silhouetted people on a rocky hilltop against a bright orange sunset.", // 21
+      "17854146170119077": "Black-and-white photo of a fisherman gathering a net at the water's edge, with palm trees and boats behind him.", // 94
+      "17912426092594159": "An empty road curving into misty forest under a teal sky.", // 73
+      "17887101796618764": "Four boys sitting on a brightly painted fishing boat among palm trees, one pointing at the sky.", // 95
+      "18016482097552895": "Water rushing between dark boulders into a small pool.", // 50
+      "17869926272981119": "Black-and-white street scene of a woman and two children feeding a crowd of pigeons outside a shop.", // 24
+      "17882738120390479": "A small boat with a red sail far out on a calm grey sea, with birds overhead.", // 66
+      "18252207631114797": "A small dog looking down from the edge of a concrete roof under a teal sky, a street lamp beside it.", // 54
+      "17994177836249610": "Blue agapanthus flowers against dark leaves.", // 33
+      "18018987682792768": "Two people silhouetted on the shore, watching the sun set over the sea.", // 22
+      "17919598726437770": "Black-and-white close-up of a dachshund's face and collar.", // 96
+      "17849870912210638": "A man silhouetted at the top of a narrow staircase, lit by a window.", // 92
+      "17999812256400223": "A palm-lined coast with waves breaking over rocks under a blue sky.", // 13
+      "18004003804749011": "The sun breaking out below dark clouds in an orange sky.", // 44
+      "18025637020495713": "A tiered waterfall pouring over rocks into a boulder-strewn stream.", // 51
+      "18087587365478216": "Portrait of a smiling young woman with long hair against a pale wall.", // 7
+      "18033199073219305": "Black-and-white portrait of a young woman with long hair, looking at the camera.", // 6
+      "18060484897337294": "A weathered basketball backboard against a blue evening sky.", // 55
+      "18007416464239984": "A fisherman casting a net from a small boat on a river, with palm trees and a steel bridge behind.", // 18
+      "17972506010261291": "Small pink and white wildflowers among dark leaves.", // 45
+      "18159654166293875": "White daisies against dark foliage.", // 35
+      "17929927246437990": "Dark clouds above an orange glow on the horizon at dusk.", // 77
+      "17992859107855099": "A stream running between large mossy boulders in dense greenery.", // 49
+      "17905187899511739": "A cracked road winding into misty forest.", // 85
+      "17854111046161815": "A small stream tumbling past purple flowering shrubs in a dark forest.", // 88
+      "18076897399440178": "An electrical transformer and power lines in front of a worn concrete building.", // 14
+      "18005818003288359": "Clusters of small pink flowers in a dark garden.", // 89
+      "17906223679878256": "Palm trees silhouetted against a blue sky with scattered clouds and birds.", // 69
+      "17877588961947478": "Rocks and a calm sea at dusk under an orange and blue sky.", // 76
+      "17871136486884369": "Tall trees and a dark cliff beside a path, fading into mist.", // 87
+      "18161788447023166": "Black-and-white photo of a puppy peeking out from between pillows.", // 80
+      "17981947708373689": "Orange-lit clouds low in a deep blue evening sky.", // 70
+      "17867519126002446": "A bare tree silhouetted against a grey sky.", // 83
+      "17861168950980585": "A boy laughing as he sits on rocks at the beach.", // 106
+      "17944553233378065": "The sun low over the sea, with birds flying across a hazy sky.", // 79
+      "18154210333051880": "A blue fishing boat moored in a harbour under a cloudy sky.", // 97
+      "17886066724600678": "Sepia photo of a butterfly resting on a person's outstretched fingers.", // 110
+      "17958526870327746": "A quiet paved street with old shopfronts and a red tuk-tuk.", // 103
+      "18054401974250565": "A white flower above leaves covered in raindrops.", // 78
+      "18153007267038240": "Waves washing onto a curved sandy beach lined with palm trees at sunset.", // 100
+      "17866942471847259": "Sepia photo of a small bird perched on a person's hand.", // 111
+      "17956881667338435": "View from an aircraft window of the wing above snow-covered mountains.", // 98
+      "17877349318681995": "Black-and-white photo of a puppy resting its paws and tongue on a wooden ledge.", // 112
+      "17914711678436099": "A road at sunset with a car, streetlights and a clock tower.", // 104
+      "17869663765862278": "Sunlight through trees over a footpath in a park.", // 102
+      "17934289054391366": "A tilted view of a grassy slope beside a wooden fence and a gravel path.", // 101
+    };
 
     // ---------- Masonry layout ----------
     // Each photo goes into whichever column is currently shortest. The DOM keeps
@@ -694,7 +763,7 @@
         else done();
       };
       full.src = photo.mediaUrl;
-      lightboxImage.alt = altText(date);
+      lightboxImage.alt = altText(photo, date);
       instagramLink.href = photo.permalink || post.permalink || "#";
       dateLabel.textContent = fullDate(date);
 
@@ -814,14 +883,17 @@
       const button = document.createElement("button");
       button.className = "gallery-item";
       button.type = "button";
+      const description = ALT[String(cover.id)];
       button.setAttribute(
         "aria-label",
-        `Open ${photoCount === 1 ? "photo" : `${photoCount} photos`}` +
-        (date ? ` from ${monthYear(date)}` : "")
+        description
+          ? `${description} Open larger view.`
+          : `Open ${photoCount === 1 ? "photo" : `${photoCount} photos`}` +
+            (date ? ` from ${monthYear(date)}` : "")
       );
 
       const image = document.createElement("img");
-      image.alt = altText(date);
+      image.alt = altText(cover, date);
       image.decoding = "async";
       if (index < PRIORITY_TILES) {
         image.loading = "eager";
