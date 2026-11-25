@@ -229,7 +229,7 @@
     .jump-links a:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
 
     /* ---------- Video: a swipeable row of vertical Shorts ---------- */
-    .video-section { margin-bottom: 64px; }
+    .video-section { margin-top: 72px; padding-top: 40px; border-top: 1px solid var(--line); }
 
     .row-controls { display: flex; align-items: center; gap: 10px; }
     .row-controls a { font-family: var(--mono); font-size: .76rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
@@ -457,25 +457,13 @@
         </p>
         <span class="photo-count" id="photo-count">Loading collection</span>
         <nav class="jump-links" aria-label="Jump to">
-          <a href="#video">Video</a>
           <a href="#photos">Photography</a>
+          <a href="#video">Video</a>
         </nav>
       </div>
     </header>
 
     <main class="gallery-section" id="gallery-main">
-      <section class="video-section" id="video" aria-labelledby="video-heading">
-        <div class="gallery-heading">
-          <h2 id="video-heading">Video</h2>
-          <div class="row-controls">
-            <a href="https://www.youtube.com/@spicemarine98" target="_blank" rel="noopener">Spice Marine on YouTube ↗</a>
-            <button class="row-btn" id="video-prev" type="button" aria-label="Scroll videos left">‹</button>
-            <button class="row-btn" id="video-next" type="button" aria-label="Scroll videos right">›</button>
-          </div>
-        </div>
-        <ul class="video-row" id="video-row"></ul>
-      </section>
-
       <section id="photos" aria-labelledby="photos-heading">
         <div class="gallery-heading">
           <h2 id="photos-heading">Photography</h2>
@@ -487,6 +475,18 @@
         <div id="gallery-status" class="gallery-status" role="status">
           Loading photographs…
         </div>
+      </section>
+
+      <section class="video-section" id="video" aria-labelledby="video-heading">
+        <div class="gallery-heading">
+          <h2 id="video-heading">Video</h2>
+          <div class="row-controls">
+            <a href="https://www.youtube.com/@spicemarine98" target="_blank" rel="noopener">Spice Marine on YouTube ↗</a>
+            <button class="row-btn" id="video-prev" type="button" aria-label="Scroll videos left">‹</button>
+            <button class="row-btn" id="video-next" type="button" aria-label="Scroll videos right">›</button>
+          </div>
+        </div>
+        <ul class="video-row" id="video-row"></ul>
       </section>
     </main>
 
@@ -836,8 +836,14 @@
       return button;
     }
 
-    function renderNextBatch() {
-      const end = Math.min(rendered + BATCH_SIZE, photos.length);
+    // Scrolling loads photos automatically only up to AUTO_LIMIT posts; after
+    // that the visitor clicks "Show more photos". Otherwise the grid would keep
+    // growing and the Video section below it could never be reached.
+    const AUTO_LIMIT = 24;
+    const canAutoLoad = () => rendered < AUTO_LIMIT && rendered < photos.length;
+
+    function renderNextBatch(count = BATCH_SIZE) {
+      const end = Math.min(rendered + count, photos.length);
       const fragment = document.createDocumentFragment();
       for (let i = rendered; i < end; i++) fragment.appendChild(buildTile(photos[i], i));
       gallery.appendChild(fragment);
@@ -847,19 +853,19 @@
       // On tall screens the button may still be in range after this batch;
       // the observer only fires on crossing into range, so check once here.
       requestAnimationFrame(() => {
-        if (!moreButton.hidden &&
+        if (canAutoLoad() &&
             moreButton.getBoundingClientRect().top < window.innerHeight + 900) {
           renderNextBatch();
         }
       });
     }
 
-    moreButton.addEventListener("click", renderNextBatch);
+    moreButton.addEventListener("click", () => renderNextBatch(BATCH_SIZE * 2));
 
     // Load the next batch automatically when the button comes within ~1 screen.
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting && rendered < photos.length) renderNextBatch();
+        if (entries[0].isIntersecting && canAutoLoad()) renderNextBatch();
       }, { rootMargin: "0px 0px 900px 0px" }).observe(moreButton);
     }
 
